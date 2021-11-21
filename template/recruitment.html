@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>The Forgotten</title>
+</head>
+
+<body>
+  {{template "navigation"}}
+  <section class="container mt-8">
+    <form action="/recruitment" method="post">
+      <div class="row">
+        <div class="col-lg">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Charactername</label>
+          </div>
+          
+        </div>
+
+        <div class="col-lg">
+          <p>select all factions you've been in</p>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Marauder</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Syndicate</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Covenant</label>
+          </div>
+        </div>
+      </div>
+      
+      
+    </form>
+  </section>
+  {{template "footer"}}
+</body>

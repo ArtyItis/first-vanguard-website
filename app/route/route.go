@@ -21,4 +21,6 @@ func MapURLs() {
 	// "/static" prefix before the request reaches the file server.
 	r.Handle("/static/", http.StripPrefix("/static", fileServer))
 	r.HandleFunc("/", controller.Index).Methods("GET")
+	r.HandleFunc("/recruitment", controller.RecruitmentGET).Methods("GET")
+	r.HandleFunc("/recruitment", controller.RecruitmentPOST).Methods("POST")
 }
