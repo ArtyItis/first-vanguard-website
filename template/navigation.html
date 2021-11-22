@@ -1,27 +1,16 @@
 {{define "navigation"}}
 <nav class="navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <img src="/static/logo/theforgotten.png" alt="" height="50rem">
+        <a class="navbar-brand me-0" href="/">
+            <img src="/static/logo/logo.png" alt="" height="50rem">
         </a>
-        <!--mirror element-->
-        <button class="navbar-toggler invisible" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <span class="navbar-text fw-bolder">
+        <span class="navbar-text fw-bolder align-self-center">
             The Forgotten
         </span>
-        <!--mirror element-->
-        <a class="navbar-brand invisible" href="/">
-            <img src="/static/logo/theforgotten.png" alt="" height="50rem">
-        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
@@ -29,7 +18,7 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
-            
+
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
@@ -39,16 +28,13 @@
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">Über uns</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/news">News</a>
+                        <a class="nav-link" href="/about">About us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/recruitment">Recruitment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/imprint">Impressum</a>
+                        <a class="nav-link" href="/news">News</a>
                     </li>
                     <li class="nav-item">
                         <hr class="dropdown-divider">
