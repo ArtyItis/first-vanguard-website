@@ -2,6 +2,15 @@ nav {
   border-bottom: 1px solid #14912d;
 }
 
+footer {
+  border-top: 1px solid #14912d;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .dropdown-divider {
   opacity: 1;
 }
@@ -5960,10 +5969,10 @@ fieldset:disabled .btn {
   position: relative;
   display: block;
   padding: 0.5rem 1rem;
-  color: #212529;
+  color: #fff;
   text-decoration: none;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: #212529;
+  border: 1px solid transparent;
 }
 
 .list-group-item:first-child {
@@ -5979,7 +5988,7 @@ fieldset:disabled .btn {
 .list-group-item.disabled, .list-group-item:disabled {
   color: #6c757d;
   pointer-events: none;
-  background-color: #fff;
+  background-color: #212529;
 }
 
 .list-group-item.active {

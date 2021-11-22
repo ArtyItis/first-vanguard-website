@@ -110,13 +110,25 @@ $modal-content-bg:                  $dark;
 // input
 $input-border-color: $primary;
 $form-check-input-border: 1px solid $primary;
-//navigation
+// list-group
+$list-group-color:                  $white;
+$list-group-bg:                     $dark;
+$list-group-border-color:           transparent;
+// navigation
 nav{
     border-bottom: 1px solid $secondary;
 }
-//divider
+// footer
+footer{
+  border-top: 1px solid $secondary;
+}
+footer a{
+  color: $white;
+  text-decoration: none;
+}
+// divider
 .dropdown-divider{
     opacity: 1;
 }
-//importing bootstrap is the last step
+// importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
