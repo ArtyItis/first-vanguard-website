@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	route.MapURLs()
+	router := route.NewRouter()
 	log.Println("Listening...")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", router)
 }
