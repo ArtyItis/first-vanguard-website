@@ -11,32 +11,64 @@
   <section class="container mt-8">
     <form action="/recruitment" method="post">
       <div class="row">
-        <div class="col-lg">
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Charactername</label>
+        <!--row 1-->
+        <div class="col-lg order-lg-2">
+          <p>Company Guidelines</p>
+          <div class="list-group">
+            <label class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" value="">
+              weekly company taxes
+            </label>
+            <label class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" value="">
+              duty to participate in PvP activities administered by the company
+            </label>
+            <label class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" value="">
+              update your equipment to meet the company's needs for war
+            </label>
+            <label class="list-group-item">
+              <input class="form-check-input me-1" type="checkbox" value="">
+              while participating in company activities join the discord
+            </label>
           </div>
-          
         </div>
 
-        <div class="col-lg">
-          <p>select all factions you've been in</p>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">Marauder</label>
+        <!--row 2-->
+        <div class="col-lg order-lg-1">
+          <div class="form-floating mb-3 w-50">
+            <input type="text" class="form-control" id="floatingInput" placeholder="" required>
+            <label for="floatingInput">Charactername</label>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">Syndicate</label>
+
+          <div class="row mb-3">
+            <p class="form-label">select all factions you've been in</p>
+
+            <div class="form-check form-check-inline col ms-3">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+              <label class="form-check-label" for="inlineCheckbox1">Marauder</label>
+            </div>
+            <div class="form-check form-check-inline col">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+              <label class="form-check-label" for="inlineCheckbox2">Syndicate</label>
+            </div>
+            <div class="form-check form-check-inline col">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+              <label class="form-check-label" for="inlineCheckbox3">Covenant</label>
+            </div>
           </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-            <label class="form-check-label" for="inlineCheckbox3">Covenant</label>
+
+          <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="" id="floatingTextarea2" style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Name your last companies</label>
           </div>
+
+
         </div>
+
       </div>
-      
-      
+
+
     </form>
   </section>
   {{template "footer"}}
