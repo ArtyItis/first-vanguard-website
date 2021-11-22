@@ -23,4 +23,10 @@ func MapURLs() {
 	r.HandleFunc("/", controller.Index).Methods("GET")
 	r.HandleFunc("/recruitment", controller.RecruitmentGET).Methods("GET")
 	r.HandleFunc("/recruitment", controller.RecruitmentPOST).Methods("POST")
+	r.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
+	r.HandleFunc("/imprint", controller.ImprintPOST).Methods("POST")
+	r.HandleFunc("/news", controller.NewsGET).Methods("GET")
+	r.HandleFunc("/news", controller.NewsPOST).Methods("POST")
+	r.HandleFunc("/about", controller.AboutGET).Methods("GET")
+	r.HandleFunc("/about", controller.AboutPOST).Methods("POST")
 }
