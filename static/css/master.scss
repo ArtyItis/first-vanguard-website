@@ -62,8 +62,8 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       #3c0d15 !default;
-$secondary:     #14912d !default;
+$primary:       $blue !default;
+$secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
 $warning:       $yellow !default;
@@ -98,37 +98,37 @@ $spacers: (
   8: $spacer * 6,
 ) !default;
 
-$body-bg: $dark;
-$body-color: $white;
+// $body-bg: $dark;
+// $body-color: $white;
 
-$border-color: $secondary;
-$dropdown-border-color: $secondary;
-// modal & offcanvas
-$modal-content-color:               $white;
-$modal-content-bg:                  $dark;
+// $border-color: $secondary;
+// $dropdown-border-color: $secondary;
+// // modal & offcanvas
+// $modal-content-color:               $white;
+// $modal-content-bg:                  $dark;
 
-// input
-$input-border-color: $primary;
-$form-check-input-border: 1px solid $primary;
-// list-group
-$list-group-color:                  $white;
-$list-group-bg:                     $dark;
-$list-group-border-color:           transparent;
-// navigation
-nav{
-    border-bottom: 1px solid $secondary;
-}
-// footer
-footer{
-  border-top: 1px solid $secondary;
-}
-footer a{
-  color: $white;
-  text-decoration: none;
-}
-// divider
-.dropdown-divider{
-    opacity: 1;
-}
+// // input
+// $input-border-color: $primary;
+// $form-check-input-border: 1px solid $primary;
+// // list-group
+// $list-group-color:                  $white;
+// $list-group-bg:                     $gray-800;
+// $list-group-border-color:           transparent;
+// // navigation
+// nav{
+//     border-bottom: 1px solid $secondary;
+// }
+// // footer
+// footer{
+//   border-top: 1px solid $secondary;
+// }
+// footer a{
+//   color: $white;
+//   text-decoration: none;
+// }
+// // divider
+// .dropdown-divider{
+//     opacity: 1;
+// }
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
