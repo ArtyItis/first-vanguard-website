@@ -8,64 +8,225 @@
 
 <body>
   {{template "navigation"}}
-  <section class="container mt-8">
+  <section class="container mt-lg-8">
     <form action="/recruitment" method="post">
       <div class="row">
-        <!--row 1-->
+        <!--row 1 company guidelines-->
         <div class="col-lg order-lg-2">
-          <p>Company Guidelines</p>
-          <div class="list-group">
-            <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="">
-              weekly company taxes
-            </label>
-            <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="">
-              duty to participate in PvP activities administered by the company
-            </label>
-            <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="">
-              update your equipment to meet the company's needs for war
-            </label>
-            <label class="list-group-item">
-              <input class="form-check-input me-1" type="checkbox" value="">
-              while participating in company activities join the discord
-            </label>
+          <h4 class="mb-3">Company Guidelines</h4>
+          <div class="accordion mb-3" id="accordion-company-guidelines">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Company taxes
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                data-bs-parent="#accordion-company-guidelines">
+                <div class="accordion-body">
+                  <input class="form-check-input me-1" type="checkbox" value="" id="company-taxes">
+                  <label for="company-taxes" class="form-check-label">500 coins per week</label>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  PvP activities administered by the company
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#accordion-company-guidelines">
+                <div class="accordion-body">
+                  <input class="form-check-input me-1" type="checkbox" value="" id="pvp-activity">
+                  <label for="pvp-activity" class="form-check-label">lorem ipsum</label>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Equipment flexibility for wars
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                data-bs-parent="#accordion-company-guidelines">
+                <div class="accordion-body">
+                  <input class="form-check-input me-1" type="checkbox" value="" id="equipment-flexibility">
+                  <label for="equipment-flexibility" class="form-check-label">lorem ipsum</label>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                  Discord
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                data-bs-parent="#accordion-company-guidelines">
+                <div class="accordion-body">
+                  <input class="form-check-input me-1" type="checkbox" value="" id="discord-activity">
+                  <label for="discord-activity" class="form-check-label">lorem ipsum</label>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!--row 2-->
-        <div class="col-lg order-lg-1">
-          <div class="form-floating mb-3 w-50">
-            <input type="text" class="form-control" id="floatingInput" placeholder="" required>
-            <label for="floatingInput">Charactername</label>
+        <!--row 2 character-->
+        <div class="col-lg order-lg-1" id="character-and-old-relationships">
+          <div class="col mb-3">
+            <h4 class="mb-3">Charakter</h4>
+            <div class="row">
+              <!--charactername-->
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="charactername" placeholder="" required>
+                  <label for="charactername">Charaktername</label>
+                </div>
+              </div>
+              <!--gearscore-->
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="gearscore" placeholder="" required>
+                  <label for="gearscore">average gearscore</label>
+                </div>
+              </div>
+            </div>
+            <!--Attributes-->
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Attr</span>
+              <input type="text" aria-label="First name" class="form-control" placeholder="Strength" id="strength">
+              <input type="text" aria-label="Last name" class="form-control" placeholder="Dexterity" id="dexterity">
+              <input type="text" aria-label="First name" class="form-control" placeholder="Intelligence"
+                id="intelligence">
+              <input type="text" aria-label="Last name" class="form-control" placeholder="Focus" id="focus">
+              <input type="text" aria-label="Last name" class="form-control" placeholder="Constitution"
+                id="constitution">
+            </div>
+            <!--Roles-->
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Roles</span>
+              <div class="ms-2 me-1">
+                <input type="checkbox" class="btn-check" id="dd" autocomplete="off">
+                <label class="btn btn-primary" for="dd">DD</label>
+              </div>
+              <div class="mx-1">
+                <input type="checkbox" class="btn-check" id="tank" autocomplete="off">
+                <label class="btn btn-primary" for="tank">Tank</label>
+              </div>
+              <div class="mx-1">
+                <input type="checkbox" class="btn-check" id="heal" autocomplete="off">
+                <label class="btn btn-primary" for="heal">Heal</label>
+              </div>
+              <div class="mx-1">
+                <input type="checkbox" class="btn-check" id="siege" autocomplete="off">
+                <label class="btn btn-primary" for="siege">Siege</label>
+              </div>
+            </div>
+            <!--Weapons-->
+            <div class="row">
+              <h5 class="mb-2">Weapons</h5>
+              <div class="col-4">
+                <span class="input-group-text mb-1" id="basic-addon2">One-Handed Weapons</span>
+                <span class="input-group-text mb-1" id="basic-addon2">Two-Handed Weapons</span>
+                <span class="input-group-text mb-1" id="basic-addon2">Ranged Weapons</span>
+                <span class="input-group-text mb-1" id="basic-addon2">Magic Weapons</span>
+              </div>
+              <div class="col ps-0">
+                <div class="row mb-1" id="One-Handed-Weapons">
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="sword" autocomplete="off">
+                    <label class="btn btn-primary" for="sword">Sword</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="shield" autocomplete="off">
+                    <label class="btn btn-primary" for="shield">Shield</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="rapier" autocomplete="off">
+                    <label class="btn btn-primary" for="rapier">Rapier</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="hatchet" autocomplete="off">
+                    <label class="btn btn-primary" for="hatchet">Hatchet</label>
+                  </div>
+                </div>
+                <div class="row mb-1" id="Two-Handed-Weapons">
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="spear" autocomplete="off">
+                    <label class="btn btn-primary" for="spear">Spear</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="great-axe" autocomplete="off">
+                    <label class="btn btn-primary" for="great-axe">Great Axe</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="war-hammer" autocomplete="off">
+                    <label class="btn btn-primary" for="war-hammer">War Hammer</label>
+                  </div>
+                </div>
+                <div class="row mb-1" id="Ranged-Weapons">
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="bow" autocomplete="off">
+                    <label class="btn btn-primary" for="bow">Bow</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="musket" autocomplete="off">
+                    <label class="btn btn-primary" for="musket">Musket</label>
+                  </div>
+                </div>
+                <div class="row mb-1" id="Magic-Weapons">
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="fire-staff" autocomplete="off">
+                    <label class="btn btn-primary" for="fire-staff">Fire</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="life-staff" autocomplete="off">
+                    <label class="btn btn-primary" for="life-staff">Life</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="ice-gauntlet" autocomplete="off">
+                    <label class="btn btn-primary" for="ice-gauntlet">Ice</label>
+                  </div>
+                  <div class="col-auto pe-0">
+                    <input type="checkbox" class="btn-check" id="void-gauntlet" autocomplete="off">
+                    <label class="btn btn-primary" for="void-gauntlet">Void</label>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="row mb-3">
-            <p class="form-label">select all factions you've been in</p>
-
-            <div class="form-check form-check-inline col ms-3">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-              <label class="form-check-label" for="inlineCheckbox1">Marauder</label>
-            </div>
-            <div class="form-check form-check-inline col">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-              <label class="form-check-label" for="inlineCheckbox2">Syndicate</label>
-            </div>
-            <div class="form-check form-check-inline col">
-              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-              <label class="form-check-label" for="inlineCheckbox3">Covenant</label>
+          <div class="col" id="old-relationships">
+            <h4 class="mb-2">old company relationships</h4>
+            <!-- 
+              <p class="form-label">select all factions you've been in</p>
+            <div class="row mb-3">
+              <div class="col d-flex">
+                <input type="checkbox" class="btn-check" id="Marauder" autocomplete="off">
+                <label class="btn btn-primary mx-auto" for="Marauder">Marauder</label>
+              </div>
+              <div class="col d-flex">
+                <input type="checkbox" class="btn-check" id="Syndicate" autocomplete="off">
+                <label class="btn btn-primary mx-auto" for="Syndicate">Syndicate</label>
+              </div>
+              <div class="col d-flex">
+                <input type="checkbox" class="btn-check" id="Covenant" autocomplete="off">
+                <label class="btn btn-primary mx-auto" for="Covenant">Covenant</label>
+              </div>
+            </div> 
+          -->
+            <div class="form-floating mb-3">
+              <textarea class="form-control" placeholder="" id="old-companies" style="height: 100px"></textarea>
+              <label for="old-companies">Name your last companies (separated with a ,)</label>
             </div>
           </div>
-
-          <div class="form-floating mb-3">
-            <textarea class="form-control" placeholder="" id="floatingTextarea2" style="height: 100px"></textarea>
-            <label for="floatingTextarea2">Name your last companies</label>
-          </div>
-
-
         </div>
-
       </div>
 
 
