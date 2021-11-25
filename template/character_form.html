@@ -1,0 +1,139 @@
+{{define "character-form"}}
+
+<!-- character-->
+<section class="mb-3" id="character">
+    <div class="row mb-3">
+        <h4 class="col-auto mb-0">Charakter</h4>
+        <span class="col-auto text-danger fw-bolder invisible" id="character-invalid">Es sind beides
+            Pflichtfelder!</span>
+    </div>
+    <div class="row">
+        <!--charactername-->
+        <div class="col">
+            <input type="text" class="form-control" name="charactername" placeholder="Charaktername" required>
+        </div>
+        <!--gearscore-->
+        <div class="col">
+            <input type="text" class="form-control" name="gearscore" placeholder="Durchschnittlicher Gearscore"
+                required>
+        </div>
+    </div>
+</section>
+<!--attributes-->
+<section class="mb-3" id="attributes">
+    <div class="row mb-2">
+        <h5 class="col-auto mb-0">Attribute</h5>
+        <span class="col-auto text-danger fw-bolder invisible" id="attributes-invalid">Es sind alles
+            Pflichtfelder!</span>
+    </div>
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Stärke" name="strength" required>
+        <input type="text" class="form-control" placeholder="Geschick" name="dexterity" required>
+        <input type="text" class="form-control" placeholder="Intelligenz" name="intelligence" required>
+        <input type="text" class="form-control" placeholder="Fokus" name="focus" required>
+        <input type="text" class="form-control" placeholder="Konstitution" name="constitution" required>
+    </div>
+</section>
+<!--roles-->
+<section class="mb-3" id="roles">
+    <div class="row mb-2">
+        <h5 class="col-auto mb-0">Rollen</h5>
+        <span class="col-auto text-danger fw-bolder invisible" id="roles-invalid">Wähle mindestens eine
+            Rolle!</span>
+    </div>
+    <div class="row">
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="roles" value="dd" id="dd">
+            <label class="btn btn-primary" for="dd">DD</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="roles" value="tank" id="tank">
+            <label class="btn btn-primary" for="tank">Tank</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="roles" value="heal" id="heal">
+            <label class="btn btn-primary" for="heal">Heal</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="roles" value="siege" id="siege">
+            <label class="btn btn-primary" for="siege">Siege</label>
+        </div>
+    </div>
+</section>
+<!--weapons-->
+<section class="mb-3" id="weapons">
+    <div class="row mb-2">
+        <h5 class="col-auto mb-0">Waffen</h5>
+        <span class="col-auto text-danger fw-bolder fs-6 invisible" id="weapons-invalid">Wähle mindestens eine
+            Waffe!</span>
+    </div>
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-auto">Einhandwaffen</h6>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="sword" id="sword">
+            <label class="btn btn-primary" for="sword">Schwert</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="shield" id="shield">
+            <label class="btn btn-primary" for="shield">Schild</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="rapier" id="rapier">
+            <label class="btn btn-primary" for="rapier">Rapier</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="hatchet" id="hatchet">
+            <label class="btn btn-primary" for="hatchet">Axt</label>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-auto">Zweihandwaffen</h6>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="spear" id="spear">
+            <label class="btn btn-primary" for="spear">Speer</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="great-axe" id="great-axe">
+            <label class="btn btn-primary" for="great-axe">Großaxt</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="warhammer" id="warhammer">
+            <label class="btn btn-primary" for="warhammer">Kriegshammer</label>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-auto">Fernkampfwaffen</h6>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="bow" id="bow">
+            <label class="btn btn-primary" for="bow">Bogen</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="musket" id="musket">
+            <label class="btn btn-primary" for="musket">Muskete</label>
+        </div>
+    </div>
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-auto">magische Waffen</h6>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="fire-staff"
+                id="fire-staff">
+            <label class="btn btn-primary" for="fire-staff">Feuerstab</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="life-staff"
+                id="life-staff">
+            <label class="btn btn-primary" for="life-staff">Lebensstab</label>
+        </div>
+        <div class="col-auto pe-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="ice-gauntlet"
+                id="ice-gauntlet">
+            <label class="btn btn-primary" for="ice-gauntlet">Eisstulpen</label>
+        </div>
+        <div class="col-auto pe-0 mt-2 mt-lg-0">
+            <input type="checkbox" class="btn-check" autocomplete="off" name="weapons" value="void-gauntlet"
+                id="void-gauntlet">
+            <label class="btn btn-primary" for="void-gauntlet">Unheilsstulpen</label>
+        </div>
+    </div>
+</section>
+{{end}}
