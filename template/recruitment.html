@@ -8,11 +8,11 @@
 
 <body>
   {{template "navigation"}}
-  <section class="container mt-lg-8">
-    <form action="/recruitment" method="post">
+  <section class="container mt-3 mt-lg-8" id="content">
+    <form action="/recruitment" method="post" id="recruitment-form">
       <div class="row">
         <!--row 1 company guidelines-->
-        <div class="col-lg order-lg-2">
+        <div class="col-lg order-lg-2" id="company-guidelines">
           <h4 class="mb-3">Kompanie Richtlinien</h4>
           <div class="accordion mb-3" id="accordion-company-guidelines">
             <div class="accordion-item">
@@ -25,8 +25,13 @@
               <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                 data-bs-parent="#accordion-company-guidelines">
                 <div class="accordion-body">
-                  <input class="form-check-input me-1" type="checkbox" value="" id="company-taxes">
-                  <label for="company-taxes" class="form-check-label">Ich bin damit einverstanden eine wöchentliche Kompaniesteuer, in Höhe von 500G, zu entrichten. Durch die Kompaniesteuer werden u.a. Angriffskriege sowie Städteupgrades finanziert.</label>
+                  <label for="company-taxes" class="form-check-label">Ich bin damit einverstanden eine wöchentliche
+                    Kompaniesteuer, in Höhe von 500G, zu entrichten. Durch die Kompaniesteuer werden u.a. Angriffskriege
+                    sowie Städteupgrades finanziert.</label>
+                  <input class="form-check-input me-1" type="checkbox" value="" id="company-taxes" required>
+                  <span class="col-auto text-danger fw-bolder invisible" id="company-taxes-invalid">Du musst die
+                    Richtlinie
+                    akzeptieren!</span>
                 </div>
               </div>
             </div>
@@ -40,8 +45,12 @@
               <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordion-company-guidelines">
                 <div class="accordion-body">
-                  <input class="form-check-input me-1" type="checkbox" value="" id="pvp-activity">
-                  <label for="pvp-activity" class="form-check-label">Ich bin damit einverstanden regelmäßig an Kompanieaktivitäten, z.B. PvP Quests laufen oder Elite Runs, teilzunehmen.</label>
+                  <label for="pvp-activity" class="form-check-label">Ich bin damit einverstanden regelmäßig an
+                    Kompanieaktivitäten, z.B. PvP Quests laufen oder Elite Runs, teilzunehmen.</label>
+                  <input class="form-check-input me-1" type="checkbox" value="" id="pvp-activity" required>
+                  <span class="col-auto text-danger fw-bolder invisible" id="pvp-activity-invalid">Du musst die
+                    Richtlinie
+                    akzeptieren!</span>
                 </div>
               </div>
             </div>
@@ -55,8 +64,12 @@
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                 data-bs-parent="#accordion-company-guidelines">
                 <div class="accordion-body">
-                  <input class="form-check-input me-1" type="checkbox" value="" id="equipment-flexibility">
-                  <label for="equipment-flexibility" class="form-check-label">Ich bin damit einverstanden mein Equipment für Kriege / Invasionen, nach Vorgaben der Kompanieleitung oder einer der Kompanieleitung freigegebenen Builds, anzupassen.</label>
+                  <label for="equipment-flexibility" class="form-check-label">Ich bin damit einverstanden mein Equipment
+                    für Kriege / Invasionen, nach Vorgaben der Kompanieleitung oder einer der Kompanieleitung
+                    freigegebenen Builds, anzupassen.</label>
+                  <input class="form-check-input me-1" type="checkbox" value="" id="equipment-flexibility" required>
+                  <span class="col-auto text-danger fw-bolder invisible" id="equipment-flexibility-invalid">Du musst die
+                    Richtlinie akzeptieren!</span>
                 </div>
               </div>
             </div>
@@ -70,8 +83,12 @@
               <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
                 data-bs-parent="#accordion-company-guidelines">
                 <div class="accordion-body">
-                  <input class="form-check-input me-1" type="checkbox" value="" id="discord-activity">
-                  <label for="discord-activity" class="form-check-label">Ich bin damit einverstanden mich während gemeinsamer Kompanieaktivitäten auf dem Discord einzufinden, zwecks besserer Kommunikation.</label>
+                  <label for="discord-activity" class="form-check-label">Ich bin damit einverstanden mich während
+                    gemeinsamer Kompanieaktivitäten auf dem Discord einzufinden, zwecks besserer Kommunikation.</label>
+                  <input class="form-check-input me-1" type="checkbox" value="" id="discord-activity" required>
+                  <span class="col-auto text-danger fw-bolder invisible" id="discord-activity-invalid">Du musst die
+                    Richtlinie
+                    akzeptieren!</span>
                 </div>
               </div>
             </div>
@@ -79,130 +96,11 @@
         </div>
         <!--row 2 character-->
         <div class="col-lg order-lg-1" id="character-and-old-relationships">
-          <div class="col mb-3">
-            <h4 class="mb-3">Charakter</h4>
-            <div class="row">
-              <!--charactername-->
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="charactername" placeholder="" required>
-                  <label for="charactername">Charaktername</label>
-                </div>
-              </div>
-              <!--gearscore-->
-              <div class="col">
-                <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="gearscore" placeholder="" required>
-                  <label for="gearscore">Durchschnittlicher Gearscore</label>
-                </div>
-              </div>
-            </div>
-            <!--Attributes-->
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Attr</span>
-              <input type="text" aria-label="First name" class="form-control" placeholder="Stärke" id="strength">
-              <input type="text" aria-label="Last name" class="form-control" placeholder="Geschick" id="dexterity">
-              <input type="text" aria-label="First name" class="form-control" placeholder="Inttelligenz"
-                id="intelligence">
-              <input type="text" aria-label="Last name" class="form-control" placeholder="Fokus" id="focus">
-              <input type="text" aria-label="Last name" class="form-control" placeholder="Konstitution"
-                id="constitution">
-            </div>
-            <!--Roles-->
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">Rollen</span>
-              <div class="ms-2 me-1">
-                <input type="checkbox" class="btn-check" id="dd" autocomplete="off">
-                <label class="btn btn-primary" for="dd">DD</label>
-              </div>
-              <div class="mx-1">
-                <input type="checkbox" class="btn-check" id="tank" autocomplete="off">
-                <label class="btn btn-primary" for="tank">Tank</label>
-              </div>
-              <div class="mx-1">
-                <input type="checkbox" class="btn-check" id="heal" autocomplete="off">
-                <label class="btn btn-primary" for="heal">Heal</label>
-              </div>
-              <div class="mx-1">
-                <input type="checkbox" class="btn-check" id="siege" autocomplete="off">
-                <label class="btn btn-primary" for="siege">Siege</label>
-              </div>
-            </div>
-            <!--Weapons-->
-            <div class="row">
-              <h5 class="mb-2">Waffen</h5>
-              <div class="col-auto">
-                <span class="input-group-text mb-1" id="basic-addon2">Einhandwaffen</span>
-                <span class="input-group-text mb-1" id="basic-addon2">Zweihandwaffen</span>
-                <span class="input-group-text mb-1" id="basic-addon2">Fernkampfwaffen</span>
-                <span class="input-group-text mb-1" id="basic-addon2">Magische Waffen</span>
-              </div>
-              <div class="col ps-0">
-                <div class="row mb-1" id="One-Handed-Weapons">
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="sword" autocomplete="off">
-                    <label class="btn btn-primary" for="sword">Schwert</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="shield" autocomplete="off">
-                    <label class="btn btn-primary" for="shield">Schild</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="rapier" autocomplete="off">
-                    <label class="btn btn-primary" for="rapier">Rapier</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="hatchet" autocomplete="off">
-                    <label class="btn btn-primary" for="hatchet">Axt</label>
-                  </div>
-                </div>
-                <div class="row mb-1" id="Two-Handed-Weapons">
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="spear" autocomplete="off">
-                    <label class="btn btn-primary" for="spear">Speer</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="great-axe" autocomplete="off">
-                    <label class="btn btn-primary" for="great-axe">Großaxt</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="war-hammer" autocomplete="off">
-                    <label class="btn btn-primary" for="war-hammer">Kriegshammer</label>
-                  </div>
-                </div>
-                <div class="row mb-1" id="Ranged-Weapons">
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="bow" autocomplete="off">
-                    <label class="btn btn-primary" for="bow">Bogen</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="musket" autocomplete="off">
-                    <label class="btn btn-primary" for="musket">Muskete</label>
-                  </div>
-                </div>
-                <div class="row mb-1" id="Magic-Weapons">
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="fire-staff" autocomplete="off">
-                    <label class="btn btn-primary" for="fire-staff">Feuerstab</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="life-staff" autocomplete="off">
-                    <label class="btn btn-primary" for="life-staff">Lebensstab</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="ice-gauntlet" autocomplete="off">
-                    <label class="btn btn-primary" for="ice-gauntlet">Eisstulpen</label>
-                  </div>
-                  <div class="col-auto pe-0">
-                    <input type="checkbox" class="btn-check" id="void-gauntlet" autocomplete="off">
-                    <label class="btn btn-primary" for="void-gauntlet">Unheilsstulpen</label>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="col">
+            {{template "character-form"}}
           </div>
-
-          <div class="col" id="old-relationships">
+          <!--old company-relationships-->
+          <div class="col mb-3">
             <h4 class="mb-2">Vorherige Kompaniezugehörigkeit</h4>
             <!-- 
               <p class="form-label">select all factions you've been in</p>
@@ -221,16 +119,14 @@
               </div>
             </div> 
           -->
-            <div class="form-floating mb-3">
-              <textarea class="form-control" placeholder="" id="old-companies" style="height: 100px"></textarea>
-              <label for="old-companies">Bitte benenne die letzte Kompanie bei der Du Mitglied gewesen bist (durch , getrennt)</label>
-            </div>
+            <input type="text" class="form-control" placeholder="Bitte benenne die letzte Kompanie bei der du Mitglied gewesen bist" name="old-companies"></input>
           </div>
+          <button type="button" class="btn btn-primary" onclick="validateForm()">Bewerbung abschicken</button>
         </div>
       </div>
-
-
     </form>
+
   </section>
   {{template "footer"}}
+  <script src="/static/js/recruitment.js"></script>
 </body>
