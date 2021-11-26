@@ -7,7 +7,7 @@
 </head>
 
 <body>
-  {{template "navigation"}}
+  {{template "navigation" .}}
   <section class="container mt-3 mt-lg-8" id="content">
     <form action="/recruitment" method="post" id="recruitment-form">
       <div class="row">
@@ -119,13 +119,16 @@
               </div>
             </div> 
           -->
-            <input type="text" class="form-control" placeholder="Bitte benenne die letzte Kompanie bei der du Mitglied gewesen bist" name="old-companies"></input>
+            <input type="text" class="form-control"
+              placeholder="Bitte benenne die letzte Kompanie bei der du Mitglied gewesen bist"
+              name="old-companies"></input>
           </div>
+          <div id="reCaptcha"></div>
+          <br>
           <button type="button" class="btn btn-primary" onclick="validateForm()">Bewerbung abschicken</button>
         </div>
       </div>
     </form>
-
   </section>
   {{template "footer"}}
   <script src="/static/js/recruitment.js"></script>
