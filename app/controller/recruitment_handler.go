@@ -17,7 +17,7 @@ func RecruitmentGET(w http.ResponseWriter, r *http.Request) {
 func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
 	attributes := model.Attributes{
 		Strength:     ParseInt(r.FormValue("strength")),
-		Dexterity:    ParseInt(r.FormValue("strength")),
+		Dexterity:    ParseInt(r.FormValue("dexterity")),
 		Intelligence: ParseInt(r.FormValue("intelligence")),
 		Focus:        ParseInt(r.FormValue("focus")),
 		Constitution: ParseInt(r.FormValue("constitution")),
