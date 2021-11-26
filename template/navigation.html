@@ -34,9 +34,26 @@
                     <li class="nav-item">
                         <hr class="dropdown-divider">
                     </li>
+                    {{if .Session.LoggedIn}}
+                    {{if gt .Session.User.Permission_Level 500}}
                     <li class="nav-item">
-                        <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a>
+                        <a class="nav-link" href="#">Bewerbungen sichten</a>
                     </li>
+                    {{end}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Passwort ändern</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                    {{else}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
+                    </li>
+                    {{end}}
                 </ul>
             </div>
         </div>
@@ -44,29 +61,29 @@
 </nav>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title" id="loginModalLabel"></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="/login" method="post" id="login">
                     <div class="mb-3">
-                        <label class="form-label">E-Mail</label>
-                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
-                        <div id="emailHelp" class="form-text">Wir werden Ihre E-Mail niemals an Dritte weitergeben.
-                        </div>
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control" name="username" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Passwort</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input type="password" class="form-control" name="password" aria-describedby="passwordHelper"
+                            required>
+                        <!-- <div id="passwordHelper" class="form-text">Webseiten-passwort NICHT ingame-passwort</div> -->
                     </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="save_login" name="save_login">
-                        <label class="form-check-label" for="save_login">Login speichern</label>
-                    </div>
+                    <!-- <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input" id="save_login" name="save_login">
+                                            <label class="form-check-label" for="save_login">Login speichern</label>
+                                        </div> -->
                 </form>
             </div>
             <div class="modal-footer">
