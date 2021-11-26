@@ -35,6 +35,15 @@ func AddRecruitment_Entry(r Recruitment_Entry) error {
 	return err
 }
 
+func GetAllRecruitment_Entries() ([]map[string]interface{}, error) {
+	recruitment_entries, err := recruitmentDB.QueryJSON(`{"selector": {"_id": {"$ne": ""}}}`)
+	if err != nil {
+		return nil, err
+	} else {
+		return recruitment_entries, nil
+	}
+}
+
 func Recruitment_entry2Map(r Recruitment_Entry) (recruitment_entry map[string]interface{}) {
 	jJSON, _ := json.Marshal(r)
 	json.Unmarshal(jJSON, &recruitment_entry)
