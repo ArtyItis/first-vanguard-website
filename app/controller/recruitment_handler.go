@@ -4,22 +4,24 @@ import (
 	"forgottennw/app/model"
 	"html/template"
 	"net/http"
-	"time"
 )
 
 func RecruitmentGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("template/recruitment.html", "template/character_form.html", head, navigation, footer))
-	tmpl.Execute(w, nil)
+	data := Data{
+		Session: GetSessionInformation(r),
+	}
+	tmpl.Execute(w, data)
 }
 
 func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
-	attributes := model.Attributes{}
-	attributes.Strength = ParseInt(r.FormValue("strength"))
-	attributes.Dexterity = ParseInt(r.FormValue("dexterity"))
-	attributes.Intelligence = ParseInt(r.FormValue("intelligence"))
-	attributes.Focus = ParseInt(r.FormValue("focus"))
-	attributes.Constitution = ParseInt(r.FormValue("constitution"))
-
+	attributes := model.Attributes{
+		Strength:     ParseInt(r.FormValue("strength")),
+		Dexterity:    ParseInt(r.FormValue("strength")),
+		Intelligence: ParseInt(r.FormValue("intelligence")),
+		Focus:        ParseInt(r.FormValue("focus")),
+		Constitution: ParseInt(r.FormValue("constitution")),
+	}
 	roles_Form := r.Form["roles"]
 	roles := model.Roles{}
 	for _, role := range roles_Form {
@@ -67,33 +69,29 @@ func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
 			weapons.Void_Gauntlet = true
 		}
 	}
-	character := model.Character{}
-	character.Name = r.FormValue("charactername")
-	character.Gearscore = ParseInt(r.FormValue("gearscore"))
-	character.Attributes = attributes
-	character.Roles = roles
-	character.Weapons = weapons
-	character.Old_Companies = r.FormValue("old-companies")
+	character := model.Character{
+		Name:          r.FormValue("charactername"),
+		Gearscore:     ParseInt(r.FormValue("gearscore")),
+		Attributes:    attributes,
+		Roles:         roles,
+		Weapons:       weapons,
+		Old_Companies: r.FormValue("old-companies"),
+	}
 
-	date := model.Date{}
-	date_Now := time.Now()
-	date.Date = date_Now.Local()
-	date.Second = date_Now.Second()
-	date.Minute = date_Now.Minute()
-	date.Hour = date_Now.Hour()
-	date.Day = date_Now.Day()
-	date.Month = int(date_Now.Month())
-	date.Year = date_Now.Year()
-
-	recruitment_entry := model.Recruitment_Entry{}
-	recruitment_entry.Character = character
-	recruitment_entry.Status = "pending"
-	recruitment_entry.Date = date
+	recruitment_entry := model.Recruitment_Entry{
+		Character: character,
+		Status:    "pending",
+		Date:      GetCurrentDate(),
+	}
 
 	err := model.AddRecruitment_Entry(recruitment_entry)
 	if err != nil {
-		http.Redirect(w, r, "/you_fcked_up", http.StatusFound)
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
 	} else {
 		http.Redirect(w, r, "/", http.StatusFound)
 	}
+}
+
+func RecruitmentsGET(w http.ResponseWriter, r *http.Request) {
+
 }
