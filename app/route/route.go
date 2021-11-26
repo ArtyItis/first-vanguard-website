@@ -20,6 +20,7 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/news", controller.NewsGET).Methods("GET")
 
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
+	router.HandleFunc("/data_privacy", controller.DataPrivacyGET).Methods("GET")
 	router.HandleFunc("/about_us", controller.AboutGET).Methods("GET")
 
 	return router
