@@ -8,11 +8,13 @@ import (
 )
 
 type User struct {
-	Id        string    `json:"_id"`
-	Rev       string    `json:"_rev"`
-	Password  string    `json:"password"`
-	Character Character `json:"character"`
-	Date      Date      `json:"date"`
+	Id               string    `json:"_id"`
+	Rev              string    `json:"_rev"`
+	Username         string    `json:"username"`
+	Password         string    `json:"password"`
+	Permission_Level int       `json:"permission_level"`
+	Character        Character `json:"character"`
+	Date             Date      `json:"date"`
 }
 
 func init() {
@@ -22,7 +24,7 @@ func init() {
 	}
 }
 
-func Add(u User) error {
+func AddUser(u User) error {
 	user := User2Map(u)
 	delete(user, "_id")
 	delete(user, "_rev")
@@ -33,6 +35,16 @@ func Add(u User) error {
 		log.Println("added User")
 	}
 	return err
+}
+
+func GetUserByName(name string) (user User, err error) {
+	users, err := userDB.QueryJSON(`{"selector": {"username": {"$eq": "` + name + `"}}}`)
+	if err == nil && len(users) > 0 {
+		user := Map2User(users[0])
+		return user, nil
+	} else {
+		return User{}, err
+	}
 }
 
 func User2Map(u User) (user map[string]interface{}) {
