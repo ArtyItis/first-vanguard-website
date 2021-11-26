@@ -13,7 +13,7 @@ func NewRouter() *mux.Router {
 
 	router.PathPrefix(staticDir).Handler(http.StripPrefix(staticDir, http.FileServer(http.Dir("."+staticDir))))
 
-	router.HandleFunc("/", controller.Index).Methods("GET")
+	router.HandleFunc("/", controller.IndexGET).Methods("GET")
 	router.HandleFunc("/recruitment", controller.RecruitmentGET).Methods("GET")
 	router.HandleFunc("/recruitment", controller.RecruitmentPOST).Methods("POST")
 
@@ -22,5 +22,10 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 	router.HandleFunc("/about_us", controller.AboutGET).Methods("GET")
 
+	router.HandleFunc("/login", controller.Login).Methods("POST")
+	router.HandleFunc("/logout", controller.Logout).Methods("GET")
+
+	router.HandleFunc("/register", controller.RegisterGET).Methods("GET")
+	router.HandleFunc("/register", controller.RegisterPOST).Methods("POST")
 	return router
 }
