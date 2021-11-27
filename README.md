@@ -13,6 +13,6 @@ You are invited to participate in this project as long as you are familiar with 
 - database: [CouchDB](http://couchdb.apache.org/)
     - version: 3.2.0
 - external libraries:
-    - [gorilla/mux](github.com/gorilla/mux)
-    - [gorilla/sessions](github.com/gorilla/sessions)
-    - [leesper/chouchdb-golang](github.com/leesper/couchdb-golang)
+    - [gorilla/mux](https://github.com/gorilla/mux)
+    - [gorilla/sessions](https://github.com/gorilla/sessions)
+    - [leesper/chouchdb-golang](https://github.com/leesper/couchdb-golang)
