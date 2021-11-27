@@ -12,9 +12,11 @@ type User struct {
 	Rev              string    `json:"_rev"`
 	Username         string    `json:"username"`
 	Password         string    `json:"password"`
+	Company          string    `json:"company"`
 	Permission_Level int       `json:"permission_level"`
 	Character        Character `json:"character"`
 	Date             Date      `json:"date"`
+	Tmp              string    `json:"tmp"`
 }
 
 func init() {
@@ -35,6 +37,21 @@ func AddUser(u User) error {
 		log.Println("added User")
 	}
 	return err
+}
+
+func UpdateUser(user User) {
+	r := User2Map(user)
+	userDB.Set(user.Id, r)
+	log.Println("updated " + user.Character.Name)
+}
+
+func GetUserById(id string) (User, error) {
+	user, err := userDB.Get(id, nil)
+	if err != nil {
+		return User{}, err
+	} else {
+		return Map2User(user), nil
+	}
 }
 
 func GetUserByName(name string) (user User, err error) {
