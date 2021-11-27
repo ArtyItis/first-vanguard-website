@@ -1,23 +1,30 @@
 package controller
 
 import (
+	"encoding/base64"
 	"forgottennw/app/model"
 	"html/template"
+	"math/rand"
 	"net/http"
+	"strconv"
+	"time"
+
+	"github.com/gorilla/mux"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func RecruitmentGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("template/recruitment.html", "template/character_form.html", head, navigation, footer))
+func RecruitmentFormGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("template/recruitmentForm.html", "template/characterForm.html", head, navigation, footer))
 	data := Data{
 		Session: GetSessionInformation(r),
 	}
 	tmpl.Execute(w, data)
 }
 
-func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
+func RecruitmentFormPOST(w http.ResponseWriter, r *http.Request) {
 	attributes := model.Attributes{
 		Strength:     ParseInt(r.FormValue("strength")),
-		Dexterity:    ParseInt(r.FormValue("strength")),
+		Dexterity:    ParseInt(r.FormValue("dexterity")),
 		Intelligence: ParseInt(r.FormValue("intelligence")),
 		Focus:        ParseInt(r.FormValue("focus")),
 		Constitution: ParseInt(r.FormValue("constitution")),
@@ -78,13 +85,13 @@ func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
 		Old_Companies: r.FormValue("old-companies"),
 	}
 
-	recruitment_entry := model.Recruitment_Entry{
+	recruitmentEntry := model.RecruitmentEntry{
 		Character: character,
-		Status:    "pending",
+		Status:    "offen",
 		Date:      GetCurrentDate(),
 	}
 
-	err := model.AddRecruitment_Entry(recruitment_entry)
+	err := model.AddRecruitmentEntry(recruitmentEntry)
 	if err != nil {
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
 	} else {
@@ -93,5 +100,57 @@ func RecruitmentPOST(w http.ResponseWriter, r *http.Request) {
 }
 
 func RecruitmentsGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("recruitments.html").Funcs(template.FuncMap{"add": Add}).ParseFiles("template/recruitments.html", head, navigation, footer))
+	recruitmentEntries, _ := model.GetAllRecruitmentEntries()
+	data := Data{
+		Session:            GetSessionInformation(r),
+		RecruitmentEntries: recruitmentEntries,
+	}
+	tmpl.Execute(w, data)
+}
 
+func RecruitmentEntryGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.ParseFiles("template/recruitmentEntry.html", head, navigation, footer))
+	recruitmentErtyId := mux.Vars(r)["id"]
+	recruitmentEntriy, _ := model.GetRecruitmentEntryById(recruitmentErtyId)
+	data := Data{
+		Session:          GetSessionInformation(r),
+		RecruitmentEntry: recruitmentEntriy,
+	}
+	tmpl.Execute(w, data)
+}
+
+func RecruitmentEntryAcceptedPOST(w http.ResponseWriter, r *http.Request) {
+	recruitmentEntry, _ := model.GetRecruitmentEntryById(mux.Vars(r)["id"])
+	recruitmentEntry.Status = "angenommen"
+	company := r.FormValue("company")
+	permissionLevel := r.FormValue("permission-level")
+	//create temporary password
+	password := strconv.Itoa(rand.New(rand.NewSource(time.Now().UnixNano())).Int())
+	hashedPwd, _ := bcrypt.GenerateFromPassword([]byte(password), 14)
+	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
+
+	user := model.User{
+		Username:         recruitmentEntry.Character.Name,
+		Tmp:              password,
+		Password:         b64HashedPwd,
+		Company:          company,
+		Permission_Level: ParseInt(permissionLevel),
+		Character:        recruitmentEntry.Character,
+		Date:             GetCurrentDate(),
+	}
+	model.UpdateRecruitmentEntry(recruitmentEntry)
+	err := model.AddUser(user)
+	if err != nil {
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+	} else {
+		http.Redirect(w, r, "/recruitments", http.StatusFound)
+	}
+}
+
+func RecruitmentEntryRejectedPOST(w http.ResponseWriter, r *http.Request) {
+	recruitmentEntry, _ := model.GetRecruitmentEntryById(mux.Vars(r)["id"])
+	recruitmentEntry.Status = "abgelehnt"
+	model.UpdateRecruitmentEntry(recruitmentEntry)
+	http.Redirect(w, r, "/recruitments", http.StatusFound)
 }
