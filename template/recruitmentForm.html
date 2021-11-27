@@ -3,7 +3,7 @@
 
 <head>
   {{template "head"}}
-  <title>The Forgotten - Bewerbung</title>
+  <title>Bewerbung</title>
 </head>
 
 <body>
@@ -102,32 +102,11 @@
           <!--old company-relationships-->
           <div class="col mb-3">
             <h4 class="mb-2">Vorherige Kompaniezugehörigkeit</h4>
-            <!-- 
-              <p class="form-label">select all factions you've been in</p>
-            <div class="row mb-3">
-              <div class="col d-flex">
-                <input type="checkbox" class="btn-check" id="Marauder" autocomplete="off">
-                <label class="btn btn-primary mx-auto" for="Marauder">Marauder</label>
-              </div>
-              <div class="col d-flex">
-                <input type="checkbox" class="btn-check" id="Syndicate" autocomplete="off">
-                <label class="btn btn-primary mx-auto" for="Syndicate">Syndicate</label>
-              </div>
-              <div class="col d-flex">
-                <input type="checkbox" class="btn-check" id="Covenant" autocomplete="off">
-                <label class="btn btn-primary mx-auto" for="Covenant">Covenant</label>
-              </div>
-            </div> 
-          -->
-            <input type="text" class="form-control"
-              placeholder="Bitte benenne die letzte Kompanie bei der du Mitglied gewesen bist"
+            <input type="text" class="form-control" placeholder="Nenne deine letzte Kompanie"
               name="old-companies"></input>
           </div>
-          <div id="reCaptcha"></div>
-          <br>
           <button type="button" class="btn btn-primary" onclick="validateForm()">Bewerbung abschicken</button>
         </div>
-      </div>
     </form>
   </section>
   {{template "footer"}}
