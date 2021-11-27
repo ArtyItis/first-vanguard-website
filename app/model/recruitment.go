@@ -7,7 +7,7 @@ import (
 	couchdb "github.com/leesper/couchdb-golang"
 )
 
-type Recruitment_Entry struct {
+type RecruitmentEntry struct {
 	Id        string    `json:"_id"`
 	Rev       string    `json:"_rev"`
 	Character Character `json:"character"`
@@ -16,17 +16,17 @@ type Recruitment_Entry struct {
 }
 
 func init() {
-	recruitmentDB, err = couchdb.NewDatabase(DBURL + "/recruitment")
+	recruitmentDB, err = couchdb.NewDatabase(DBURL + "/recruitments")
 	if err != nil {
 		panic(err)
 	}
 }
 
-func AddRecruitment_Entry(r Recruitment_Entry) error {
-	recruitment_entry := Recruitment_entry2Map(r)
-	delete(recruitment_entry, "_id")
-	delete(recruitment_entry, "_rev")
-	_, _, err := recruitmentDB.Save(recruitment_entry, nil)
+func AddRecruitmentEntry(r RecruitmentEntry) error {
+	recruitmentEntry := RecruitmentEntry2Map(r)
+	delete(recruitmentEntry, "_id")
+	delete(recruitmentEntry, "_rev")
+	_, _, err := recruitmentDB.Save(recruitmentEntry, nil)
 	if err != nil {
 		log.Println("Error in AddRecruitment_Entry: ", err)
 	} else {
@@ -35,23 +35,38 @@ func AddRecruitment_Entry(r Recruitment_Entry) error {
 	return err
 }
 
-func GetAllRecruitment_Entries() ([]map[string]interface{}, error) {
-	recruitment_entries, err := recruitmentDB.QueryJSON(`{"selector": {"_id": {"$ne": ""}}}`)
+func UpdateRecruitmentEntry(recruitmentEntry RecruitmentEntry) {
+	r := RecruitmentEntry2Map(recruitmentEntry)
+	recruitmentDB.Set(recruitmentEntry.Id, r)
+	log.Println("updated " + recruitmentEntry.Character.Name + "'s recruitment entry")
+}
+
+func GetRecruitmentEntryById(id string) (RecruitmentEntry, error) {
+	recruitmentEntry, err := recruitmentDB.Get(id, nil)
 	if err != nil {
-		return nil, err
+		return RecruitmentEntry{}, err
 	} else {
-		return recruitment_entries, nil
+		return Map2Recruitment_Entry(recruitmentEntry), nil
 	}
 }
 
-func Recruitment_entry2Map(r Recruitment_Entry) (recruitment_entry map[string]interface{}) {
-	jJSON, _ := json.Marshal(r)
-	json.Unmarshal(jJSON, &recruitment_entry)
-	return recruitment_entry
+func GetAllRecruitmentEntries() ([]map[string]interface{}, error) {
+	recruitmentEntries, err := recruitmentDB.QueryJSON(`{"selector": {"_id": {"$ne": ""}}}`)
+	if err != nil {
+		return nil, err
+	} else {
+		return recruitmentEntries, nil
+	}
 }
 
-func Map2Recruitment_Entry(recruitment_entry map[string]interface{}) (r Recruitment_Entry) {
-	jJSON, _ := json.Marshal(recruitment_entry)
+func RecruitmentEntry2Map(r RecruitmentEntry) (recruitmentEntry map[string]interface{}) {
+	jJSON, _ := json.Marshal(r)
+	json.Unmarshal(jJSON, &recruitmentEntry)
+	return recruitmentEntry
+}
+
+func Map2Recruitment_Entry(recruitmentEntry map[string]interface{}) (r RecruitmentEntry) {
+	jJSON, _ := json.Marshal(recruitmentEntry)
 	json.Unmarshal(jJSON, &r)
 	return r
 }
