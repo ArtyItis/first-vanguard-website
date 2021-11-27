@@ -21,10 +21,6 @@ func ImprintGET(w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(w, r, "imprint")
 }
 
-func NewsGET(w http.ResponseWriter, r *http.Request) {
-	ExecuteTemplate(w, r, "news")
-}
-
 func AboutGET(w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(w, r, "about")
 }
