@@ -3,11 +3,41 @@
 
 <head>
   {{template "head"}}
-  <title>The Forgotten - Bewerbungen sichten</title>
+  <title>Bewerbungen</title>
 </head>
 
 <body>
-    {{template "navigation" .}}
-    
-    {{template "footer"}}
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Charaktername</th>
+          <th scope="col">Rollen</th>
+          <th scope="col">Erstelldatum</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $index, $recruitmentEntry := .RecruitmentEntries}}
+        <tr onclick="openRecruitmentEntry({{$recruitmentEntry._id}})">
+          <th scope="row">{{add $index 1}}</th>
+          <td>{{$recruitmentEntry.character.name}}</td>
+          <td>
+            {{if $recruitmentEntry.character.roles.dd}}DD{{end}}
+            {{if $recruitmentEntry.character.roles.tank}}Tank{{end}}
+            {{if $recruitmentEntry.character.roles.heal}}Heal{{end}}
+            {{if $recruitmentEntry.character.roles.siege}}Siege{{end}}
+          </td>
+          <td>{{$recruitmentEntry.date.day}}.{{$recruitmentEntry.date.month}}.{{$recruitmentEntry.date.year}}</td>
+          <td>{{$recruitmentEntry.status}}</td>
+          </a>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </section>
+  {{template "footer"}}
+  <script src="/static/js/row_link.js"></script>
 </body>
