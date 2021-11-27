@@ -2,7 +2,7 @@
 
 Homepage of the "The Forgotten" company in Amazon Games Studio's MMORPG New World on server Utgard.
 
-You are invited to participate in this project as long as you are familiar with the development environment described below and are interested in participating in a meaningful way. 
+You are invited to contribute into this project as long as you are familiar with the development environment described below and are interested in participating in a meaningful way. 
 ## Frontend
 - css framework: **[Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)**
     - version: 5.1
