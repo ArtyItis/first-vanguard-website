@@ -19,8 +19,9 @@ var (
 )
 
 type Data struct {
-	Session             Session
-	Recruitment_Entries []map[string]interface{}
+	Session            Session
+	RecruitmentEntries []map[string]interface{}
+	RecruitmentEntry   model.RecruitmentEntry
 }
 
 type Session struct {
@@ -34,17 +35,29 @@ func init() {
 	store = sessions.NewCookieStore(key)
 }
 
+func Authenticate(h http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		session, _ := store.Get(r, "session")
+		//Check if user is authentificated
+		if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
+			http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+		} else {
+			h(w, r)
+		}
+	}
+}
+
 func GetSessionInformation(r *http.Request) (sessionInfo Session) {
 	session, _ := store.Get(r, "session")
-	username := ""
+	userId := ""
 	loggedIn := false
-	if session.Values["username"] != nil {
-		username = session.Values["username"].(string)
+	if session.Values["userId"] != nil {
+		userId = session.Values["userId"].(string)
 	}
 	if session.Values["authenticated"] != nil {
 		loggedIn = session.Values["authenticated"].(bool)
 	}
-	user, user_err := model.GetUserByName(username)
+	user, user_err := model.GetUserById(userId)
 	if user_err != nil {
 		log.Println("couldn't find user in getSessionInformation()")
 	}
@@ -58,7 +71,7 @@ func GetSessionInformation(r *http.Request) (sessionInfo Session) {
 func GetCurrentDate() (date model.Date) {
 	date_Now := time.Now()
 	date = model.Date{
-		Date:   date_Now.Local(),
+		Date:   date_Now.Local().Format(time.RFC1123),
 		Second: date_Now.Second(),
 		Minute: date_Now.Minute(),
 		Hour:   date_Now.Hour(),
