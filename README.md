@@ -7,12 +7,12 @@ You are invited to participate in this project as long as you are familiar with 
 - css framework: **[Bootstrap](https://getbootstrap.com/docs/5.1/getting-started/introduction/)**
     - version: 5.1
 ## Backend
-- programming language: **[Go](https://go.dev/)**
+- programming language: [Go](https://go.dev/)
     - version: 1.16.3
-- architecture: **[MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)** (model view controller)
-- database: **[CouchDB](http://couchdb.apache.org/)**
+- architecture: [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (model view controller)
+- database: [CouchDB](http://couchdb.apache.org/)
     - version: 3.2.0
 - external libraries:
-    - <github.com/gorilla/mux>
-    - <github.com/gorilla/sessions>
-    - <github.com/leesper/couchdb-golang>
+    - [gorilla/mux](github.com/gorilla/mux)
+    - [gorilla/sessions](github.com/gorilla/sessions)
+    - [leesper/chouchdb-golang](github.com/leesper/couchdb-golang)
