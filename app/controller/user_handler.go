@@ -18,11 +18,10 @@ func RegisterGET(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data)
 }
 func RegisterPOST(w http.ResponseWriter, r *http.Request) {
-	username := r.FormValue("username")
+	name := r.FormValue("username")
 	password := r.FormValue("password")
 	//check if username is taken
-	user_1, _ := model.GetUserByName(username)
-	if user_1 != (model.User{}) {
+	if user_Exists, _ := model.GetUserByName(name); user_Exists.Password != "" {
 		//TODO username is taken
 		http.Redirect(w, r, "/username_is_taken", http.StatusFound)
 		return
@@ -32,7 +31,7 @@ func RegisterPOST(w http.ResponseWriter, r *http.Request) {
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
 
 	user := model.User{
-		Username:         username,
+		Name:             name,
 		Password:         b64HashedPwd,
 		Permission_Level: 0,
 		Date:             GetCurrentDate(),
@@ -50,9 +49,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	//validate user
 	user, user_err := model.GetUserByName(username)
-	if user_err != nil || user == (model.User{}) {
+	if user_err != nil || (user.Password != "") {
 		//TODO user not found
-		log.Println("invalid username ")
+		log.Println("invalid username")
 		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
 		return
 	}
@@ -81,7 +80,7 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	session.Values["authenticated"] = false
 	session.Values["userId"] = ""
 	session.Save(r, w)
-	log.Println(user.Username + " logged out")
+	log.Println(user.Name + " logged out")
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
@@ -121,7 +120,7 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	}
 	hashedPwd, _ := bcrypt.GenerateFromPassword([]byte(newPassword), 14)
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
-	user.Tmp = ""
+	user.Password_Tmp = ""
 	user.Password = b64HashedPwd
 	model.UpdateUser(user)
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)

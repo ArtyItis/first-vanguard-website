@@ -71,7 +71,6 @@ func GetSessionInformation(r *http.Request) (sessionInfo Session) {
 func GetCurrentDate() (date model.Date) {
 	date_Now := time.Now()
 	date = model.Date{
-		Date:   date_Now.Local().Format(time.RFC1123),
 		Second: date_Now.Second(),
 		Minute: date_Now.Minute(),
 		Hour:   date_Now.Hour(),

@@ -14,7 +14,7 @@ import (
 )
 
 func RecruitmentFormGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("template/recruitmentForm.html", "template/characterForm.html", head, navigation, footer))
+	tmpl := template.Must(template.ParseFiles("template/recruitmentForm.html", head, navigation, footer))
 	data := Data{
 		Session: GetSessionInformation(r),
 	}
@@ -22,6 +22,20 @@ func RecruitmentFormGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func RecruitmentFormPOST(w http.ResponseWriter, r *http.Request) {
+	// //reCaptcha start
+	// rec, errRecaptcha := recaptcha.New(model.RECAPTCHA_SECRET)
+	// if errRecaptcha != nil {
+	// 	panic(errRecaptcha)
+	// }
+	// response, errResponse := rec.GetRecaptchaToken(r)
+	// if errResponse != nil {
+	// 	panic(errResponse)
+	// }
+
+	// if errResponse = rec.Verify(response); errResponse != nil {
+	// 	panic(errResponse)
+	// }
+	// //reCaptcha end
 	attributes := model.Attributes{
 		Strength:     ParseInt(r.FormValue("strength")),
 		Dexterity:    ParseInt(r.FormValue("dexterity")),
@@ -77,12 +91,12 @@ func RecruitmentFormPOST(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	character := model.Character{
-		Name:          r.FormValue("charactername"),
-		Gearscore:     ParseInt(r.FormValue("gearscore")),
-		Attributes:    attributes,
-		Roles:         roles,
-		Weapons:       weapons,
-		Old_Companies: r.FormValue("old-companies"),
+		Name:       r.FormValue("charactername"),
+		Gearscore:  ParseInt(r.FormValue("gearscore")),
+		Attributes: attributes,
+		// Roles:       roles,
+		// Weapons:     weapons,
+		Old_Company: r.FormValue("old-companies"),
 	}
 
 	recruitmentEntry := model.RecruitmentEntry{
@@ -131,8 +145,8 @@ func RecruitmentEntryAcceptedPOST(w http.ResponseWriter, r *http.Request) {
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
 
 	user := model.User{
-		Username:         recruitmentEntry.Character.Name,
-		Tmp:              password,
+		Name:             recruitmentEntry.Character.Name,
+		Password_Tmp:     password,
 		Password:         b64HashedPwd,
 		Company:          company,
 		Permission_Level: ParseInt(permissionLevel),

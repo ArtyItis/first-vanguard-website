@@ -1,3 +1,5 @@
+github.com/chanioxaris/go-recaptcha v0.0.0-20200928180903-dd2bdcfb0631 h1:Ev3cwmyR2UfmDwrhnA0prDzuXMLGmltfLEoVAwBOUSE=
+github.com/chanioxaris/go-recaptcha v0.0.0-20200928180903-dd2bdcfb0631/go.mod h1:Rp6kKTEw+Lao0b+1OMdtNdmbLe8/1BUGzy1HVOdy0fk=
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/gorilla/securecookie v1.1.1 h1:miw7JPhV+b/lAHSXz4qd/nN9jRiAFV5FwjeKyCS8BvQ=

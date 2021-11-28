@@ -21,6 +21,7 @@
       </thead>
       <tbody>
         {{range $index, $recruitmentEntry := .RecruitmentEntries}}
+        {{if ne $recruitmentEntry.status "angenommen"}}
         <tr onclick="openRecruitmentEntry({{$recruitmentEntry._id}})">
           <th scope="row">{{add $index 1}}</th>
           <td>{{$recruitmentEntry.character.name}}</td>
@@ -34,6 +35,7 @@
           <td>{{$recruitmentEntry.status}}</td>
           </a>
         </tr>
+        {{end}}
         {{end}}
       </tbody>
     </table>

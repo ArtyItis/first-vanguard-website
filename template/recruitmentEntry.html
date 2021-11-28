@@ -133,17 +133,26 @@
               <span>Status</span>
             </div>
             <div class="col">
-              <span>{{.RecruitmentEntry.Status}}</span>
+              {{if eq .RecruitmentEntry.Status "abgelehnt"}}
+              <span class="text-danger fw-bold">{{.RecruitmentEntry.Status}}</span>
+              {{end}}
+              {{if eq .RecruitmentEntry.Status "angenommen"}}
+              <span class="text-success fw-bold">{{.RecruitmentEntry.Status}}</span>
+              {{end}}
             </div>
           </div>
           <div class="row mt-lg-3">
+            {{if ne .RecruitmentEntry.Status "angenommen"}}
             <div class="col">
               <button class="btn btn-success" form="accepted">Bewerbung annehmen</button>
             </div>
+            {{end}}
+            {{if ne .RecruitmentEntry.Status "abgelehnt"}}
             <div class="col">
               <form action="/recruitments/{{.RecruitmentEntry.Id}}/rejected" method="post" id="rejected"></form>
               <button class="btn btn-danger" form="rejected">Bewerbung ablehnen</button>
             </div>
+            {{end}}
           </div>
         </section>
       </div>

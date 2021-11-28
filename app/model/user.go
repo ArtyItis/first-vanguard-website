@@ -10,13 +10,13 @@ import (
 type User struct {
 	Id               string    `json:"_id"`
 	Rev              string    `json:"_rev"`
-	Username         string    `json:"username"`
+	Name             string    `json:"name"`
 	Password         string    `json:"password"`
+	Password_Tmp     string    `json:"password_tmp"`
 	Company          string    `json:"company"`
 	Permission_Level int       `json:"permission_level"`
 	Character        Character `json:"character"`
 	Date             Date      `json:"date"`
-	Tmp              string    `json:"tmp"`
 }
 
 func init() {
@@ -34,7 +34,7 @@ func AddUser(u User) error {
 	if err != nil {
 		log.Println("Error in AddUser: ", err)
 	} else {
-		log.Println("added User")
+		log.Println("added User: " + u.Name)
 	}
 	return err
 }
@@ -55,7 +55,7 @@ func GetUserById(id string) (User, error) {
 }
 
 func GetUserByName(name string) (user User, err error) {
-	users, err := userDB.QueryJSON(`{"selector": {"username": {"$eq": "` + name + `"}}}`)
+	users, err := userDB.QueryJSON(`{"selector": {"name": {"$eq": "` + name + `"}}}`)
 	if err == nil && len(users) > 0 {
 		user := Map2User(users[0])
 		return user, nil

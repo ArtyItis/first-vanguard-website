@@ -14,13 +14,11 @@ function isCheckboxGroupValid(wrapper_element_id, invalid_id) {
 function isCompanyGuidelineValid(input_id, collapse_id) {
     var input = document.getElementById(input_id);
     var collapse = document.getElementById(collapse_id);
-    var invalid = document.getElementById(input_id + "-invalid");
+    var invalid = document.getElementById("company-guidelines-invalid");
     if (input.checked == false) {
-        collapse.classList.add("show");
         invalid.classList.remove("invisible");
         return false;
     } else {
-        collapse.classList.remove("show");
         invalid.classList.add("invisible");
         return true;
     }
