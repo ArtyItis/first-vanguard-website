@@ -7,7 +7,9 @@ import (
 var (
 	err           error
 	userDB        *couchdb.Database
-	recruitmentDB *couchdb.Database
+	applicationDB *couchdb.Database
+	roleDB        *couchdb.Database
+	weaponDB      *couchdb.Database
 )
 
 type Date struct {
@@ -17,4 +19,5 @@ type Date struct {
 	Day    int `json:"day"`
 	Month  int `json:"month"`
 	Year   int `json:"year"`
+	Week   int `json:"week"`
 }
