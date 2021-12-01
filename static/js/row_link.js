@@ -1,3 +1,7 @@
-function openRecruitmentEntry(id) {
-    window.location.replace("/recruitments/"+id)
+function openApplicationEntry(id) {
+    window.location.replace("/applications/"+id)
+}
+
+function openUser(id){
+    window.location.replace("/members/"+id)
 }

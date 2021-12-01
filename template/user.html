@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>{{.User.Character.Name}}</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container mt-3 mt-lg-8" id="content">
+        <div class="row">
+            <!--character-->
+            <div class="col-lg-6 mb-3 ps-0">
+                <!--general information-->
+                <section class="row">
+                    <h4 class="">{{.User.Character.Name}}</h4>
+                    <div class="col">
+                        <!--date-->
+                        <div class="row">
+                            <div class="col">
+                                <span>Mitglied seit: </span>
+                            </div>
+                            <div class="col">
+                                <span>{{.User.Date.Day}}.{{.User.Date.Month}}.{{.User.Date.Year}}</span>
+                            </div>
+                        </div>
+                        <!--armor-weight-->
+                        <div class="row">
+                            <div class="col">
+                                <span>Rüstungsgewicht: </span>
+                            </div>
+                            <div class="col">
+                                <span>{{.User.Character.Equipment_weight}}</span>
+                            </div>
+                        </div>
+                        <!--gearscore-->
+                        <div class="row">
+                            <div class="col">
+                                <span>Gearscore: </span>
+                            </div>
+                            <div class="col">
+                                <span>{{.User.Character.Gearscore}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!--discord-tag-->
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <span>Discord Tag: </span>
+                            </div>
+                            <div class="col">
+                                <span>{{.User.Discord_tag}}</span>
+                            </div>
+                        </div>
+                        <form action="/applications/{{.User.Id}}/accepted" method="post" id="accepted">
+                            <!--company-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Kompanie: </span>
+                                </div>
+                                <div class="col">
+                                    {{.User.Company}}
+                                </div>
+                            </div>
+                            <!--permission level-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Rang:</span>
+                                </div>
+                                <div class="col">
+                                    {{convertPermissionLevel .User}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            {{if ge .Session.User.Permission_level 200}}
+            {{if .User.Password_tmp}}
+            <div class="col pe-0">
+                <a class="btn btn-danger mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    temporäres Passwort anzeigen
+                </a>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        {{.User.Password_tmp}}
+                    </div>
+                </div>
+            </div>
+            {{end}}
+            {{end}}
+        </div>
+        <!--attributes & roles-->
+        <section class="row mb-3">
+            <!--attributes-->
+            <div class="col-lg ps-0">
+                <h5>Attribute</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Stärke</th>
+                            <th scope="col">Geschicklichkeit</th>
+                            <th scope="col">Intelligenz</th>
+                            <th scope="col">Fokus</th>
+                            <th scope="col">Konstitution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{.User.Character.Attributes.Strength}}</td>
+                            <td>{{.User.Character.Attributes.Dexterity}}</td>
+                            <td>{{.User.Character.Attributes.Intelligence}}</td>
+                            <td>{{.User.Character.Attributes.Focus}}</td>
+                            <td>{{.User.Character.Attributes.Constitution}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--roles-->
+            <div class="col-lg pe-0">
+                <h5>Rollen</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            {{range $role := .Roles}}
+                            <th scope="col">{{$role.name}}</th>
+                            {{end}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {{$roles := .User.Character.Roles}}
+                            {{range $role := .Roles}}
+                            {{if containsRole $role $roles}}
+                            <td>X</td>
+                            {{else}}
+                            <td>-</td>
+                            {{end}}
+                            {{end}}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--weapons-->
+        <section class="row mb-3">
+            <h5>Waffen</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        {{range $weapon := .Weapons}}
+                        <th scope="col">{{$weapon.name}}</th>
+                        {{end}}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {{$weapons := .User.Character.Weapons}}
+                        {{range $weapon := .Weapons}}
+                        {{if containsWeapon $weapon $weapons}}
+                        <td>X</td>
+                        {{else}}
+                        <td>-</td>
+                        {{end}}
+                        {{end}}
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <!--refining-jobs-->
+        <section class="row mb-3">
+            <h5>Veredelungsberufe</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Schmelzen</th>
+                        <th scope="col">Holzverarbeitung</th>
+                        <th scope="col">Lederverarbeitung</th>
+                        <th scope="col">Weberei</th>
+                        <th scope="col">Steinmetzkunst</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{if .User.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <!--crafting-jobs-->
+        <section class="row mb-3">
+            <h5>Herstellungsberufe</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Waffenschmiedekunst</th>
+                        <th scope="col">Rüstungsschmiedekunst</th>
+                        <th scope="col">Ingenieurskunst</th>
+                        <th scope="col">Juwelenschleiferei</th>
+                        <th scope="col">Arkana</th>
+                        <th scope="col">Kochkunst</th>
+                        <th scope="col">Tischlerei</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{if .User.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
+                        <td>{{if .User.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </section>
+    {{template "footer"}}
+</body>

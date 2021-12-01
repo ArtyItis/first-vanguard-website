@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -17,12 +18,13 @@ func RegisterGET(w http.ResponseWriter, r *http.Request) {
 	}
 	tmpl.Execute(w, data)
 }
+
 func RegisterPOST(w http.ResponseWriter, r *http.Request) {
-	username := r.FormValue("username")
+	name := r.FormValue("username")
 	password := r.FormValue("password")
 	//check if username is taken
-	user_1, _ := model.GetUserByName(username)
-	if user_1 != (model.User{}) {
+	user_Exists, _ := model.GetUserByName(name)
+	if user_Exists.Date != (model.Date{}) {
 		//TODO username is taken
 		http.Redirect(w, r, "/username_is_taken", http.StatusFound)
 		return
@@ -32,9 +34,9 @@ func RegisterPOST(w http.ResponseWriter, r *http.Request) {
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
 
 	user := model.User{
-		Username:         username,
+		Name:             name,
 		Password:         b64HashedPwd,
-		Permission_Level: 0,
+		Permission_level: 0,
 		Date:             GetCurrentDate(),
 	}
 	err := model.AddUser(user)
@@ -50,19 +52,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	password := r.FormValue("password")
 	//validate user
 	user, user_err := model.GetUserByName(username)
-	if user_err != nil || user == (model.User{}) {
-		//TODO user not found
-		log.Println("invalid username ")
-		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+	//check if user exists
+	if user_err != nil || (user.Password == "") {
+		log.Println("invalid username")
+		http.Redirect(w, r, GetPreviousRoute(r)+"?loginError=username", http.StatusFound)
 		return
 	}
 	//validate password
 	passwordDB, _ := base64.StdEncoding.DecodeString(user.Password)
 	password_err := bcrypt.CompareHashAndPassword(passwordDB, []byte(password))
 	if password_err != nil {
-		//TODO wrong password
 		log.Println("invalid password ", password_err)
-		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+		http.Redirect(w, r, GetPreviousRoute(r)+"?loginError=password", http.StatusFound)
 		return
 	}
 	//save session
@@ -81,16 +82,36 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 	session.Values["authenticated"] = false
 	session.Values["userId"] = ""
 	session.Save(r, w)
-	log.Println(user.Username + " logged out")
+	log.Println(user.Name + " logged out")
 	http.Redirect(w, r, "/", http.StatusFound)
 }
 
 func UsersGET(w http.ResponseWriter, r *http.Request) {
-
+	tmpl := template.Must(template.New("users.html").Funcs(template.FuncMap{"add": Add}).Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).ParseFiles("template/users.html", head, navigation, footer))
+	users, _ := model.GetAllUsers()
+	data := Data{
+		Session: GetSessionInformation(r),
+		Users:   users,
+	}
+	tmpl.Execute(w, data)
 }
 
 func UserGET(w http.ResponseWriter, r *http.Request) {
-
+	tmpl := template.Must(template.New("user.html").
+		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelUser}).
+		Funcs(template.FuncMap{"containsWeapon": ContainsWeapon}).
+		Funcs(template.FuncMap{"containsRole": ContainsRole}).
+		ParseFiles("template/user.html", head, navigation, footer))
+	weapons, _ := model.GetAllWeapons()
+	roles, _ := model.GetAllRoles()
+	user, _ := model.GetUserById(mux.Vars(r)["id"])
+	data := Data{
+		Session: GetSessionInformation(r),
+		Weapons: weapons,
+		Roles:   roles,
+		User:    user,
+	}
+	tmpl.Execute(w, data)
 }
 
 func ChangePasswordGET(w http.ResponseWriter, r *http.Request) {
@@ -110,18 +131,18 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	oldPasswordErr := bcrypt.CompareHashAndPassword(passwordDB, []byte(oldPassword))
 	if oldPasswordErr != nil {
 		log.Println(oldPasswordErr)
-		http.Redirect(w, r, "/members/"+userId+"/changePassword", http.StatusFound)
+		http.Redirect(w, r, "/members/"+userId+"/changePassword?changePasswordError=oldPassword", http.StatusFound)
 		return
 	}
 	//compare newPassword and newPasswordRep
 	if newPassword != newPasswordrep {
 		log.Println("newPassword and newPasswordRep are not the same")
-		http.Redirect(w, r, "/members/"+userId+"/changePassword", http.StatusFound)
+		http.Redirect(w, r, "/members/"+userId+"/changePassword?changePasswordError=newPassword", http.StatusFound)
 		return
 	}
 	hashedPwd, _ := bcrypt.GenerateFromPassword([]byte(newPassword), 14)
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
-	user.Tmp = ""
+	user.Password_tmp = ""
 	user.Password = b64HashedPwd
 	model.UpdateUser(user)
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)

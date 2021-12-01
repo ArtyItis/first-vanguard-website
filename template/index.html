@@ -8,6 +8,18 @@
 
 <body>
   {{template "navigation" .}}
+  <div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+      <div class="toast" id="applicationSuccessToast">
+        <div class="toast-header">
+          <strong class="me-auto">Bewerbung</strong>
+        </div>
+        <div class="toast-body">
+          Die Bewerbung wurde erfolgreich versendet!
+        </div>
+      </div>
+    </div>
+  </div>
   <section class="container mt-3 mt-lg-8" id="content">
     <div class="col d-flex">
       <p class="mx-auto">Die Webseite befindet sich derzeit noch in Entwicklung und ist daher nicht voll

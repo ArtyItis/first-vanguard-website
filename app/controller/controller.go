@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gorilla/sessions"
@@ -13,15 +14,19 @@ import (
 
 var (
 	store      *sessions.CookieStore
-	head       = "template/head.html"
-	navigation = "template/navigation.html"
-	footer     = "template/footer.html"
+	head       = "template/assets/head.html"
+	navigation = "template/assets/navigation.html"
+	footer     = "template/assets/footer.html"
 )
 
 type Data struct {
 	Session            Session
-	RecruitmentEntries []map[string]interface{}
-	RecruitmentEntry   model.RecruitmentEntry
+	ApplicationEntries []map[string]interface{}
+	Roles              []map[string]interface{}
+	Weapons            []map[string]interface{}
+	Users              []map[string]interface{}
+	User               model.User
+	ApplicationEntry   model.ApplicationEntry
 }
 
 type Session struct {
@@ -70,14 +75,16 @@ func GetSessionInformation(r *http.Request) (sessionInfo Session) {
 
 func GetCurrentDate() (date model.Date) {
 	date_Now := time.Now()
+	_, week := date_Now.ISOWeek()
+
 	date = model.Date{
-		Date:   date_Now.Local().Format(time.RFC1123),
 		Second: date_Now.Second(),
 		Minute: date_Now.Minute(),
 		Hour:   date_Now.Hour(),
 		Day:    date_Now.Day(),
 		Month:  int(date_Now.Month()),
 		Year:   date_Now.Year(),
+		Week:   week,
 	}
 	return date
 }
@@ -85,4 +92,12 @@ func GetCurrentDate() (date model.Date) {
 func ParseInt(str string) (result int) {
 	result, _ = strconv.Atoi(str)
 	return result
+}
+
+func GetPreviousRoute(r *http.Request) string {
+	previous_route := r.Header.Get("Referer")
+	if strings.Contains(previous_route, "?") {
+		previous_route = strings.Split(previous_route, "?")[0]
+	}
+	return previous_route
 }

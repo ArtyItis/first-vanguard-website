@@ -7,15 +7,17 @@ import (
 var (
 	err           error
 	userDB        *couchdb.Database
-	recruitmentDB *couchdb.Database
+	applicationDB *couchdb.Database
+	roleDB        *couchdb.Database
+	weaponDB      *couchdb.Database
 )
 
 type Date struct {
-	Date   string `json:"Date"`
-	Hour   int    `json:"hour"`
-	Minute int    `json:"minute"`
-	Second int    `json:"second"`
-	Day    int    `json:"day"`
-	Month  int    `json:"month"`
-	Year   int    `json:"year"`
+	Hour   int `json:"hour"`
+	Minute int `json:"minute"`
+	Second int `json:"second"`
+	Day    int `json:"day"`
+	Month  int `json:"month"`
+	Year   int `json:"year"`
+	Week   int `json:"week"`
 }

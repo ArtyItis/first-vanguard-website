@@ -1,3 +1,2 @@
 forgottennw.exe
-app/model/db_Secret.go
-template/register.html
+app/model/secrets.go

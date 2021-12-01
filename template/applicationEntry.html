@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>Bewerbung: {{.ApplicationEntry.Character.Name}}</title>
+</head>
+
+<body>
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <div class="row">
+      <!--character-->
+      <div class="col-lg">
+        <!--application status-->
+        <section class="row mb-3">
+          <h4>Bewerbungsstatus</h4>
+          <div class="row">
+            <div class="col-lg-3">
+              <span>beworben am</span>
+            </div>
+            <div class="col">
+              <span>
+                {{.ApplicationEntry.Date.Day}}.{{.ApplicationEntry.Date.Month}}.{{.ApplicationEntry.Date.Year}}</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <span>Status</span>
+            </div>
+            <div class="col">
+              {{if eq .ApplicationEntry.Status "abgelehnt"}}
+              <span class="text-danger fw-bold">{{.ApplicationEntry.Status}}</span>
+              {{else}}
+              <span>{{.ApplicationEntry.Status}}</span>
+              {{end}}
+            </div>
+          </div>
+          <div class="row mt-lg-3">
+            {{if ne .ApplicationEntry.Status "angenommen"}}
+            <div class="col">
+              <button class="btn btn-success" form="accepted">Bewerbung annehmen</button>
+            </div>
+            {{end}}
+            {{if ne .ApplicationEntry.Status "abgelehnt"}}
+            <div class="col">
+              <form action="/applications/{{.ApplicationEntry.Id}}/rejected" method="post" id="rejected"></form>
+              <button class="btn btn-danger" form="rejected">Bewerbung ablehnen</button>
+            </div>
+            {{end}}
+          </div>
+        </section>
+        <!--general information-->
+        <section class="row">
+          <h4 class="">Charakter</h4>
+          <div class="col">
+            <!--name-->
+            <div class="row">
+              <div class="col">
+                <span>Name: </span>
+              </div>
+              <div class="col">
+                <span>{{.ApplicationEntry.Character.Name}}</span>
+              </div>
+            </div>
+            <!--gearscore-->
+            <div class="row">
+              <div class="col">
+                <span>Rüstungsgewicht: </span>
+              </div>
+              <div class="col">
+                <span>{{.ApplicationEntry.Character.Equipment_weight}}</span>
+              </div>
+            </div>
+            <!--armor-weight-->
+            <div class="row">
+              <div class="col">
+                <span>Gearscore: </span>
+              </div>
+              <div class="col">
+                <span>{{.ApplicationEntry.Character.Gearscore}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <!--discord-tag-->
+            <div class="row">
+              <div class="col-lg-4">
+                <span>Discord Tag: </span>
+              </div>
+              <div class="col">
+                <span>{{.ApplicationEntry.Discord_tag}}</span>
+              </div>
+            </div>
+            <form action="/applications/{{.ApplicationEntry.Id}}/accepted" method="post" id="accepted">
+              <!--company-->
+              <div class="row">
+                <div class="col-lg-4">
+                  <span>Kompanie</span>
+                </div>
+                <div class="col">
+                  <select class="form-select form-select-sm" name="company" required>
+                    <option selected disabled hidden value="">Wähle eine Kompanie</option>
+                    <option value="The Forgotten">The Forgotten</option>
+                    <option value="The Forgotten II">The Forgotten II</option>
+                  </select>
+                </div>
+              </div>
+              <!--permission level-->
+              <div class="row">
+                <div class="col-lg-4">
+                  <span>Rang</span>
+                </div>
+                <div class="col">
+                  <select class="form-select form-select-sm" name="permission-level" required>
+                    <option selected disabled hidden value="">Wähle einen Rang</option>
+                    {{if gt .Session.User.Permission_level 0}}<option value="0">Siedler</option>{{end}}
+                    {{if gt .Session.User.Permission_level 200}}<option value="200">Offizier</option>{{end}}
+                    {{if gt .Session.User.Permission_level 400}}<option value="400">Konsul</option>{{end}}
+                    {{if gt .Session.User.Permission_level 600}}<option value="600">Gouverneur</option>{{end}}
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+      <!--attributes & roles-->
+      <div class="col-lg">
+        <!--attributes-->
+        <section class="row">
+          <h5>Attribute</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Stärke</th>
+                <th scope="col">Geschicklichkeit</th>
+                <th scope="col">Intelligenz</th>
+                <th scope="col">Fokus</th>
+                <th scope="col">Konstitution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{.ApplicationEntry.Character.Attributes.Strength}}</td>
+                <td>{{.ApplicationEntry.Character.Attributes.Dexterity}}</td>
+                <td>{{.ApplicationEntry.Character.Attributes.Intelligence}}</td>
+                <td>{{.ApplicationEntry.Character.Attributes.Focus}}</td>
+                <td>{{.ApplicationEntry.Character.Attributes.Constitution}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!--roles-->
+        <section class="row">
+          <h5>Rollen</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                {{range $role := .Roles}}
+                <th scope="col">{{$role.name}}</th>
+                {{end}}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {{$roles := .ApplicationEntry.Character.Roles}}
+                {{range $role := .Roles}}
+                {{if containsRole $role $roles}}
+                <td>X</td>
+                {{else}}
+                <td>-</td>
+                {{end}}
+                {{end}}
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+      <!--weapons-->
+      <section class="row mb-3">
+        <h5>Waffen</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              {{range $weapon := .Weapons}}
+              <th scope="col">{{$weapon.name}}</th>
+              {{end}}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {{$weapons := .ApplicationEntry.Character.Weapons}}
+              {{range $weapon := .Weapons}}
+              {{if containsWeapon $weapon $weapons}}
+              <td>X</td>
+              {{else}}
+              <td>-</td>
+              {{end}}
+              {{end}}
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <!--refining-jobs-->
+      <section class="row mb-3">
+        <h5>Veredelungsberufe</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Schmelzen</th>
+              <th scope="col">Holzverarbeitung</th>
+              <th scope="col">Lederverarbeitung</th>
+              <th scope="col">Weberei</th>
+              <th scope="col">Steinmetzkunst</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{if .ApplicationEntry.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <!--crafting-jobs-->
+      <section class="row mb-3">
+        <h5>Herstellungsberufe</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Waffenschmiedekunst</th>
+              <th scope="col">Rüstungsschmiedekunst</th>
+              <th scope="col">Ingenieurskunst</th>
+              <th scope="col">Juwelenschleiferei</th>
+              <th scope="col">Arkana</th>
+              <th scope="col">Kochkunst</th>
+              <th scope="col">Tischlerei</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
+              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </section>
+  {{template "footer"}}
+</body>

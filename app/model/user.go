@@ -10,13 +10,28 @@ import (
 type User struct {
 	Id               string    `json:"_id"`
 	Rev              string    `json:"_rev"`
-	Username         string    `json:"username"`
+	Discord_tag      string    `json:"discord_tag"`
+	Name             string    `json:"name"`
 	Password         string    `json:"password"`
+	Password_tmp     string    `json:"password_tmp"`
 	Company          string    `json:"company"`
-	Permission_Level int       `json:"permission_level"`
+	Permission_level int       `json:"permission_level"`
 	Character        Character `json:"character"`
 	Date             Date      `json:"date"`
-	Tmp              string    `json:"tmp"`
+	Taxes            Taxes     `json:"taxes"`
+}
+
+type Taxes struct {
+	Previous_week    Tax `json:"previous_week"`
+	Current_week     Tax `json:"current_week"`
+	Next_week        Tax `json:"next_week"`
+	Second_next_week Tax `json:"second_next_week"`
+}
+
+type Tax struct {
+	Week   int  `json:"week"`
+	Amount int  `json:"amount"`
+	Payed  bool `josn:"payed"`
 }
 
 func init() {
@@ -34,7 +49,7 @@ func AddUser(u User) error {
 	if err != nil {
 		log.Println("Error in AddUser: ", err)
 	} else {
-		log.Println("added User")
+		log.Println("added User: " + u.Name)
 	}
 	return err
 }
@@ -55,12 +70,21 @@ func GetUserById(id string) (User, error) {
 }
 
 func GetUserByName(name string) (user User, err error) {
-	users, err := userDB.QueryJSON(`{"selector": {"username": {"$eq": "` + name + `"}}}`)
+	users, err := userDB.QueryJSON(`{"selector": {"name": {"$eq": "` + name + `"}}}`)
 	if err == nil && len(users) > 0 {
 		user := Map2User(users[0])
 		return user, nil
 	} else {
 		return User{}, err
+	}
+}
+
+func GetAllUsers() ([]map[string]interface{}, error) {
+	users, err := userDB.QueryJSON(`{"selector": {"name": {"$ne": "admin"}}}`)
+	if err != nil {
+		return nil, err
+	} else {
+		return users, nil
 	}
 }
 

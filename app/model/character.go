@@ -1,12 +1,15 @@
 package model
 
 type Character struct {
-	Name          string     `json:"name"`
-	Gearscore     int        `json:"gearscore"`
-	Attributes    Attributes `json:"attributes"`
-	Roles         Roles      `json:"roles"`
-	Weapons       Weapons    `json:"weapons"`
-	Old_Companies string     `json:"old_companies"`
+	Name             string       `json:"name"`
+	Gearscore        int          `json:"gearscore"`
+	Equipment_weight string       `json:"equipment_weight"`
+	Attributes       Attributes   `json:"attributes"`
+	Roles            []Role       `json:"roles"`
+	Weapons          []Weapon     `json:"weapons"`
+	Old_company      string       `json:"old_company"`
+	Crafting_jobs    CraftingJobs `json:"crafting_jobs"`
+	Refining_jobs    RefiningJobs `json:"refining_jobs"`
 }
 
 type Attributes struct {
@@ -17,25 +20,19 @@ type Attributes struct {
 	Constitution int `json:"constitution"`
 }
 
-type Roles struct {
-	DD    bool `json:"dd"`
-	Tank  bool `json:"tank"`
-	Heal  bool `json:"heal"`
-	Siege bool `json:"siege"`
+type CraftingJobs struct {
+	Armoring       bool `json:"armoring"`
+	Weaponsmithing bool `json:"weaponsmithing"`
+	Engineering    bool `json:"engineering"`
+	Jewelcrafting  bool `json:"jewelcrafting"`
+	Arcana         bool `json:"arcana"`
+	Cooking        bool `json:"cooking"`
+	Furnishing     bool `json:"furnishing"`
 }
-
-type Weapons struct {
-	Sword         bool `json:"sword"`
-	Shield        bool `json:"shield"`
-	Rapier        bool `json:"rapier"`
-	Hatchet       bool `json:"hatchet"`
-	Spear         bool `json:"spear"`
-	Great_Axe     bool `json:"great_axe"`
-	Warhammer     bool `json:"warhammer"`
-	Bow           bool `json:"bow"`
-	Musket        bool `json:"musket"`
-	Firestaff     bool `json:"firestaff"`
-	Lifestaff     bool `json:"lifestaff"`
-	Ice_Gauntlet  bool `json:"ice_gauntlet"`
-	Void_Gauntlet bool `json:"void_gauntlet"`
+type RefiningJobs struct {
+	Smelting     bool `json:"smelting"`
+	Stonecutting bool `json:"stonecutting"`
+	Tanning      bool `json:"tanning"`
+	Weaving      bool `json:"weaving"`
+	Woodworking  bool `json:"woodworking"`
 }
