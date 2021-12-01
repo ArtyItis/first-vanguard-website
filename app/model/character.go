@@ -3,14 +3,13 @@ package model
 type Character struct {
 	Name             string       `json:"name"`
 	Gearscore        int          `json:"gearscore"`
-	Equipment_Weight int          `json:"equipment_Weight"`
+	Equipment_weight string       `json:"equipment_weight"`
 	Attributes       Attributes   `json:"attributes"`
 	Roles            []Role       `json:"roles"`
 	Weapons          []Weapon     `json:"weapons"`
-	Old_Company      string       `json:"old_company"`
-	Discord_Tag      string       `json:"discord_tag"`
-	CraftingJobs     CraftingJobs `json:"craftingjobs"`
-	RefiningJobs     RefiningJobs `json:"refiningjobs"`
+	Old_company      string       `json:"old_company"`
+	Crafting_jobs    CraftingJobs `json:"crafting_jobs"`
+	Refining_jobs    RefiningJobs `json:"refining_jobs"`
 }
 
 type Attributes struct {
@@ -31,7 +30,7 @@ type CraftingJobs struct {
 	Furnishing     bool `json:"furnishing"`
 }
 type RefiningJobs struct {
-	Smelting     bool `json:"semlting"`
+	Smelting     bool `json:"smelting"`
 	Stonecutting bool `json:"stonecutting"`
 	Tanning      bool `json:"tanning"`
 	Weaving      bool `json:"weaving"`
