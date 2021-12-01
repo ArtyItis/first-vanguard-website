@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>Bewerbungen</title>
+</head>
+
+<body>
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col"> <div>test</div> #</th>
+          <th scope="col">Charaktername</th>
+          <th scope="col">Rollen</th>
+          <th scope="col">Erstelldatum</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $index, $applicationEntry := .ApplicationEntries}}
+        <tr onclick="openApplicationEntry({{$applicationEntry._id}})">
+          <th scope="row">{{add $index 1}}</th>
+          <td>{{$applicationEntry.character.name}}</td>
+          <td>
+            {{range $role := $applicationEntry.character.roles}}
+            {{$role.name}}
+            {{end}}
+          </td>
+          <td>{{$applicationEntry.date.day}}.{{$applicationEntry.date.month}}.{{$applicationEntry.date.year}}</td>
+          <td>{{$applicationEntry.status}}</td>
+          </a>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </section>
+  {{template "footer"}}
+  {{if ge .Session.User.Permission_level 200}}
+  <script src="/static/js/row_link.js"></script>
+  {{end}}
+</body>
