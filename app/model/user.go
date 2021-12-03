@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"log"
+	"time"
 
 	couchdb "github.com/leesper/couchdb-golang"
 )
@@ -31,7 +32,7 @@ type Taxes struct {
 type Tax struct {
 	Week   int  `json:"week"`
 	Amount int  `json:"amount"`
-	Payed  bool `josn:"payed"`
+	Payed  bool `json:"payed"`
 }
 
 func init() {
@@ -98,4 +99,15 @@ func Map2User(user map[string]interface{}) (u User) {
 	jJSON, _ := json.Marshal(user)
 	json.Unmarshal(jJSON, &u)
 	return u
+}
+
+func ShiftTaxes(user User) {
+	user.Taxes.Previous_week = user.Taxes.Current_week
+	user.Taxes.Current_week = user.Taxes.Next_week
+	user.Taxes.Next_week = user.Taxes.Second_next_week
+	_, week := time.Now().ISOWeek()
+	tax := Tax{
+		Week: week + 2,
+	}
+	user.Taxes.Second_next_week = tax
 }
