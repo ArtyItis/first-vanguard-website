@@ -62,7 +62,7 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       $blue !default;
+$primary:       #0f9c36 !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -98,6 +98,10 @@ $spacers: (
   8: $spacer * 6,
 ) !default;
 
+body{
+  background: url("/static/images/background.jpg");
+}
+
 td, th{
   vertical-align: middle;
 }
@@ -105,37 +109,23 @@ td input{
   vertical-align: middle;
   display: inline-block;
 }
-// $body-bg: $dark;
-// $body-color: $white;
 
-// $border-color: $secondary;
-// $dropdown-border-color: $secondary;
-// // modal & offcanvas
-// $modal-content-color:               $white;
-// $modal-content-bg:                  $dark;
+a{
+  text-decoration: none !important;
+}
 
-// // input
-// $input-border-color: $primary;
-// $form-check-input-border: 1px solid $primary;
-// // list-group
-// $list-group-color:                  $white;
-// $list-group-bg:                     $gray-800;
-// $list-group-border-color:           transparent;
-// // navigation
-// nav{
-//     border-bottom: 1px solid $secondary;
-// }
-// // footer
-// footer{
-//   border-top: 1px solid $secondary;
-// }
-// footer a{
-//   color: $white;
-//   text-decoration: none;
-// }
-// // divider
-// .dropdown-divider{
-//     opacity: 1;
-// }
+$body-bg: $dark;
+$body-color: $white;
+// modal & offcanvas
+$modal-content-color: $white;
+$modal-content-bg: $gray-900;
+// accordion
+$accordion-bg: transparent;
+$accordion-button-active-bg: transparent;
+$accordion-border-color: $white;
+// input
+$input-bg: transparent;
+$form-check-input-border: 1px solid $white;
+
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
