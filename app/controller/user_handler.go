@@ -72,7 +72,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	session.Values["userId"] = user.Id
 	session.Save(r, w)
 	log.Println(username + " logged in")
-	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+	http.Redirect(w, r, GetPreviousRoute(r), http.StatusFound)
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
@@ -146,4 +146,58 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	user.Password = b64HashedPwd
 	model.UpdateUser(user)
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+}
+
+func TaxesGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("taxes.html").
+		Funcs(template.FuncMap{"add": Add}).
+		Funcs(template.FuncMap{"minus": Minus}).
+		ParseFiles("template/taxes.html", head, navigation, footer))
+	users, _ := model.GetAllUsers()
+	data := Data{
+		Session: GetSessionInformation(r),
+		Users:   users,
+	}
+	tmpl.Execute(w, data)
+}
+
+func TaxesPOST(w http.ResponseWriter, r *http.Request) {
+	users, _ := model.GetAllUsers()
+	for _, u := range users {
+		user := model.Map2User(u)
+		if pa := ParseInt(r.FormValue(user.Id + "-PA")); pa > 0 {
+			user.Taxes.Previous_week.Amount = pa
+		}
+		if ca := ParseInt(r.FormValue(user.Id + "-CA")); ca > 0 {
+			user.Taxes.Current_week.Amount = ca
+		}
+		if na := ParseInt(r.FormValue(user.Id + "-NA")); na > 0 {
+			user.Taxes.Next_week.Amount = na
+		}
+		if sna := ParseInt(r.FormValue(user.Id + "-SNA")); sna > 0 {
+			user.Taxes.Second_next_week.Amount = sna
+		}
+		if pp := r.FormValue(user.Id + "-PP"); pp == "on" {
+			user.Taxes.Previous_week.Payed = true
+		} else {
+			user.Taxes.Previous_week.Payed = false
+		}
+		if cp := r.FormValue(user.Id + "-CP"); cp == "on" {
+			user.Taxes.Current_week.Payed = true
+		} else {
+			user.Taxes.Current_week.Payed = false
+		}
+		if np := r.FormValue(user.Id + "-NP"); np == "on" {
+			user.Taxes.Next_week.Payed = true
+		} else {
+			user.Taxes.Next_week.Payed = false
+		}
+		if snp := r.FormValue(user.Id + "-SNP"); snp == "on" {
+			user.Taxes.Second_next_week.Payed = true
+		} else {
+			user.Taxes.Second_next_week.Payed = false
+		}
+		model.UpdateUser(user)
+	}
+	http.Redirect(w, r, "/members/taxes", http.StatusFound)
 }
