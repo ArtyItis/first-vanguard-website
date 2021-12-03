@@ -45,6 +45,8 @@ func ConvertPermissionLevelUser(user model.User) string {
 		return "Offizier"
 	case 400:
 		return "Konsul"
+	case 450:
+		return "Konsul/Inkasso"
 	case 600:
 		return "Gouverneur"
 	case 1000:
