@@ -36,7 +36,7 @@
                 <form action="/members/taxes" method="post" id="taxesForm">
                     {{end}}
                     {{range $index, $user := .Users}}
-                    <tr onclick="openUser({{$user._id}})">
+                    <tr>
                         <th scope="row">{{add $index 1}}</th>
                         <td>{{$user.character.name}}</td>
                         <!-- KW -1 -->
@@ -77,12 +77,12 @@
                         </td>
                     </tr>
                     {{end}}
-                    {{if gt .Session.User.Permission_level 450}}
+                    {{if gt .Session.User.Permission_level 400}}
                 </form>
                 {{end}}
             </tbody>
         </table>
-        {{if gt .Session.User.Permission_level 450}}
+        {{if gt .Session.User.Permission_level 400}}
         <button type="submit" form="taxesForm" class="btn btn-success">Änderungen speichern</button>
         {{end}}
     </section>
