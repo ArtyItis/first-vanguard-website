@@ -1,4 +1,4 @@
-function openApplicationEntry(id) {
+function openApplication(id) {
     window.location.replace("/applications/"+id)
 }
 
