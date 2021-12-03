@@ -8,6 +8,10 @@ func Add(x, y int) int {
 	return x + y
 }
 
+func Minus(x, y int) int {
+	return x - y
+}
+
 func ContainsWeapon(w map[string]interface{}, weapons []model.Weapon) bool {
 	weapon := model.Map2Weapon(w)
 	for _, w := range weapons {
