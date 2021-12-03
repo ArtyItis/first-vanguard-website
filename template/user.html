@@ -9,9 +9,9 @@
 <body>
     {{template "navigation" .}}
     <section class="container mt-3 mt-lg-8" id="content">
-        <div class="row">
+        <div class="row mb-3">
             <!--character-->
-            <div class="col-lg-6 mb-3 ps-0">
+            <div class="col-lg-6  ps-0">
                 <!--general information-->
                 <section class="row">
                     <h4 class="">{{.User.Character.Name}}</h4>
@@ -77,16 +77,29 @@
                     </div>
                 </section>
             </div>
+            <div class="col-lg-3 my-auto">
+                <div class="row mb-2">
+                    <a href="/members" class="btn btn-secondary btn-sm">
+                        <img src="/static/icons/arrow-left.svg" alt="" srcset=""> Zurück zur Mitgliederliste
+                    </a>
+                </div>
+                <!-- <div class="row">
+                    <a href="/members/{{.User.Id}}/edit" class="btn btn-primary btn-sm col me-1">Profil bearbeiten</a>
+                    <a href="/members/{{.User.Id}}/delete" class="btn btn-danger btn-sm col ms-1">Profil löschen</a>
+                </div> -->
+            </div>
             {{if ge .Session.User.Permission_level 200}}
             {{if .User.Password_tmp}}
-            <div class="col pe-0">
-                <a class="btn btn-danger mb-2" data-bs-toggle="collapse" href="#collapseExample" role="button"
-                    aria-expanded="false" aria-controls="collapseExample">
-                    temporäres Passwort anzeigen
-                </a>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        {{.User.Password_tmp}}
+            <div class="col pe-0 d-flex align-items-center">
+                <div>
+                    <a class="btn btn-danger btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        temporäres Passwort anzeigen
+                    </a>
+                    <div class="collapse mt-2" id="collapseExample">
+                        <div class="card card-body">
+                            {{.User.Password_tmp}}
+                        </div>
                     </div>
                 </div>
             </div>
