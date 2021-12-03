@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>Steuern</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container mt-3 mt-lg-8" id="content">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th colspan="2">KW {{.Session.User.Taxes.Previous_week.Week}}</th>
+                    <th colspan="2">KW {{.Session.User.Taxes.Current_week.Week}}</th>
+                    <th colspan="2">KW {{.Session.User.Taxes.Next_week.Week}}</th>
+                    <th colspan="2">KW {{.Session.User.Taxes.Second_next_week.Week}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Charaktername</th>
+                    <th scope="col">bezahlt</th>
+                    <th scope="col">eingezahlt</th>
+                    <th scope="col">bezahlt</th>
+                    <th scope="col">eingezahlt</th>
+                    <th scope="col">bezahlt</th>
+                    <th scope="col">eingezahlt</th>
+                    <th scope="col">bezahlt</th>
+                    <th scope="col">eingezahlt</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{if gt .Session.User.Permission_level 400}}
+                <form action="/members/taxes" method="post" id="taxesForm">
+                    {{end}}
+                    {{range $index, $user := .Users}}
+                    <tr onclick="openUser({{$user._id}})">
+                        <th scope="row">{{add $index 1}}</th>
+                        <td>{{$user.character.name}}</td>
+                        <!-- KW -1 -->
+                        <td>
+                            <input class="form-control-plaintext p-0" type="text" name="{{$user._id}}-PA"
+                                placeholder="{{$user.taxes.previous_week.amount}}">
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="{{$user._id}}-PP" {{if
+                                $user.taxes.previous_week.payed}}checked{{end}}>
+                        </td>
+                        <!-- KW 0 -->
+                        <td>
+                            <input class="form-control-plaintext" type="text" name="{{$user._id}}-CA"
+                                placeholder="{{$user.taxes.current_week.amount}}">
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="{{$user._id}}-CP" {{if
+                                $user.taxes.current_week.payed}}checked{{end}}>
+                        </td>
+                        <!-- KW 1 -->
+                        <td>
+                            <input class="form-control-plaintext" type="text" name="{{$user._id}}-NA"
+                                placeholder="{{$user.taxes.next_week.amount}}">
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="{{$user._id}}-NP" {{if
+                                $user.taxes.next_week.payed}}checked{{end}}>
+                        </td>
+                        <!-- KW 2 -->
+                        <td>
+                            <input class="form-control-plaintext" type="text" name="{{$user._id}}-SNA"
+                                placeholder="{{$user.taxes.second_next_week.amount}}">
+                        </td>
+                        <td>
+                            <input class="form-check-input" type="checkbox" name="{{$user._id}}-SNP" {{if
+                                $user.taxes.second_next_week.payed}}checked{{end}}>
+                        </td>
+                    </tr>
+                    {{end}}
+                    {{if gt .Session.User.Permission_level 450}}
+                </form>
+                {{end}}
+            </tbody>
+        </table>
+        {{if gt .Session.User.Permission_level 450}}
+        <button type="submit" form="taxesForm" class="btn btn-success">Änderungen speichern</button>
+        {{end}}
+    </section>
+    {{template "footer"}}
+</body>
