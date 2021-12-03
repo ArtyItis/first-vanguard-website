@@ -98,6 +98,13 @@ $spacers: (
   8: $spacer * 6,
 ) !default;
 
+td, th{
+  vertical-align: middle;
+}
+td input{
+  vertical-align: middle;
+  display: inline-block;
+}
 // $body-bg: $dark;
 // $body-color: $white;
 
