@@ -20,13 +20,13 @@ var (
 )
 
 type Data struct {
-	Session            Session
-	ApplicationEntries []map[string]interface{}
-	Roles              []map[string]interface{}
-	Weapons            []map[string]interface{}
-	Users              []map[string]interface{}
-	User               model.User
-	ApplicationEntry   model.ApplicationEntry
+	Session      Session
+	Applications []map[string]interface{}
+	Roles        []map[string]interface{}
+	Weapons      []map[string]interface{}
+	Users        []map[string]interface{}
+	User         model.User
+	Application  model.Application
 }
 
 type Session struct {
@@ -45,7 +45,7 @@ func Authenticate(h http.HandlerFunc) http.HandlerFunc {
 		session, _ := store.Get(r, "session")
 		//Check if user is authentificated
 		if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-			http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+			http.Redirect(w, r, "/?loginError=notLoggedIn", http.StatusFound)
 		} else {
 			h(w, r)
 		}
