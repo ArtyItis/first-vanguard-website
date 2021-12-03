@@ -1,18 +1,18 @@
 {{define "navigation"}}
-<nav class="navbar navbar-light">
+<nav class="navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand me-0" href="/">
-            <img src="/static/logo/logo.png" alt="" height="50rem">
+            <img src="/static/logo/company_logo.png" alt="" height="50rem">
         </a>
-        <h4 class="navbar-text fw-bolder align-self-center">The Forgotten</h4>
+        <h4 class="navbar-text fw-bolder align-self-center text-white">The Forgotten</h4>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+        <div class="offcanvas offcanvas-start bg-transparent" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menü</h5>
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                     aria-label="Close"></button>
             </div>
@@ -26,13 +26,10 @@
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about_us">Über uns</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/applications">Bewerbungen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/applications/new">Bewerb dich!</a>
+                        <a class="nav-link" href="/applications/new">Bewirb dich!</a>
                     </li>
                     <li class="nav-item">
                         <hr class="dropdown-divider">
@@ -91,7 +88,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" form="login" class="btn btn-secondary">Login</button>
+                <button type="submit" form="login" class="btn btn-outline-primary">Login</button>
             </div>
         </div>
     </div>
