@@ -3,6 +3,7 @@ module forgottennw
 go 1.16
 
 require (
+	github.com/go-co-op/gocron v1.10.0 // indirect
 	// github.com/chanioxaris/go-recaptcha v0.0.0-20200928180903-dd2bdcfb0631
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/sessions v1.2.1
