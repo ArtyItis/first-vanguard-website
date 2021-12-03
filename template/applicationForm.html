@@ -28,17 +28,19 @@
                 </div>
                 <!--discord-tag-->
                 <div class="col">
-                  <input type="text" class="form-control" name="discord-tag" placeholder="Discord-Tag" data-bs-toggle="tooltip" title="wird gebraucht um dich außerhalb des Spiels erreichen zu können">
+                  <input type="text" class="form-control" name="discord-tag" placeholder="Discord-Tag"
+                    data-bs-toggle="tooltip" title="wird gebraucht um dich außerhalb des Spiels erreichen zu können">
                 </div>
               </div>
               <div class="row">
                 <!--gearscore-->
                 <div class="col">
-                  <input type="text" class="form-control" name="gearscore" placeholder="Durchschnittlicher Gearscore" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
+                  <input type="text" class="form-control" name="gearscore" placeholder="Durchschnittlicher Gearscore"
+                    data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
                 </div>
                 <!--armor weight-->
                 <div class="col">
-                  <select class="form-select" name="armor-weight">
+                  <select class="form-select btn-outline-light" name="armor-weight">
                     <option value="">Ausrüstungsgewicht</option>
                     <option value="Leicht">Leicht</option>
                     <option value="Medium">Medium</option>
@@ -55,11 +57,16 @@
                   Pflichtfelder!</span>
               </div>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Stärke" name="strength" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
-                <input type="text" class="form-control" placeholder="Geschick" name="dexterity" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
-                <input type="text" class="form-control" placeholder="Intelligenz" name="intelligence" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
-                <input type="text" class="form-control" placeholder="Fokus" name="focus" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
-                <input type="text" class="form-control" placeholder="Konstitution" name="constitution" data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
+                <input type="text" class="form-control" placeholder="Stärke" name="strength" data-bs-toggle="tooltip"
+                  title="es werden nur Zahlen akzeptiert">
+                <input type="text" class="form-control" placeholder="Geschick" name="dexterity" data-bs-toggle="tooltip"
+                  title="es werden nur Zahlen akzeptiert">
+                <input type="text" class="form-control" placeholder="Intelligenz" name="intelligence"
+                  data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
+                <input type="text" class="form-control" placeholder="Fokus" name="focus" data-bs-toggle="tooltip"
+                  title="es werden nur Zahlen akzeptiert">
+                <input type="text" class="form-control" placeholder="Konstitution" name="constitution"
+                  data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
               </div>
             </section>
             <!--roles-->
@@ -73,7 +80,8 @@
                 {{range $index,$role := .Roles}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="roles" value="{{$role._id}}" id="{{$role._id}}">
-                  <label class="btn btn-primary" for="{{$role._id}}" data-bs-toggle="tooltip" title="{{$role.description}}">{{$role.name}}</label>
+                  <label class="btn btn-outline-primary" for="{{$role._id}}" data-bs-toggle="tooltip"
+                    title="{{$role.description}}">{{$role.name}}</label>
                 </div>
                 {{end}}
               </div>
@@ -91,7 +99,7 @@
                 {{if eq $weapon.type "einhand"}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}" id="{{$weapon._id}}">
-                  <label class="btn btn-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                  <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
                 </div>
                 {{end}}
                 {{end}}
@@ -102,7 +110,7 @@
                 {{if eq $weapon.type "zweihand"}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}" id="{{$weapon._id}}">
-                  <label class="btn btn-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                  <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
                 </div>
                 {{end}}
                 {{end}}
@@ -113,7 +121,7 @@
                 {{if eq $weapon.type "fernkampf"}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}" id="{{$weapon._id}}">
-                  <label class="btn btn-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                  <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
                 </div>
                 {{end}}
                 {{end}}
@@ -124,7 +132,7 @@
                 {{if eq $weapon.type "magisch"}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}" id="{{$weapon._id}}">
-                  <label class="btn btn-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                  <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
                 </div>
                 {{end}}
                 {{end}}
@@ -230,34 +238,34 @@
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="weaponsmithing"
                     id="weaponsmithing">
-                  <label class="btn btn-primary" for="weaponsmithing">Waffenschmied</label>
+                  <label class="btn btn-outline-primary" for="weaponsmithing">Waffenschmied</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="armoring" id="armoring">
-                  <label class="btn btn-primary" for="armoring">Rüstungsschmied</label>
+                  <label class="btn btn-outline-primary" for="armoring">Rüstungsschmied</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="engineering" id="engineering">
-                  <label class="btn btn-primary" for="engineering">Ingenieur</label>
+                  <label class="btn btn-outline-primary" for="engineering">Ingenieur</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="jewelcrafting"
                     id="jewelcrafting">
-                  <label class="btn btn-primary" for="jewelcrafting">Juwelier</label>
+                  <label class="btn btn-outline-primary" for="jewelcrafting">Juwelier</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="arcana" id="arcana">
-                  <label class="btn btn-primary" for="arcana">Arkanist</label>
+                  <label class="btn btn-outline-primary" for="arcana">Arkanist</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="cooking" id="cooking">
-                  <label class="btn btn-primary" for="cooking">Koch</label>
+                  <label class="btn btn-outline-primary" for="cooking">Koch</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="crafting-jobs" value="furnishing" id="furnishing">
-                  <label class="btn btn-primary" for="furnishing">Tischler</label>
+                  <label class="btn btn-outline-primary" for="furnishing">Tischler</label>
                 </div>
               </div>
             </div>
@@ -269,26 +277,26 @@
               <div class="row mb-1">
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="refining-jobs" value="smelting" id="smelting">
-                  <label class="btn btn-primary" for="smelting">Schmelzen</label>
+                  <label class="btn btn-outline-primary" for="smelting">Schmelzen</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="refining-jobs" value="stonecutting" id="stonecutting">
-                  <label class="btn btn-primary" for="stonecutting">Steinmetzkunst</label>
+                  <label class="btn btn-outline-primary" for="stonecutting">Steinmetzkunst</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="refining-jobs" value="leatherworking"
                     id="leatherworking">
-                  <label class="btn btn-primary" for="leatherworking">Lederverarbeitung</label>
+                  <label class="btn btn-outline-primary" for="leatherworking">Lederverarbeitung</label>
                 </div>
               </div>
               <div class="row">
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="refining-jobs" value="weaving" id="weaving">
-                  <label class="btn btn-primary" for="weaving">Weberei</label>
+                  <label class="btn btn-outline-primary" for="weaving">Weberei</label>
                 </div>
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="refining-jobs" value="woodworking" id="woodworking">
-                  <label class="btn btn-primary" for="woodworking">Holzverarbeitung</label>
+                  <label class="btn btn-outline-primary" for="woodworking">Holzverarbeitung</label>
                 </div>
               </div>
             </div>

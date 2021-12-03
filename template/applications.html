@@ -9,6 +9,7 @@
 <body>
   {{template "navigation" .}}
   <section class="container mt-3 mt-lg-8" id="content">
+    {{if .Applications}}
     <table class="table table-hover">
       <thead>
         <tr>
@@ -35,6 +36,9 @@
         {{end}}
       </tbody>
     </table>
+    {{else}}
+    <p>Es gibt aktuell keine offenen Bewerbungen</p>
+    {{end}}
   </section>
   {{template "footer"}}
   {{if ge .Session.User.Permission_level 200}}
