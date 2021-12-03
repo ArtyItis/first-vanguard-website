@@ -8,16 +8,15 @@ function loginError() {
     if (loginError != null) {
         var loginModal = document.getElementById("loginModal");
         var modal = bootstrap.Modal.getOrCreateInstance(loginModal)
-        modal.show();
         var loginModalLabel = document.getElementById("loginModalLabel");
-        var msg;
         if (loginError == "password") {
-            msg = "Passwort wurde falsch eingegeben";
+            loginModalLabel.classList.add("text-danger");
+            loginModalLabel.innerHTML = "Passwort wurde falsch eingegeben";
         } else if (loginError == "username") {
-            msg = "username ist falsch";
+            loginModalLabel.classList.add("text-danger");
+            loginModalLabel.innerHTML = "username ist falsch";
         }
-        loginModalLabel.innerHTML = msg;
-        loginModalLabel.classList.add("text-danger");
+        modal.show();
     }
 }
 
@@ -42,7 +41,7 @@ function applicationSuccess() {
     var applicationSuccess = url.searchParams.get("application");
     if (applicationSuccess == "success") {
         var myToastEl = document.getElementById('applicationSuccessToast')
-    var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
-    myToast.show();
+        var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl)
+        myToast.show();
     }
 }
