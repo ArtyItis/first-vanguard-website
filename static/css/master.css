@@ -1,5 +1,8 @@
 body {
   background: url("/static/images/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 td, th {
@@ -13,6 +16,10 @@ td input {
 
 a {
   text-decoration: none !important;
+}
+
+.nav-link {
+  color: #fff !important;
 }
 
 /*!
@@ -6520,7 +6527,7 @@ fieldset:disabled .btn {
 }
 
 .modal-backdrop.show {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .modal-header {
@@ -7379,7 +7386,7 @@ fieldset:disabled .btn {
 }
 
 .offcanvas-backdrop.show {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 .offcanvas-header {

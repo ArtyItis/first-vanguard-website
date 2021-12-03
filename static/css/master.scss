@@ -100,11 +100,15 @@ $spacers: (
 
 body{
   background: url("/static/images/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center; 
 }
 
 td, th{
   vertical-align: middle;
 }
+
 td input{
   vertical-align: middle;
   display: inline-block;
@@ -114,11 +118,16 @@ a{
   text-decoration: none !important;
 }
 
+.nav-link{
+  color: $white !important;
+}
+
 $body-bg: $dark;
 $body-color: $white;
 // modal & offcanvas
 $modal-content-color: $white;
 $modal-content-bg: $gray-900;
+$modal-backdrop-opacity: .75;
 // accordion
 $accordion-bg: transparent;
 $accordion-button-active-bg: transparent;
