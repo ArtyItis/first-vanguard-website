@@ -3,7 +3,7 @@
 
 <head>
   {{template "head"}}
-  <title>Bewerbung: {{.ApplicationEntry.Character.Name}}</title>
+  <title>Bewerbung: {{.Application.Character.Name}}</title>
 </head>
 
 <body>
@@ -21,7 +21,7 @@
             </div>
             <div class="col">
               <span>
-                {{.ApplicationEntry.Date.Day}}.{{.ApplicationEntry.Date.Month}}.{{.ApplicationEntry.Date.Year}}</span>
+                {{.Application.Date.Day}}.{{.Application.Date.Month}}.{{.Application.Date.Year}}</span>
             </div>
           </div>
           <div class="row">
@@ -29,22 +29,22 @@
               <span>Status</span>
             </div>
             <div class="col">
-              {{if eq .ApplicationEntry.Status "abgelehnt"}}
-              <span class="text-danger fw-bold">{{.ApplicationEntry.Status}}</span>
+              {{if eq .Application.Status "abgelehnt"}}
+              <span class="text-danger fw-bold">{{.Application.Status}}</span>
               {{else}}
-              <span>{{.ApplicationEntry.Status}}</span>
+              <span>{{.Application.Status}}</span>
               {{end}}
             </div>
           </div>
           <div class="row mt-lg-3">
-            {{if ne .ApplicationEntry.Status "angenommen"}}
+            {{if ne .Application.Status "angenommen"}}
             <div class="col">
               <button class="btn btn-success" form="accepted">Bewerbung annehmen</button>
             </div>
             {{end}}
-            {{if ne .ApplicationEntry.Status "abgelehnt"}}
+            {{if ne .Application.Status "abgelehnt"}}
             <div class="col">
-              <form action="/applications/{{.ApplicationEntry.Id}}/rejected" method="post" id="rejected"></form>
+              <form action="/applications/{{.Application.Id}}/rejected" method="post" id="rejected"></form>
               <button class="btn btn-danger" form="rejected">Bewerbung ablehnen</button>
             </div>
             {{end}}
@@ -60,7 +60,7 @@
                 <span>Name: </span>
               </div>
               <div class="col">
-                <span>{{.ApplicationEntry.Character.Name}}</span>
+                <span>{{.Application.Character.Name}}</span>
               </div>
             </div>
             <!--gearscore-->
@@ -69,7 +69,7 @@
                 <span>Rüstungsgewicht: </span>
               </div>
               <div class="col">
-                <span>{{.ApplicationEntry.Character.Equipment_weight}}</span>
+                <span>{{.Application.Character.Equipment_weight}}</span>
               </div>
             </div>
             <!--armor-weight-->
@@ -78,7 +78,7 @@
                 <span>Gearscore: </span>
               </div>
               <div class="col">
-                <span>{{.ApplicationEntry.Character.Gearscore}}</span>
+                <span>{{.Application.Character.Gearscore}}</span>
               </div>
             </div>
           </div>
@@ -89,10 +89,10 @@
                 <span>Discord Tag: </span>
               </div>
               <div class="col">
-                <span>{{.ApplicationEntry.Discord_tag}}</span>
+                <span>{{.Application.Discord_tag}}</span>
               </div>
             </div>
-            <form action="/applications/{{.ApplicationEntry.Id}}/accepted" method="post" id="accepted">
+            <form action="/applications/{{.Application.Id}}/accepted" method="post" id="accepted">
               <!--company-->
               <div class="row">
                 <div class="col-lg-4">
@@ -142,11 +142,11 @@
             </thead>
             <tbody>
               <tr>
-                <td>{{.ApplicationEntry.Character.Attributes.Strength}}</td>
-                <td>{{.ApplicationEntry.Character.Attributes.Dexterity}}</td>
-                <td>{{.ApplicationEntry.Character.Attributes.Intelligence}}</td>
-                <td>{{.ApplicationEntry.Character.Attributes.Focus}}</td>
-                <td>{{.ApplicationEntry.Character.Attributes.Constitution}}</td>
+                <td>{{.Application.Character.Attributes.Strength}}</td>
+                <td>{{.Application.Character.Attributes.Dexterity}}</td>
+                <td>{{.Application.Character.Attributes.Intelligence}}</td>
+                <td>{{.Application.Character.Attributes.Focus}}</td>
+                <td>{{.Application.Character.Attributes.Constitution}}</td>
               </tr>
             </tbody>
           </table>
@@ -165,7 +165,7 @@
             </thead>
             <tbody>
               <tr>
-                {{$roles := .ApplicationEntry.Character.Roles}}
+                {{$roles := .Application.Character.Roles}}
                 {{range $role := .Roles}}
                 {{if containsRole $role $roles}}
                 <td>X</td>
@@ -191,7 +191,7 @@
           </thead>
           <tbody>
             <tr>
-              {{$weapons := .ApplicationEntry.Character.Weapons}}
+              {{$weapons := .Application.Character.Weapons}}
               {{range $weapon := .Weapons}}
               {{if containsWeapon $weapon $weapons}}
               <td>X</td>
@@ -218,11 +218,11 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{if .ApplicationEntry.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
             </tr>
           </tbody>
         </table>
@@ -244,13 +244,13 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
-              <td>{{if .ApplicationEntry.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
+              <td>{{if .Application.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
             </tr>
           </tbody>
         </table>
