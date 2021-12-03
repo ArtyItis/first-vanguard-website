@@ -37,12 +37,16 @@
                     <li class="nav-item">
                         <hr class="dropdown-divider">
                     </li>
+                    <!-- Logged in area start -->
                     {{if .Session.LoggedIn}}
                     <li class="nav-item">
                         <a class="nav-link" href="/members/{{.Session.User.Id}}">Profil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members">Mitgliederliste</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/members/taxes">Steuerliste</a>
                     </li>
                     <li class="nav-item">
                         <hr class="dropdown-divider">
@@ -53,6 +57,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
+                    <!-- Logged in area start -->
                     {{else}}
                     <li class="nav-item">
                         <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
@@ -82,12 +87,7 @@
                         <label class="form-label">Passwort</label>
                         <input type="password" class="form-control" name="password" aria-describedby="passwordHelper"
                             required>
-                        <!-- <div id="passwordHelper" class="form-text">Webseiten-passwort NICHT ingame-passwort</div> -->
                     </div>
-                    <!-- <div class="mb-3 form-check">
-                                            <input type="checkbox" class="form-check-input" id="save_login" name="save_login">
-                                            <label class="form-check-label" for="save_login">Login speichern</label>
-                                        </div> -->
                 </form>
             </div>
             <div class="modal-footer">
