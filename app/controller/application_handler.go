@@ -116,14 +116,14 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 		Refining_jobs:    refiningJobs,
 	}
 
-	applicationEntry := model.ApplicationEntry{
+	application := model.Application{
 		Character:   character,
 		Status:      "offen",
 		Date:        GetCurrentDate(),
 		Discord_tag: r.FormValue("discord-tag"),
 	}
 
-	err := model.AddApplicationEntry(applicationEntry)
+	err := model.AddApplication(application)
 	if err != nil {
 		http.Redirect(w, r, r.Header.Get("Referer")+"?application=failed", http.StatusFound)
 	} else {
@@ -133,35 +133,35 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 
 func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("applications.html").Funcs(template.FuncMap{"add": Add}).ParseFiles("template/applications.html", head, navigation, footer))
-	applicationEntries, _ := model.GetAllApplicationEntriesOpen()
+	applications, _ := model.GetAllApplicationsOpen()
 	data := Data{
-		Session:            GetSessionInformation(r),
-		ApplicationEntries: applicationEntries,
+		Session:      GetSessionInformation(r),
+		Applications: applications,
 	}
 	tmpl.Execute(w, data)
 }
 
-func ApplicationEntryGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("applicationEntry.html").
+func ApplicationGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("application.html").
 		Funcs(template.FuncMap{"containsWeapon": ContainsWeapon}).
 		Funcs(template.FuncMap{"containsRole": ContainsRole}).
-		ParseFiles("template/applicationEntry.html", head, navigation, footer))
-	applicationEntryId := mux.Vars(r)["id"]
-	applicationEntry, _ := model.GetApplicationEntryById(applicationEntryId)
+		ParseFiles("template/application.html", head, navigation, footer))
+	applicationId := mux.Vars(r)["id"]
+	application, _ := model.GetApplicationById(applicationId)
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
 	data := Data{
-		Session:          GetSessionInformation(r),
-		ApplicationEntry: applicationEntry,
-		Weapons:          weapons,
-		Roles:            roles,
+		Session:     GetSessionInformation(r),
+		Application: application,
+		Weapons:     weapons,
+		Roles:       roles,
 	}
 	tmpl.Execute(w, data)
 }
 
-func ApplicationEntryAcceptedPOST(w http.ResponseWriter, r *http.Request) {
-	applicationEntry, _ := model.GetApplicationEntryById(mux.Vars(r)["id"])
-	applicationEntry.Status = "angenommen"
+func ApplicationAcceptedPOST(w http.ResponseWriter, r *http.Request) {
+	application, _ := model.GetApplicationById(mux.Vars(r)["id"])
+	application.Status = "angenommen"
 	company := r.FormValue("company")
 	permissionLevel := r.FormValue("permission-level")
 	//create temporary password
@@ -169,17 +169,25 @@ func ApplicationEntryAcceptedPOST(w http.ResponseWriter, r *http.Request) {
 	hashedPwd, _ := bcrypt.GenerateFromPassword([]byte(password), 14)
 	b64HashedPwd := base64.StdEncoding.EncodeToString(hashedPwd)
 
+	_, week := time.Now().ISOWeek()
+	taxes := model.Taxes{}
+	taxes.Previous_week.Week = week - 1
+	taxes.Current_week.Week = week
+	taxes.Next_week.Week = week + 1
+	taxes.Second_next_week.Week = week + 2
+
 	user := model.User{
-		Name:             strings.ToLower(strings.ReplaceAll(applicationEntry.Character.Name, " ", "")),
-		Discord_tag:      applicationEntry.Discord_tag,
+		Name:             strings.ToLower(strings.ReplaceAll(application.Character.Name, " ", "")),
+		Discord_tag:      application.Discord_tag,
 		Password_tmp:     password,
 		Password:         b64HashedPwd,
 		Company:          company,
 		Permission_level: ParseInt(permissionLevel),
-		Character:        applicationEntry.Character,
+		Character:        application.Character,
 		Date:             GetCurrentDate(),
+		Taxes:            taxes,
 	}
-	model.UpdateApplicationEntry(applicationEntry)
+	model.UpdateApplication(application)
 	err := model.AddUser(user)
 	if err != nil {
 		http.Redirect(w, r, GetPreviousRoute(r), http.StatusFound)
@@ -188,9 +196,9 @@ func ApplicationEntryAcceptedPOST(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ApplicationEntryRejectedPOST(w http.ResponseWriter, r *http.Request) {
-	applicationEntry, _ := model.GetApplicationEntryById(mux.Vars(r)["id"])
-	applicationEntry.Status = "abgelehnt"
-	model.UpdateApplicationEntry(applicationEntry)
+func ApplicationRejectedPOST(w http.ResponseWriter, r *http.Request) {
+	application, _ := model.GetApplicationById(mux.Vars(r)["id"])
+	application.Status = "abgelehnt"
+	model.UpdateApplication(application)
 	http.Redirect(w, r, "/applications", http.StatusFound)
 }

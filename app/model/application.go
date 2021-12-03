@@ -7,7 +7,7 @@ import (
 	couchdb "github.com/leesper/couchdb-golang"
 )
 
-type ApplicationEntry struct {
+type Application struct {
 	Id          string    `json:"_id"`
 	Rev         string    `json:"_rev"`
 	Status      string    `json:"status"`
@@ -23,11 +23,11 @@ func init() {
 	}
 }
 
-func AddApplicationEntry(r ApplicationEntry) error {
-	applicationEntry := ApplicationEntry2Map(r)
-	delete(applicationEntry, "_id")
-	delete(applicationEntry, "_rev")
-	_, _, err := applicationDB.Save(applicationEntry, nil)
+func AddApplication(r Application) error {
+	application := Application2Map(r)
+	delete(application, "_id")
+	delete(application, "_rev")
+	_, _, err := applicationDB.Save(application, nil)
 	if err != nil {
 		log.Println("Error in AddApplication_Entry: ", err)
 	} else {
@@ -36,47 +36,47 @@ func AddApplicationEntry(r ApplicationEntry) error {
 	return err
 }
 
-func UpdateApplicationEntry(applicationEntry ApplicationEntry) {
-	r := ApplicationEntry2Map(applicationEntry)
-	applicationDB.Set(applicationEntry.Id, r)
-	log.Println("updated " + applicationEntry.Character.Name + "'s application entry")
+func UpdateApplication(application Application) {
+	r := Application2Map(application)
+	applicationDB.Set(application.Id, r)
+	log.Println("updated " + application.Character.Name + "'s application entry")
 }
 
-func GetApplicationEntryById(id string) (ApplicationEntry, error) {
-	applicationEntry, err := applicationDB.Get(id, nil)
+func GetApplicationById(id string) (Application, error) {
+	application, err := applicationDB.Get(id, nil)
 	if err != nil {
-		return ApplicationEntry{}, err
+		return Application{}, err
 	} else {
-		return Map2ApplicationEntry(applicationEntry), nil
+		return Map2Application(application), nil
 	}
 }
 
-func GetAllApplicationEntries() ([]map[string]interface{}, error) {
-	applicationEntries, err := applicationDB.QueryJSON(`{"selector": {"_id": {"$ne": ""}}}`)
-	if err != nil {
-		return nil, err
-	} else {
-		return applicationEntries, nil
-	}
-}
-
-func GetAllApplicationEntriesOpen() ([]map[string]interface{}, error) {
-	applicationEntries, err := applicationDB.QueryJSON(`{"selector": {"status": {"$ne": "angenommen"}}}`)
+func GetAllApplications() ([]map[string]interface{}, error) {
+	applications, err := applicationDB.QueryJSON(`{"selector": {"_id": {"$ne": ""}}}`)
 	if err != nil {
 		return nil, err
 	} else {
-		return applicationEntries, nil
+		return applications, nil
 	}
 }
 
-func ApplicationEntry2Map(r ApplicationEntry) (applicationEntry map[string]interface{}) {
+func GetAllApplicationsOpen() ([]map[string]interface{}, error) {
+	applications, err := applicationDB.QueryJSON(`{"selector": {"status": {"$ne": "angenommen"}}}`)
+	if err != nil {
+		return nil, err
+	} else {
+		return applications, nil
+	}
+}
+
+func Application2Map(r Application) (application map[string]interface{}) {
 	jJSON, _ := json.Marshal(r)
-	json.Unmarshal(jJSON, &applicationEntry)
-	return applicationEntry
+	json.Unmarshal(jJSON, &application)
+	return application
 }
 
-func Map2ApplicationEntry(applicationEntry map[string]interface{}) (r ApplicationEntry) {
-	jJSON, _ := json.Marshal(applicationEntry)
+func Map2Application(application map[string]interface{}) (r Application) {
+	jJSON, _ := json.Marshal(application)
 	json.Unmarshal(jJSON, &r)
 	return r
 }
