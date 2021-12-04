@@ -61,6 +61,13 @@ func UpdateUser(user User) {
 	log.Println("updated " + user.Character.Name)
 }
 
+func DeleteUser(user User) {
+	err := userDB.Delete(user.Id)
+	if err != nil {
+		log.Println("Error in DeleteUser", err)
+	}
+}
+
 func GetUserById(id string) (User, error) {
 	user, err := userDB.Get(id, nil)
 	if err != nil {
