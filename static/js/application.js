@@ -50,7 +50,8 @@ function validateGeneralInformation() {
     var discordTag = document.getElementsByName("discord-tag")[0];
     var armorWeight = document.getElementsByName("armor-weight")[0];
     var vC = charactername.value != "";
-    var vG = containsNumber("gearscore");
+    console.log(document.getElementsByName("gearscore")[0].value);
+    var vG = containsNumber("gearscore") && (document.getElementsByName("gearscore")[0].value >= 0 && document.getElementsByName("gearscore")[0].value <= 600);
     var vW = armorWeight.value != "";
     var vD = discordTag.value.includes("#");
 
@@ -66,13 +67,25 @@ function validateGeneralInformation() {
 }
 
 function validateAttributes() {
-    var strength = containsNumber("strength")
-    var dexterity = containsNumber("dexterity");
-    var intelligence = containsNumber("intelligence");
-    var focus = containsNumber("focus");
-    var constitution = containsNumber("constitution");
+    var vS = containsNumber("strength")
+    var vD = containsNumber("dexterity");
+    var vI = containsNumber("intelligence");
+    var vF = containsNumber("focus");
+    var vC = containsNumber("constitution");
     var invalid = document.getElementById("attributes-invalid");
-    if (strength && dexterity && intelligence && focus && constitution) {
+    var result = false;
+    if (vS && vD && vI && vF && vC) {
+        var strength = document.getElementsByName("strength")[0].value;
+        var dexterity = document.getElementsByName("dexterity")[0].value;
+        var intelligence = document.getElementsByName("intelligence")[0].value;
+        var focus = document.getElementsByName("focus")[0].value;
+        var constitution = document.getElementsByName("constitution")[0].value;
+        var sum = strength + dexterity + intelligence + focus + constitution;
+        if (25 <= sum && sum <= 475) {
+            result = true;
+        }
+    }
+    if (result) {
         invalid.classList.add("invisible");
         return true;
     } else {
