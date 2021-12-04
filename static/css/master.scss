@@ -135,6 +135,8 @@ $accordion-border-color: $white;
 // input
 $input-bg: transparent;
 $form-check-input-border: 1px solid $white;
+// popovers
+$popover-bg: $dark;
 
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
