@@ -75,12 +75,20 @@ function validateAttributes() {
     var invalid = document.getElementById("attributes-invalid");
     var result = false;
     if (vS && vD && vI && vF && vC) {
-        var strength = document.getElementsByName("strength")[0].value;
-        var dexterity = document.getElementsByName("dexterity")[0].value;
-        var intelligence = document.getElementsByName("intelligence")[0].value;
-        var focus = document.getElementsByName("focus")[0].value;
-        var constitution = document.getElementsByName("constitution")[0].value;
-        var sum = strength + dexterity + intelligence + focus + constitution;
+        var attributes = new Int32Array(5);
+        attributes[0] = document.getElementsByName("strength")[0].value;
+        attributes[1] = document.getElementsByName("dexterity")[0].value;
+        attributes[2] = document.getElementsByName("intelligence")[0].value;
+        attributes[3] = document.getElementsByName("focus")[0].value;
+        attributes[4] = document.getElementsByName("constitution")[0].value;
+        for (let index = 0; index < attributes.length; index++) {
+            const attribute = attributes[index];
+            if (attribute < 5) {
+                invalid.classList.remove("invisible");
+                return false;
+            }
+        }
+        var sum = attributes[0] + attributes[1] + attributes[2] + attributes[3] + attributes[4];
         if (25 <= sum && sum <= 475) {
             result = true;
         }
