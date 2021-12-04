@@ -5,9 +5,14 @@
     </div>
 </footer>
 
+
+<script src="/static/bootstrap/bootstrap.bundle.min.js"></script>
+<script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+</script>
 <script src="/static/js/calculate_section_height.js"></script>
-
-<script src="/static/bootstrap/bootstrap.min.js"></script>
 <script src="/static/js/routing_error_handling.js"></script>
-
 {{end}}

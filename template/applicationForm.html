@@ -36,7 +36,8 @@
                 <!--gearscore-->
                 <div class="col">
                   <input type="text" class="form-control" name="gearscore" placeholder="Durchschnittlicher Gearscore"
-                    data-bs-toggle="tooltip" title="es werden nur Zahlen akzeptiert">
+                    data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                    data-bs-content="Es werden nur Zahlen von 0 bis 600 akzeptiert.">
                 </div>
                 <!--armor weight-->
                 <div class="col">
@@ -52,7 +53,11 @@
             <!--attributes-->
             <section class="mb-3" id="attributes">
               <div class="row mb-2">
-                <h5 class="col-auto mb-0">Attribute</h5>
+                <h5 class="col-auto mb-0 pe-0">Attribute</h5>
+                <a class="col-auto p-0" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                  data-bs-content="Über alle Attributsfelder können maximal 475 Punkte vergeben werden. Außerdem müssen in jedem Feld mindestens die 5 Starterpunkte eingetragen werden.">
+                  <img src="/static/icons/info-circle.svg" class="ms-2">
+                </a>
                 <span class="col-auto text-danger fw-bolder invisible" id="attributes-invalid">Es sind alles
                   Pflichtfelder!</span>
               </div>
@@ -80,8 +85,11 @@
                 {{range $index,$role := .Roles}}
                 <div class="col-auto pe-0">
                   <input type="checkbox" class="btn-check" name="roles" value="{{$role._id}}" id="{{$role._id}}">
-                  <label class="btn btn-outline-primary" for="{{$role._id}}" data-bs-toggle="tooltip"
-                    title="{{$role.description}}">{{$role.name}}</label>
+                  <label class="btn btn-outline-primary" for="{{$role._id}}" {{if $role.description}}
+                    data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                    data-bs-content="{{$role.description}} " {{end}}>
+                    {{$role.name}}
+                  </label>
                 </div>
                 {{end}}
               </div>

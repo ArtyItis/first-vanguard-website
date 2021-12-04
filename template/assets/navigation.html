@@ -4,7 +4,9 @@
         <a class="navbar-brand me-0" href="/">
             <img src="/static/logo/company_logo.png" alt="" height="50rem">
         </a>
-        <a href="/"><h4 class="navbar-text fw-bolder align-self-center text-white">The Forgotten</h4></a>
+        <a href="/">
+            <h4 class="navbar-text fw-bolder align-self-center text-white">The Forgotten</h4>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -13,8 +15,8 @@
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"> <img src="/static/icons/x-lg.svg" alt="" srcset=""> </button>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"> <img
+                        src="/static/icons/x-lg.svg" alt="" srcset=""> </button>
             </div>
 
             <div class="offcanvas-body">
@@ -78,10 +80,18 @@
                 <form action="/login" method="post" id="login">
                     <div class="mb-3">
                         <label class="form-label">Username</label>
+                        <a data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                            data-bs-content="Der Username ist der ingame Charaktername kleingeschrieben und ohne Leerzeichen.">
+                            <img src="/static/icons/info-circle.svg" class="ms-2">
+                        </a>
                         <input type="text" class="form-control" name="username" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Passwort</label>
+                        <a data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                            data-bs-content="Das erste Passwort ist ein automatisch erstelltes temporäres Passwort, welches schnellstmöglich geändert werden sollte. Das Passwort kannst du bei einem Offizier oder Höherranigem erfragen.">
+                            <img src="/static/icons/info-circle.svg" class="ms-2">
+                        </a>
                         <input type="password" class="form-control" name="password" aria-describedby="passwordHelper"
                             required>
                     </div>
