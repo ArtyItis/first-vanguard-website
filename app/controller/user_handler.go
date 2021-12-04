@@ -165,16 +165,16 @@ func TaxesPOST(w http.ResponseWriter, r *http.Request) {
 	users, _ := model.GetAllUsers()
 	for _, u := range users {
 		user := model.Map2User(u)
-		if pa := ParseInt(r.FormValue(user.Id + "-PA")); pa > 0 {
+		if pa := ParseInt(r.FormValue(user.Id + "-PA")); pa >= 0 {
 			user.Taxes.Previous_week.Amount = pa
 		}
-		if ca := ParseInt(r.FormValue(user.Id + "-CA")); ca > 0 {
+		if ca := ParseInt(r.FormValue(user.Id + "-CA")); ca >= 0 {
 			user.Taxes.Current_week.Amount = ca
 		}
-		if na := ParseInt(r.FormValue(user.Id + "-NA")); na > 0 {
+		if na := ParseInt(r.FormValue(user.Id + "-NA")); na >= 0 {
 			user.Taxes.Next_week.Amount = na
 		}
-		if sna := ParseInt(r.FormValue(user.Id + "-SNA")); sna > 0 {
+		if sna := ParseInt(r.FormValue(user.Id + "-SNA")); sna >= 0 {
 			user.Taxes.Second_next_week.Amount = sna
 		}
 		if pp := r.FormValue(user.Id + "-PP"); pp == "on" {
@@ -200,4 +200,14 @@ func TaxesPOST(w http.ResponseWriter, r *http.Request) {
 		model.UpdateUser(user)
 	}
 	http.Redirect(w, r, "/members/taxes", http.StatusFound)
+}
+
+func UserDeleteGET(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+	user, err := model.GetUserById(id)
+	if err == nil {
+		http.Redirect(w, r, "/members/id?userError=delete", http.StatusFound)
+	}
+	model.DeleteUser(user)
+	http.Redirect(w, r, "/members", http.StatusFound)
 }
