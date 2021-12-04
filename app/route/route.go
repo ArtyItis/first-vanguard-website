@@ -27,13 +27,14 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/members/taxes", controller.Authenticate(controller.TaxesPOST)).Methods("POST")
 	router.HandleFunc("/members/{id}", controller.Authenticate(controller.UserGET)).Methods("GET")
 	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordGET)).Methods("GET")
-	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordPOST)).Methods("POST") // fehlermeldung bei fehleingabe anzeigen
+	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordPOST)).Methods("POST")
+	router.HandleFunc("/members/{id}/delete", controller.Authenticate(controller.UserDeleteGET)).Methods("GET")
 
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 	router.HandleFunc("/data_privacy", controller.DataPrivacyGET).Methods("GET")
 	router.HandleFunc("/about_us", controller.AboutGET).Methods("GET")
 
-	router.HandleFunc("/login", controller.Login).Methods("POST") // Bei login Fehler <div class="show"> zu modal & offcanvas hinzufügen, fehlermeldung im modal hinzufügen
+	router.HandleFunc("/login", controller.Login).Methods("POST")
 	router.HandleFunc("/logout", controller.Authenticate(controller.Logout)).Methods("GET")
 
 	// router.HandleFunc("/register", controller.RegisterGET).Methods("GET")
