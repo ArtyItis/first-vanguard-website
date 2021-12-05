@@ -8,14 +8,18 @@
 
 <body>
   {{template "navigation" .}}
-  <div aria-live="polite" aria-atomic="true" class="position-relative">
+  <!-- Toast after successful application -->
+  <div aria-live="assertive" aria-atomic="true" class="position-relative">
     <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
-      <div class="toast" id="applicationSuccessToast">
+      <div class="toast bg-dark" id="applicationSuccessToast" data-bs-autohide="false">
         <div class="toast-header">
           <strong class="me-auto">Bewerbung</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body text-black">
-          Die Bewerbung wurde erfolgreich versendet!
+        <div class="toast-body">
+          <p>Die Bewerbung wurde erfolgreich versendet!</p>
+          <p>Der Status der Bewerbung kann unter "Bewerbungen" eingesehen werden. Falls die Bewerbung dort nicht zu
+            finden ist, sollte ein Offizier benachrichtigt werden.</p>
         </div>
       </div>
     </div>
