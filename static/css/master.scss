@@ -137,6 +137,13 @@ $input-bg: transparent;
 $form-check-input-border: 1px solid $white;
 // popovers
 $popover-bg: $dark;
+// toasts
+$toast-header-background-color: rgba($dark,.85);
+$toast-background-color: rgba($dark,.85);
 
+$toast-header-color: $white;
+$toast-color: $white;
+$toast-header-border-color: rgba($primary,.05);
+$toast-border-color: rgba($primary,.1);
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
