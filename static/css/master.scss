@@ -129,9 +129,7 @@ input:focus-visible{
 
 $body-bg: $dark;
 $body-color: $white;
-// component
-$component-active-color:      $white !default;
-$component-active-bg:         $primary !default;
+
 // modal & offcanvas
 $modal-content-color: $white;
 $modal-content-bg: $gray-900;
@@ -143,7 +141,6 @@ $accordion-border-color: $white;
 // input
 $input-bg: transparent;
 $form-check-input-border: 1px solid $white;
-$input-border-color: tint-color($component-active-bg, 50%);
 // popovers
 $popover-bg: $dark;
 // toasts
