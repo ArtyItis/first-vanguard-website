@@ -165,18 +165,28 @@ func TaxesPOST(w http.ResponseWriter, r *http.Request) {
 	users, _ := model.GetAllUsers()
 	for _, u := range users {
 		user := model.Map2User(u)
-		if pa := ParseInt(r.FormValue(user.Id + "-PA")); pa >= 0 {
+		//values
+		if pa := ParseInt(r.FormValue(user.Id + "-PA")); pa > 0 {
 			user.Taxes.Previous_week.Amount = pa
+		} else if pa < 0 {
+			user.Taxes.Previous_week.Amount = 0
 		}
-		if ca := ParseInt(r.FormValue(user.Id + "-CA")); ca >= 0 {
+		if ca := ParseInt(r.FormValue(user.Id + "-CA")); ca > 0 {
 			user.Taxes.Current_week.Amount = ca
+		} else if ca < 0 {
+			user.Taxes.Current_week.Amount = 0
 		}
-		if na := ParseInt(r.FormValue(user.Id + "-NA")); na >= 0 {
+		if na := ParseInt(r.FormValue(user.Id + "-NA")); na > 0 {
 			user.Taxes.Next_week.Amount = na
+		} else if na < 0 {
+			user.Taxes.Next_week.Amount = 0
 		}
-		if sna := ParseInt(r.FormValue(user.Id + "-SNA")); sna >= 0 {
+		if sna := ParseInt(r.FormValue(user.Id + "-SNA")); sna > 0 {
 			user.Taxes.Second_next_week.Amount = sna
+		} else if sna < 0 {
+			user.Taxes.Second_next_week.Amount = 0
 		}
+		//booleans
 		if pp := r.FormValue(user.Id + "-PP"); pp == "on" {
 			user.Taxes.Previous_week.Payed = true
 		} else {
