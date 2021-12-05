@@ -9,7 +9,7 @@
 <body>
   {{template "navigation" .}}
   <section class="container mt-3 mt-lg-8" id="content">
-    <form action="/applications/new" method="post" id="application-form" enctype="application/json">
+    <form action="/applications/new" method="post" id="application-form">
       <div class="row">
         <!--row 2 character and old relationships-->
         <div class="col-lg mb-3" id="character-and-old-relationships">
@@ -24,23 +24,34 @@
               <div class="row mb-2">
                 <!--charactername-->
                 <div class="col">
-                  <input type="text" class="form-control" name="charactername" placeholder="Charaktername">
+                  <label class="form-label">Charaktername</label>
+                  <input type="text" class="form-control" name="charactername" placeholder="Charaktername" required>
                 </div>
                 <!--discord-tag-->
                 <div class="col">
-                  <input type="text" class="form-control" name="discord-tag" placeholder="Discord-Tag"
-                    data-bs-toggle="tooltip" title="wird gebraucht um dich außerhalb des Spiels erreichen zu können">
+                  <label class="form-label">
+                    Discord-Tag
+                    <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                      data-bs-placement="top"
+                      data-bs-content="Der Discord-Tag wird benötigt um dich außerhalb des Spiels erreichen zu können. Außerdem ist der Discord-Tag nicht der Discordname!">
+                  </label>
+                  <input type="text" class="form-control" name="discord-tag" placeholder="Discord-Tag" required>
                 </div>
               </div>
               <div class="row">
                 <!--gearscore-->
                 <div class="col">
+                  <label class="form-label">
+                    Gearscore
+                    <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                      data-bs-placement="top" data-bs-content="Es werden nur Zahlen von 0 bis 600 akzeptiert.">
+                  </label>
                   <input type="text" class="form-control" name="gearscore" placeholder="Durchschnittlicher Gearscore"
-                    data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
-                    data-bs-content="Es werden nur Zahlen von 0 bis 600 akzeptiert.">
+                    required>
                 </div>
                 <!--armor weight-->
                 <div class="col">
+                  <label class="form-label">Ausrüstungsgewicht</label>
                   <select class="form-select btn-outline-light" name="armor-weight">
                     <option value="">Ausrüstungsgewicht</option>
                     <option value="Leicht">Leicht</option>
@@ -55,7 +66,7 @@
               <div class="row mb-2">
                 <h5 class="col-auto mb-0 pe-0">Attribute</h5>
                 <a class="col-auto p-0" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
-                  data-bs-content="Über alle Attributsfelder können maximal 475 Punkte vergeben werden. Außerdem müssen in jedem Feld mindestens die 5 Starterpunkte eingetragen werden.">
+                  data-bs-content="Über alle Attributsfelder können maximal 475 Punkte vergeben werden. Außerdem müssen in jedem Feld mindestens die 5 Starterpunkte eingetragen werden. Die Angaben erfolgen ohne Buff-food!">
                   <img src="/static/icons/info-circle.svg" class="ms-2">
                 </a>
                 <span class="col-auto text-danger fw-bolder invisible" id="attributes-invalid">Es sind alles
@@ -292,8 +303,7 @@
                   <label class="btn btn-outline-primary" for="stonecutting">Steinmetzkunst</label>
                 </div>
                 <div class="col-auto pe-0">
-                  <input type="checkbox" class="btn-check" name="refining-jobs" value="tanning"
-                    id="tanning">
+                  <input type="checkbox" class="btn-check" name="refining-jobs" value="tanning" id="tanning">
                   <label class="btn btn-outline-primary" for="tanning">Lederverarbeitung</label>
                 </div>
               </div>
@@ -319,7 +329,8 @@
     </form>
   </section>
   {{template "footer"}}
-  <script src="/static/js/application.js"></script>
+  <script src="/static/js/applicationFormValidation.js"></script>
+
   <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
   <!-- <script>
     function onSubmit(token) {
