@@ -18,6 +18,11 @@ a {
   text-decoration: none !important;
 }
 
+input:focus-visible {
+  outline-color: #0f9c36 !important;
+  outline-style: solid;
+}
+
 .nav-link {
   color: #fff !important;
 }
@@ -2439,7 +2444,7 @@ progress {
   color: #fff;
   background-color: transparent;
   background-clip: padding-box;
-  border: 1px solid #ced4da;
+  border: 1px solid tint-color(#0f9c36, 50%);
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -2668,7 +2673,7 @@ textarea.form-control-lg {
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 16px 12px;
-  border: 1px solid #ced4da;
+  border: 1px solid tint-color(#0f9c36, 50%);
   border-radius: 0.25rem;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -3093,7 +3098,7 @@ textarea.form-control-lg {
   text-align: center;
   white-space: nowrap;
   background-color: #e9ecef;
-  border: 1px solid #ced4da;
+  border: 1px solid tint-color(#0f9c36, 50%);
   border-radius: 0.25rem;
 }
 
