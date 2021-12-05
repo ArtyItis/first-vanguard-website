@@ -88,7 +88,7 @@ func GetUserByName(name string) (user User, err error) {
 }
 
 func GetAllUsers() ([]map[string]interface{}, error) {
-	users, err := userDB.QueryJSON(`{"selector": {"name": {"$ne": "admin"}}}`)
+	users, err := userDB.Query(nil, `name != "admin"`, nil, 1000, nil, nil)
 	if err != nil {
 		return nil, err
 	} else {
