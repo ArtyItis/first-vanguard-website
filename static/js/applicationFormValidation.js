@@ -64,7 +64,7 @@ function validateArmorWeight() {
 }
 
 //------------Attributes
-function validateAttributes() {
+function validateAttributes(){
     let inputArray = [5];
     inputArray[0] = document.getElementsByName("strength")[0];
     inputArray[1] = document.getElementsByName("dexterity")[0];
@@ -75,7 +75,6 @@ function validateAttributes() {
     let boolArray = [5];
     for (let index = 0; index < 5; index++) {
         boolArray[index] = regex.test(inputArray[index].value) && inputArray[index].value > 4;
-        console.log(boolArray[index]);
     }
     let sumPoints = 0;
     for (let i = 0; i < 5; i++) {
@@ -92,7 +91,11 @@ function validateAttributes() {
     validate(inputArray[2], boolArray[2]);
     validate(inputArray[3], boolArray[3]);
     validate(inputArray[4], boolArray[4]);
-
+    let sumBool = true;
+    for (let index = 0; index < 5; index++) {
+        sumBool = boolArray[index] && sumBool;
+    }
+    return sumBool;
 }
 
 //------------Form
