@@ -16,3 +16,4 @@ You are invited to contribute into this project as long as you are familiar with
     - [gorilla/mux](https://github.com/gorilla/mux)
     - [gorilla/sessions](https://github.com/gorilla/sessions)
     - [leesper/chouchdb-golang](https://github.com/leesper/couchdb-golang)
+
