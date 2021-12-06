@@ -13,16 +13,16 @@ import (
 func main() {
 	//schedule task to update taxes of every user once a week
 	s := gocron.NewScheduler(time.Local)
-	weeklyJob, _ := s.Every(1).Week().Monday().At("04:00").Do(func() {
+	var time = "10:39"
+	weeklyJob, _ := s.Every(1).Week().Monday().At(time).Do(func() {
 		users, _ := model.GetAllUsers()
 		for _, u := range users {
 			user := model.Map2User(u)
-			model.ShiftTaxes(user)
-			model.UpdateUser(user)
+			model.UpdateUser(model.ShiftTaxes(user))
 		}
 	})
 	weekday, _ := weeklyJob.Weekday()
-	log.Println("updating taxes every " + weekday.String() + ", 04:00am")
+	log.Println("updating taxes every " + weekday.String() + ", " + time + " am")
 	s.StartAsync()
 
 	router := route.NewRouter()

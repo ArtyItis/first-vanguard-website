@@ -108,7 +108,7 @@ func Map2User(user map[string]interface{}) (u User) {
 	return u
 }
 
-func ShiftTaxes(user User) {
+func ShiftTaxes(user User) User {
 	user.Taxes.Previous_week = user.Taxes.Current_week
 	user.Taxes.Current_week = user.Taxes.Next_week
 	user.Taxes.Next_week = user.Taxes.Second_next_week
@@ -117,4 +117,5 @@ func ShiftTaxes(user User) {
 		Week: week + 2,
 	}
 	user.Taxes.Second_next_week = tax
+	return user
 }
