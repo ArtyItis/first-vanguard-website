@@ -13,7 +13,7 @@ import (
 func main() {
 	//schedule task to update taxes of every user once a week
 	s := gocron.NewScheduler(time.Local)
-	var time = "10:39"
+	var time = "04:30"
 	weeklyJob, _ := s.Every(1).Week().Monday().At(time).Do(func() {
 		users, _ := model.GetAllUsers()
 		for _, u := range users {
