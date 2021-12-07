@@ -34,3 +34,13 @@ type RefiningJobs struct {
 	Weaving      bool `json:"weaving"`
 	Woodworking  bool `json:"woodworking"`
 }
+
+func (character Character) ContainsWeaponOfType(weaponType string) bool {
+	for _, weaponID := range character.Weapons {
+		weapon, _ := GetWeaponById(weaponID)
+		if weapon.Type == weaponType {
+			return true
+		}
+	}
+	return false
+}
