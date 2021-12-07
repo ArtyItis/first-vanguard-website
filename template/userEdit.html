@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+{{$user := .User}}
+
+<head>
+    {{template "head"}}
+    <title>{{$user.Character.Name}} - editieren</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container mt-3 mt-lg-8" id="content">
+        <form action="/members/{{$user.Id}}/edit" method="post">
+            <div class="row mb-3 px-3 px-lg-0">
+                <!-- character -->
+                <div class="col-lg-6 ps-0">
+                    <!--general information-->
+                    <section class="row">
+                        <h4>{{$user.Character.Name}}</h4>
+                        <div class="col">
+                            <!--date-->
+                            <div class="row">
+                                <div class="col">
+                                    <span>Mitglied seit: </span>
+                                </div>
+                                <div class="col">
+                                    <span>{{$user.Date.Day}}.{{$user.Date.Month}}.{{$user.Date.Year}}</span>
+                                </div>
+                            </div>
+                            <!--armor-weight-->
+                            <div class="row">
+                                <div class="col">
+                                    <span>Gewicht: </span>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm btn-outline-light" name="armor-weight">
+                                        <option value="">{{$user.Character.Equipment_weight}}</option>
+                                        <option value="Leicht">Leicht</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Schwer">Schwer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--gearscore-->
+                            <div class="row">
+                                <div class="col">
+                                    <span>Gearscore: </span>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="gearscore"
+                                        placeholder="{{$user.Character.Gearscore}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!--discord-tag-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Discord Tag: </span>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="discord-tag"
+                                        placeholder="{{$user.Discord_tag}}">
+                                </div>
+                            </div>
+                            <!--company-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Kompanie: </span>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm btn-outline-light" name="company">
+                                        <option selected disabled hidden value="">{{$user.Company}}
+                                        </option>
+                                        <option value="The Forgotten">The Forgotten</option>
+                                        <option value="The Forgotten II">The Forgotten II</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--permission level-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Rang:</span>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm btn-outline-light"
+                                        name="permission-level">
+                                        <option selected disabled hidden value="">{{$user.ConvertPermissionLevel}}
+                                        </option>
+                                        {{if gt .Session.User.Permission_level 0}}<option value="0">Siedler</option>
+                                        {{end}}
+                                        {{if gt .Session.User.Permission_level 200}}<option value="200">Offizier
+                                        </option>{{end}}
+                                        {{if gt .Session.User.Permission_level 400}}<option value="400">Konsul
+                                        </option>{{end}}
+                                        {{if gt .Session.User.Permission_level 600}}<option value="600">Gouverneur
+                                        </option>{{end}}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <!-- buttons -->
+                <div class="col my-auto">
+                    <button type="submit" class="btn btn-success">Änderungen speichern</button>
+                </div>
+            </div>
+            <!-- roles, weapons & attributes -->
+            <section class="row mb-3 px-3 px-lg-0">
+                <div class="col ps-0">
+                    <!--roles-->
+                    <section class="row mb-3">
+                        <h5>Rollen</h5>
+                        {{range $role := .Roles}}
+                        <div class="col-auto pe-0">
+                            <input type="checkbox" class="btn-check" name="roles" value="{{$role._id}}"
+                                id="{{$role._id}}" {{if $user.ContainsRole $role}}checked{{end}}>
+                            <label class="btn btn-outline-primary" for="{{$role._id}}" {{if $role.description}}
+                                data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
+                                data-bs-content="{{$role.description}} " {{end}}>
+                                {{$role.name}}
+                            </label>
+                        </div>
+                        {{end}}
+                    </section>
+                    <!--weapons-->
+                    <section class="row">
+                        <div class="row mb-2">
+                            <h5 class="col-auto mb-0">Waffen</h5>
+                            <span class="col-auto text-danger fw-bolder fs-6 invisible" id="weapons-invalid">Wähle
+                                mindestens eine
+                                Waffe!</span>
+                        </div>
+                        <div class="row mb-1">
+                            <h6 class="col-lg-3 my-lg-auto mb-1">Einhandwaffen</h6>
+                            {{range $weapon := .Weapons}}
+                            {{if eq $weapon.type "einhand"}}
+                            <div class="col-auto pe-0">
+                                <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}"
+                                    id="{{$weapon._id}}" {{if $user.ContainsWeapon $weapon}}checked{{end}}>
+                                <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                        <div class="row mb-1">
+                            <h6 class="col-lg-3 my-lg-auto mb-1">Zweihandwaffen</h6>
+                            {{range $weapon := .Weapons}}
+                            {{if eq $weapon.type "zweihand"}}
+                            <div class="col-auto pe-0">
+                                <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}"
+                                    id="{{$weapon._id}}" {{if $user.ContainsWeapon $weapon}}checked{{end}}>
+                                <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                        <div class="row mb-1">
+                            <h6 class="col-lg-3 my-lg-auto mb-1">Fernkampfwaffen</h6>
+                            {{range $weapon := .Weapons}}
+                            {{if eq $weapon.type "fernkampf"}}
+                            <div class="col-auto pe-0">
+                                <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}"
+                                    id="{{$weapon._id}}" {{if $user.ContainsWeapon $weapon}}checked{{end}}>
+                                <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                        <div class="row mb-1">
+                            <h6 class="col-lg-3 my-lg-auto mb-1">magische Waffen</h6>
+                            {{range $weapon := .Weapons}}
+                            {{if eq $weapon.type "magisch"}}
+                            <div class="col-auto pe-0">
+                                <input type="checkbox" class="btn-check" name="weapons" value="{{$weapon._id}}"
+                                    id="{{$weapon._id}}" {{if $user.ContainsWeapon $weapon}}checked{{end}}>
+                                <label class="btn  btn-outline-primary" for="{{$weapon._id}}">{{$weapon.name}}</label>
+                            </div>
+                            {{end}}
+                            {{end}}
+                        </div>
+                    </section>
+                </div>
+                <!--attributes-->
+                <div class="col ps-0">
+                    <h5>Attribute</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stärke</th>
+                                <th scope="col">Geschicklichkeit</th>
+                                <th scope="col">Intelligenz</th>
+                                <th scope="col">Fokus</th>
+                                <th scope="col">Konstitution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{$user.Character.Attributes.Strength}}" name="strength">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{$user.Character.Attributes.Dexterity}}" name="dexterity">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{$user.Character.Attributes.Intelligence}}" name="intelligence">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{$user.Character.Attributes.Focus}}" name="focus">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{$user.Character.Attributes.Constitution}}" name="constitution">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <!-- refining-jobs -->
+            <section class="row mb-3 px-3 px-lg-0">
+                <h5 class="ps-0">Veredelungsberufe</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Schmelzen</th>
+                            <th scope="col">Holzverarbeitung</th>
+                            <th scope="col">Lederverarbeitung</th>
+                            <th scope="col">Weberei</th>
+                            <th scope="col">Steinmetzkunst</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="smelting"
+                                    id="smelting" {{if $user.Character.Refining_jobs.Smelting}}checked{{end}}>
+                            </td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs"
+                                    value="woodworking" id="woodworking" {{if
+                                    $user.Character.Refining_jobs.Woodworking}}checked{{end}}>
+                            </td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="tanning"
+                                    id="tanning" {{if $user.Character.Refining_jobs.Tanning}}checked{{end}}>
+                            </td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="weaving"
+                                    id="weaving" {{if $user.Character.Refining_jobs.Weaving}}checked{{end}}>
+                            </td>
+                            <td>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="stonecutting"
+                                    id="stonecutting" {{if $user.Character.Refining_jobs.Stonecutting}}checked{{end}}>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!-- crafting-jobs -->
+            <section class="row mb-3 px-3 px-lg-0">
+                <h5 class="ps-0">Herstellungsberufe</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Waffenschmiedekunst</th>
+                            <th scope="col">Rüstungsschmiedekunst</th>
+                            <th scope="col">Ingenieurskunst</th>
+                            <th scope="col">Juwelenschleiferei</th>
+                            <th scope="col">Arkana</th>
+                            <th scope="col">Kochkunst</th>
+                            <th scope="col">Tischlerei</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs"
+                                    value="weaponsmithing" id="weaponsmithing" {{if
+                                    $user.Character.Crafting_jobs.Weaponsmithing}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs" value="armoring"
+                                    id="armoring" {{if $user.Character.Crafting_jobs.Armoring}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs" value="engineering"
+                                    id="engineering" {{if $user.Character.Crafting_jobs.Engineering}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs"
+                                    value="jewelcrafting" id="jewelcrafting" {{if
+                                    $user.Character.Crafting_jobs.Jewelcrafting}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs" value="arcana"
+                                    id="arcana" {{if $user.Character.Crafting_jobs.Arcana}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs" value="cooking"
+                                    id="cooking" {{if $user.Character.Crafting_jobs.Cooking}}checked{{end}}>
+                            </td>
+                            <td><input type="checkbox" class="form-check-input" name="crafting-jobs" value="furnishing"
+                                    id="furnishing" {{if $user.Character.Crafting_jobs.Furnishing}}checked{{end}}>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </form>
+    </section>
+    {{template "footer"}}
+</body>
