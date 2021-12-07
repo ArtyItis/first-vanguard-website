@@ -26,3 +26,8 @@ func GetWeaponName(weaponID string) string {
 	weapon, _ := model.GetWeaponById(weaponID)
 	return weapon.Name
 }
+
+func GetWeaponByType(weaponID string, weaponType string) bool {
+	weapon, _ := model.GetWeaponById(weaponID)
+	return weapon.Type == weaponType
+}
