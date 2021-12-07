@@ -48,23 +48,6 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 		Focus:        ParseInt(r.FormValue("focus")),
 		Constitution: ParseInt(r.FormValue("constitution")),
 	}
-	roles_Form := r.Form["roles"]
-	roles := []model.Role{}
-	for _, r := range roles_Form {
-		role, err := model.GetRoleById(r)
-		if err == nil {
-			roles = append(roles, role)
-		}
-	}
-
-	weapons_Form := r.Form["weapons"]
-	weapons := []model.Weapon{}
-	for _, w := range weapons_Form {
-		weapon, err := model.GetWeaponById(w)
-		if err == nil {
-			weapons = append(weapons, weapon)
-		}
-	}
 
 	craftingJobs_Form := r.Form["crafting-jobs"]
 	craftingJobs := model.CraftingJobs{}
@@ -109,8 +92,8 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 		Gearscore:        ParseInt(r.FormValue("gearscore")),
 		Equipment_weight: r.FormValue("armor-weight"),
 		Attributes:       attributes,
-		Roles:            roles,
-		Weapons:          weapons,
+		Roles:            r.Form["roles"],
+		Weapons:          r.Form["weapons"],
 		Old_company:      r.FormValue("old-companies"),
 		Crafting_jobs:    craftingJobs,
 		Refining_jobs:    refiningJobs,
@@ -132,7 +115,10 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 }
 
 func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("applications.html").Funcs(template.FuncMap{"add": Add}).ParseFiles("template/applications.html", head, navigation, footer))
+	tmpl := template.Must(template.New("applications.html").
+		Funcs(template.FuncMap{"add": Add}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
+		ParseFiles("template/applications.html", head, navigation, footer))
 	applications, _ := model.GetAllApplicationsOpen()
 	data := Data{
 		Session:      GetSessionInformation(r),
@@ -143,8 +129,8 @@ func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
 
 func ApplicationGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("application.html").
-		Funcs(template.FuncMap{"containsWeapon": ContainsWeapon}).
-		Funcs(template.FuncMap{"containsRole": ContainsRole}).
+		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
 		ParseFiles("template/application.html", head, navigation, footer))
 	applicationId := mux.Vars(r)["id"]
 	application, _ := model.GetApplicationById(applicationId)
