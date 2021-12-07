@@ -21,10 +21,6 @@ func ImprintGET(w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(w, r, "imprint")
 }
 
-func DataPrivacyGET(w http.ResponseWriter, r *http.Request) {
-	ExecuteTemplate(w, r, "data_privacy")
-}
-
-func AboutGET(w http.ResponseWriter, r *http.Request) {
-	ExecuteTemplate(w, r, "about")
+func BuildsGET(w http.ResponseWriter, r *http.Request) {
+	ExecuteTemplate(w, r, "builds")
 }
