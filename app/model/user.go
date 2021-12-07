@@ -162,11 +162,6 @@ func (user User) ContainsWeapon(w map[string]interface{}) bool {
 	return false
 }
 
-func (user User) GetWeaponByType(weaponID string, weaponType string) bool {
-	weapon, _ := GetWeaponById(weaponID)
-	return weapon.Type == weaponType
-}
-
 func (user User) PrintRoles() (result string) {
 	for _, roleID := range user.Character.Roles {
 		role, _ := GetRoleById(roleID)
