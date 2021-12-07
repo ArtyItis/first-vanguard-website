@@ -15,7 +15,7 @@
           <th scope="col">#</th>
           <th scope="col">Charaktername</th>
           <th scope="col">Rang</th>
-		      <th scope="col">Gilde</th>
+          <th scope="col">Gilde</th>
           <th scope="col">Discord-Tag</th>
           <th scope="col">Rollen</th>
           <th scope="col">Beigetreten am</th>
@@ -29,7 +29,7 @@
           <td>
             {{convertPermissionLevel $user}}
           </td>
-		      <td>{{$user.company}}</td>
+          <td>{{$user.company}}</td>
           <td>{{$user.discord_tag}}</td>
           <td>
             {{range $role := $user.character.roles}}
