@@ -27,7 +27,7 @@
           <td>{{$application.character.name}}</td>
           <td>
             {{range $role := $application.character.roles}}
-            {{$role.name}}
+            {{getRoleName $role}}
             {{end}}
           </td>
           <td>{{$application.date.day}}.{{$application.date.month}}.{{$application.date.year}}</td>
