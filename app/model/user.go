@@ -65,6 +65,8 @@ func DeleteUser(user User) {
 	err := userDB.Delete(user.Id)
 	if err != nil {
 		log.Println("Error in DeleteUser", err)
+	} else {
+		log.Println(user.Character.Name + " has been deleted.")
 	}
 }
 
@@ -118,4 +120,57 @@ func ShiftTaxes(user User) User {
 	}
 	user.Taxes.Second_next_week = tax
 	return user
+}
+
+// -------------------------------------------------------------------
+
+func (user User) ConvertPermissionLevel() string {
+	switch user.Permission_level {
+	case 0:
+		return "Siedler"
+	case 200:
+		return "Offizier"
+	case 400:
+		return "Konsul"
+	case 450:
+		return "Konsul/Inkasso"
+	case 600:
+		return "Gouverneur"
+	case 1000:
+		return "Website-Admin"
+	}
+	return "nicht definiert"
+}
+
+func (user User) ContainsRole(r map[string]interface{}) bool {
+	role := Map2Role(r)
+	for _, roleID := range user.Character.Roles {
+		if roleID == role.Id {
+			return true
+		}
+	}
+	return false
+}
+
+func (user User) ContainsWeapon(w map[string]interface{}) bool {
+	weapon := Map2Weapon(w)
+	for _, weaponID := range user.Character.Weapons {
+		if weaponID == weapon.Id {
+			return true
+		}
+	}
+	return false
+}
+
+func (user User) GetWeaponByType(weaponID string, weaponType string) bool {
+	weapon, _ := GetWeaponById(weaponID)
+	return weapon.Type == weaponType
+}
+
+func (user User) PrintRoles() (result string) {
+	for _, roleID := range user.Character.Roles {
+		role, _ := GetRoleById(roleID)
+		result += role.Name + " | "
+	}
+	return result[0 : len(result)-3]
 }
