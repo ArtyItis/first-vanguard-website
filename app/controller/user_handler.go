@@ -16,7 +16,10 @@ func RegisterGET(w http.ResponseWriter, r *http.Request) {
 	data := Data{
 		Session: GetSessionInformation(r),
 	}
-	tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func RegisterPOST(w http.ResponseWriter, r *http.Request) {
@@ -87,20 +90,25 @@ func Logout(w http.ResponseWriter, r *http.Request) {
 }
 
 func UsersGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.New("users.html").Funcs(template.FuncMap{"add": Add}).Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).ParseFiles("template/users.html", head, navigation, footer))
+	tmpl := template.Must(template.New("users.html").Funcs(template.FuncMap{"add": Add}).
+		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
+		ParseFiles("template/users.html", head, navigation, footer))
 	users, _ := model.GetAllUsers()
 	data := Data{
 		Session: GetSessionInformation(r),
 		Users:   users,
 	}
-	tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func UserGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("user.html").
-		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelUser}).
-		Funcs(template.FuncMap{"containsWeapon": ContainsWeapon}).
-		Funcs(template.FuncMap{"containsRole": ContainsRole}).
+		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
 		ParseFiles("template/user.html", head, navigation, footer))
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
@@ -111,7 +119,10 @@ func UserGET(w http.ResponseWriter, r *http.Request) {
 		Roles:   roles,
 		User:    user,
 	}
-	tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func ChangePasswordGET(w http.ResponseWriter, r *http.Request) {
@@ -158,7 +169,10 @@ func TaxesGET(w http.ResponseWriter, r *http.Request) {
 		Session: GetSessionInformation(r),
 		Users:   users,
 	}
-	tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func TaxesPOST(w http.ResponseWriter, r *http.Request) {
@@ -216,8 +230,112 @@ func UserDeleteGET(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	user, err := model.GetUserById(id)
 	if err == nil {
-		http.Redirect(w, r, "/members/id?userError=delete", http.StatusFound)
+		model.DeleteUser(user)
+		http.Redirect(w, r, "/members", http.StatusFound)
+	} else {
+		http.Redirect(w, r, "/members/"+id+"/?userError=delete", http.StatusFound)
 	}
-	model.DeleteUser(user)
-	http.Redirect(w, r, "/members", http.StatusFound)
+}
+
+func UserEditGet(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("userEdit.html").
+		ParseFiles("template/userEdit.html", head, navigation, footer))
+	weapons, _ := model.GetAllWeapons()
+	roles, _ := model.GetAllRoles()
+	user, _ := model.GetUserById(mux.Vars(r)["id"])
+	data := Data{
+		Session: GetSessionInformation(r),
+		Weapons: weapons,
+		Roles:   roles,
+		User:    user,
+	}
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func UserEditPost(w http.ResponseWriter, r *http.Request) {
+	id := mux.Vars(r)["id"]
+	user, _ := model.GetUserById(id)
+
+	if equipment_weight := r.FormValue("armor-weight"); equipment_weight != "" {
+		user.Character.Equipment_weight = equipment_weight
+	}
+	if gearscore := r.FormValue("gearscore"); gearscore != "" {
+		user.Character.Gearscore = ParseInt(gearscore)
+	}
+	if discord_tag := r.FormValue("discord-tag"); discord_tag != "" {
+		user.Discord_tag = discord_tag
+	}
+	if company := r.FormValue("company"); company != "" {
+		user.Company = company
+	}
+	if permission_level := r.FormValue("permission-level"); permission_level != "" {
+		user.Permission_level = ParseInt(permission_level)
+	}
+
+	user.Character.Roles = r.Form["roles"]
+
+	user.Character.Weapons = r.Form["weapons"]
+
+	if strength := r.FormValue("strength"); strength != "" {
+		user.Character.Attributes.Strength = ParseInt(strength)
+	}
+	if dexterity := r.FormValue("dexterity"); dexterity != "" {
+		user.Character.Attributes.Dexterity = ParseInt(dexterity)
+	}
+	if intelligence := r.FormValue("intelligence"); intelligence != "" {
+		user.Character.Attributes.Intelligence = ParseInt(intelligence)
+	}
+	if focus := r.FormValue("focus"); focus != "" {
+		user.Character.Attributes.Focus = ParseInt(focus)
+	}
+	if constitution := r.FormValue("constitution"); constitution != "" {
+		user.Character.Attributes.Constitution = ParseInt(constitution)
+	}
+
+	craftingJobs_Form := r.Form["crafting-jobs"]
+	craftingJobs := model.CraftingJobs{}
+	for _, craftingJob := range craftingJobs_Form {
+		switch craftingJob {
+		case "armoring":
+			craftingJobs.Armoring = true
+		case "weaponsmithing":
+			craftingJobs.Weaponsmithing = true
+		case "engineering":
+			craftingJobs.Engineering = true
+		case "jewelcrafting":
+			craftingJobs.Jewelcrafting = true
+		case "arcana":
+			craftingJobs.Arcana = true
+		case "cooking":
+			craftingJobs.Cooking = true
+		case "furnishing":
+			craftingJobs.Furnishing = true
+		}
+	}
+
+	refiningJobs_Form := r.Form["refining-jobs"]
+	refiningJobs := model.RefiningJobs{}
+	for _, refiningJob := range refiningJobs_Form {
+		switch refiningJob {
+		case "smelting":
+			refiningJobs.Smelting = true
+		case "stonecutting":
+			refiningJobs.Stonecutting = true
+		case "tanning":
+			refiningJobs.Tanning = true
+		case "weaving":
+			refiningJobs.Weaving = true
+		case "woodworking":
+			refiningJobs.Woodworking = true
+		}
+	}
+
+	user.Character.Crafting_jobs = craftingJobs
+	user.Character.Refining_jobs = refiningJobs
+
+	model.UpdateUser(user)
+	http.Redirect(w, r, "/members/"+id, http.StatusFound)
 }
