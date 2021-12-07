@@ -20,3 +20,7 @@ func IndexGET(w http.ResponseWriter, r *http.Request) {
 func ImprintGET(w http.ResponseWriter, r *http.Request) {
 	ExecuteTemplate(w, r, "imprint")
 }
+
+func BuildsGET(w http.ResponseWriter, r *http.Request) {
+	ExecuteTemplate(w, r, "builds")
+}
