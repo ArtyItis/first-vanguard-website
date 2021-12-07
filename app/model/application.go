@@ -29,9 +29,9 @@ func AddApplication(r Application) error {
 	delete(application, "_rev")
 	_, _, err := applicationDB.Save(application, nil)
 	if err != nil {
-		log.Println("Error in AddApplication_Entry: ", err)
+		log.Println("Error in AddApplication: ", err)
 	} else {
-		log.Println("added Application_Entry")
+		log.Println("added Application")
 	}
 	return err
 }
