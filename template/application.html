@@ -58,7 +58,7 @@
                 <!--company-->
                 <div class="row">
                   <div class="col-lg-4">
-                    <span>Kompanie</span>
+                    <span>Kompanie:</span>
                   </div>
                   <div class="col">
                     <select class="form-select form-select-sm btn-outline-primary" name="company" required>
@@ -71,7 +71,7 @@
                 <!--permission level-->
                 <div class="row">
                   <div class="col-lg-4">
-                    <span>Rang</span>
+                    <span>Rang:</span>
                   </div>
                   <div class="col">
                     <select class="form-select form-select-sm btn-outline-primary" name="permission-level" required>
@@ -129,104 +129,24 @@
         </div>
       </section>
       <!--roles, weapons & attributes-->
-      <section class="row mb-3">
+      <section class="row">
         <div class="col ps-0">
           <!--roles-->
-          <section class="row mb-2">
-            <h5>Rollen</h5>
-            {{range $roleID := .Application.Character.Roles}}
-            <div class="col-auto">
-              {{getRoleName $roleID}}
-            </div>
-            {{end}}
-          </section>
+          {{template "roles" .Application.Character}}
           <!--weapons-->
-          <section class="row">
-            <h5>Waffen</h5>
-            {{range $weaponID := .Application.Character.Weapons}}
-            <div class="col-auto">
-              {{getWeaponName $weaponID}}
-            </div>
-            {{end}}
-          </section>
+          {{template "weapons" .Application.Character}}
         </div>
         <!--attributes-->
         <div class="col ps-0">
-          <h5>Attribute</h5>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Stärke</th>
-                <th scope="col">Geschicklichkeit</th>
-                <th scope="col">Intelligenz</th>
-                <th scope="col">Fokus</th>
-                <th scope="col">Konstitution</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{.User.Character.Attributes.Strength}}</td>
-                <td>{{.User.Character.Attributes.Dexterity}}</td>
-                <td>{{.User.Character.Attributes.Intelligence}}</td>
-                <td>{{.User.Character.Attributes.Focus}}</td>
-                <td>{{.User.Character.Attributes.Constitution}}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="row align-items-end h-100">
+            <div class="col">
+              {{template "attributes" .Application.Character}}
+            </div>
+          </div>
         </div>
       </section>
-      <!--refining-jobs-->
-      <section class="row mb-3">
-        <h5 class="ps-0">Veredelungsberufe</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Schmelzen</th>
-              <th scope="col">Holzverarbeitung</th>
-              <th scope="col">Lederverarbeitung</th>
-              <th scope="col">Weberei</th>
-              <th scope="col">Steinmetzkunst</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{if .Application.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      <!--crafting-jobs-->
-      <section class="row mb-3">
-        <h5 class="ps-0">Herstellungsberufe</h5>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Waffenschmiedekunst</th>
-              <th scope="col">Rüstungsschmiedekunst</th>
-              <th scope="col">Ingenieurskunst</th>
-              <th scope="col">Juwelenschleiferei</th>
-              <th scope="col">Arkana</th>
-              <th scope="col">Kochkunst</th>
-              <th scope="col">Tischlerei</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{if .Application.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
-              <td>{{if .Application.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+      <!-- jobs -->
+      {{template "jobs" .Application.Character}}
     </div>
   </section>
   {{template "footer"}}

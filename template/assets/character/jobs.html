@@ -1,0 +1,89 @@
+{{define "jobs"}}
+<!-- refining-jobs -->
+<section class="row mb-3">
+    <h5 class="ps-0">Veredelungsberufe</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Schmelzen</th>
+                <th scope="col">Holzverarbeitung</th>
+                <th scope="col">Lederverarbeitung</th>
+                <th scope="col">Weberei</th>
+                <th scope="col">Steinmetzkunst</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{if .Refining_jobs.Smelting}}
+                    <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>{{if .Refining_jobs.Woodworking}}
+                    <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Refining_jobs.Tanning}}
+                    <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Refining_jobs.Weaving}}
+                    <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Refining_jobs.Stonecutting}}
+                    <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<!-- crafting-jobs -->
+<section class="row mb-3">
+    <h5 class="ps-0">Herstellungsberufe</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Waffenschmiedekunst</th>
+                <th scope="col">Rüstungsschmiedekunst</th>
+                <th scope="col">Ingenieurskunst</th>
+                <th scope="col">Juwelenschleiferei</th>
+                <th scope="col">Arkana</th>
+                <th scope="col">Kochkunst</th>
+                <th scope="col">Tischlerei</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{if .Crafting_jobs.Weaponsmithing}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Armoring}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Engineering}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Jewelcrafting}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Arcana}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Cooking}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+                <td>
+                    {{if .Crafting_jobs.Furnishing}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                        src="/static/icons/x-lg.svg">{{end}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{{end}}

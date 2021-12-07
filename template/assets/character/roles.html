@@ -1,0 +1,10 @@
+{{define "roles"}}
+<section class="row mb-3">
+    <h5>Rollen</h5>
+    {{range $roleID := .Roles}}
+    <div class="col-auto pe-0">
+        <span class="btn btn-outline-primary disabled">{{getRoleName $roleID}}</span>
+    </div>
+    {{end}}
+</section>
+{{end}}

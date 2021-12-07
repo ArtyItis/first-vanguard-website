@@ -25,8 +25,8 @@
             </div>
         </div>
     </div>
-    <section class="container mt-3 mt-lg-8" id="content">
-        <div class="row mb-3 px-3 px-lg-0">
+    <section class="container mt-3 mt-lg-8 px-3 px-lg-auto" id="content">
+        <div class="row mb-3">
             <!-- character -->
             <div class="col-lg-6 ps-0">
                 <!--general information-->
@@ -93,7 +93,7 @@
                 </section>
             </div>
             <!-- buttons -->
-            <div class="col my-auto">
+            <div class="col-lg-3 my-auto">
                 <div class="row mb-2">
                     <a href="/members" class="btn btn-outline-primary btn-sm text-white">
                         <img src="/static/icons/arrow-left.svg" alt="" srcset=""> Zurück zur Mitgliederliste
@@ -126,188 +126,25 @@
             </div>
             {{end}}
         </div>
-        <!-- roles, weapons & attributes -->
-        <section class="row mb-3 px-3 px-lg-0">
+        <!--roles, weapons & attributes-->
+        <section class="row">
             <div class="col ps-0">
                 <!--roles-->
-                <section class="row mb-3">
-                    <h5>Rollen</h5>
-                    {{range $roleID := .User.Character.Roles}}
-                    <div class="col-auto pe-0">
-                        <span class="btn btn-outline-primary disabled">{{getRoleName $roleID}}</span>
-                    </div>
-                    {{end}}
-                </section>
+                {{template "roles" .User.Character}}
                 <!--weapons-->
-                <section class="row">
-                    <div class="row mb-2">
-                        <h5 class="col-auto mb-0">Waffen</h5>
-                    </div>
-                    <div class="row mb-1">
-                        <h6 class="col-lg-3 my-lg-auto mb-1">Einhandwaffen</h6>
-                        {{range $weaponID := .User.Character.Weapons}}
-                        {{if $user.GetWeaponByType $weaponID "einhand"}}
-                        <div class="col-auto pe-0">
-                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
-                        </div>
-                        {{end}}
-                        {{end}}
-                    </div>
-                    <div class="row mb-1">
-                        <h6 class="col-lg-3 my-lg-auto mb-1">Zweihandwaffen</h6>
-                        {{range $weaponID := .User.Character.Weapons}}
-                        {{if $user.GetWeaponByType $weaponID "zweihand"}}
-                        <div class="col-auto pe-0">
-                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
-                        </div>
-                        {{end}}
-                        {{end}}
-                    </div>
-                    <div class="row mb-1">
-                        <h6 class="col-lg-3 my-lg-auto mb-1">Fernkampfwaffen</h6>
-                        {{range $weaponID := .User.Character.Weapons}}
-                        {{if $user.GetWeaponByType $weaponID "fernkampf"}}
-                        <div class="col-auto pe-0">
-                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
-                        </div>
-                        {{end}}
-                        {{end}}
-                    </div>
-                    <div class="row mb-1">
-                        <h6 class="col-lg-3 my-lg-auto mb-1">magische Waffen</h6>
-                        {{range $weaponID := .User.Character.Weapons}}
-                        {{if $user.GetWeaponByType $weaponID "magisch"}}
-                        <div class="col-auto pe-0">
-                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
-                        </div>
-                        {{end}}
-                        {{end}}
-                    </div>
-                </section>
+                {{template "weapons" .User.Character}}
             </div>
             <!--attributes-->
             <div class="col ps-0">
-                <h5>Attribute</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Stärke</th>
-                            <th scope="col">Geschicklichkeit</th>
-                            <th scope="col">Intelligenz</th>
-                            <th scope="col">Fokus</th>
-                            <th scope="col">Konstitution</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{.User.Character.Attributes.Strength}}</td>
-                            <td>{{.User.Character.Attributes.Dexterity}}</td>
-                            <td>{{.User.Character.Attributes.Intelligence}}</td>
-                            <td>{{.User.Character.Attributes.Focus}}</td>
-                            <td>{{.User.Character.Attributes.Constitution}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="row align-items-end h-100">
+                    <div class="col">
+                        {{template "attributes" .User.Character}}
+                    </div>
+                </div>
             </div>
         </section>
-        <!-- refining-jobs -->
-        <section class="row mb-3 px-3 px-lg-0">
-            <h5 class="ps-0">Veredelungsberufe</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Schmelzen</th>
-                        <th scope="col">Holzverarbeitung</th>
-                        <th scope="col">Lederverarbeitung</th>
-                        <th scope="col">Weberei</th>
-                        <th scope="col">Steinmetzkunst</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {{if .User.Character.Refining_jobs.Smelting}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>{{if
-                            .User.Character.Refining_jobs.Woodworking}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Refining_jobs.Tanning}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Refining_jobs.Weaving}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Refining_jobs.Stonecutting}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <!-- crafting-jobs -->
-        <section class="row mb-3 px-3 px-lg-0">
-            <h5 class="ps-0">Herstellungsberufe</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Waffenschmiedekunst</th>
-                        <th scope="col">Rüstungsschmiedekunst</th>
-                        <th scope="col">Ingenieurskunst</th>
-                        <th scope="col">Juwelenschleiferei</th>
-                        <th scope="col">Arkana</th>
-                        <th scope="col">Kochkunst</th>
-                        <th scope="col">Tischlerei</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Weaponsmithing}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Armoring}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Engineering}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Jewelcrafting}}<img
-                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Arcana}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Cooking}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                        <td>
-                            {{if
-                            .User.Character.Crafting_jobs.Furnishing}}<img src="/static/icons/check-lg.svg">{{else}}<img
-                                src="/static/icons/x-lg.svg">{{end}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <!-- jobs -->
+        {{template "jobs" .User.Character}}
     </section>
     {{template "footer"}}
 </body>

@@ -184,42 +184,48 @@
                 </div>
                 <!--attributes-->
                 <div class="col ps-0">
-                    <h5>Attribute</h5>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Stärke</th>
-                                <th scope="col">Geschicklichkeit</th>
-                                <th scope="col">Intelligenz</th>
-                                <th scope="col">Fokus</th>
-                                <th scope="col">Konstitution</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control-plaintext"
-                                        placeholder="{{$user.Character.Attributes.Strength}}" name="strength">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control-plaintext"
-                                        placeholder="{{$user.Character.Attributes.Dexterity}}" name="dexterity">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control-plaintext"
-                                        placeholder="{{$user.Character.Attributes.Intelligence}}" name="intelligence">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control-plaintext"
-                                        placeholder="{{$user.Character.Attributes.Focus}}" name="focus">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control-plaintext"
-                                        placeholder="{{$user.Character.Attributes.Constitution}}" name="constitution">
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row align-items-end h-100">
+                        <div class="col">
+                            <h5>Attribute</h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Stärke</th>
+                                        <th scope="col">Geschicklichkeit</th>
+                                        <th scope="col">Intelligenz</th>
+                                        <th scope="col">Fokus</th>
+                                        <th scope="col">Konstitution</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control-plaintext"
+                                                placeholder="{{$user.Character.Attributes.Strength}}" name="strength">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control-plaintext"
+                                                placeholder="{{$user.Character.Attributes.Dexterity}}" name="dexterity">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control-plaintext"
+                                                placeholder="{{$user.Character.Attributes.Intelligence}}"
+                                                name="intelligence">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control-plaintext"
+                                                placeholder="{{$user.Character.Attributes.Focus}}" name="focus">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control-plaintext"
+                                                placeholder="{{$user.Character.Attributes.Constitution}}"
+                                                name="constitution">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </section>
             <!-- refining-jobs -->
@@ -242,9 +248,8 @@
                                     id="smelting" {{if $user.Character.Refining_jobs.Smelting}}checked{{end}}>
                             </td>
                             <td>
-                                <input type="checkbox" class="form-check-input" name="refining-jobs"
-                                    value="woodworking" id="woodworking" {{if
-                                    $user.Character.Refining_jobs.Woodworking}}checked{{end}}>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="woodworking"
+                                    id="woodworking" {{if $user.Character.Refining_jobs.Woodworking}}checked{{end}}>
                             </td>
                             <td>
                                 <input type="checkbox" class="form-check-input" name="refining-jobs" value="tanning"
@@ -255,8 +260,9 @@
                                     id="weaving" {{if $user.Character.Refining_jobs.Weaving}}checked{{end}}>
                             </td>
                             <td>
-                                <input type="checkbox" class="form-check-input" name="refining-jobs" value="stonecutting"
-                                    id="stonecutting" {{if $user.Character.Refining_jobs.Stonecutting}}checked{{end}}>
+                                <input type="checkbox" class="form-check-input" name="refining-jobs"
+                                    value="stonecutting" id="stonecutting" {{if
+                                    $user.Character.Refining_jobs.Stonecutting}}checked{{end}}>
                             </td>
                         </tr>
                     </tbody>

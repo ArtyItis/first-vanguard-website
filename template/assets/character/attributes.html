@@ -1,0 +1,25 @@
+{{define "attributes"}}
+<section class="row mb-3 px-3">
+    <h5 class="ps-0">Attribute</h5>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Stärke</th>
+                <th scope="col">Geschicklichkeit</th>
+                <th scope="col">Intelligenz</th>
+                <th scope="col">Fokus</th>
+                <th scope="col">Konstitution</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{.Attributes.Strength}}</td>
+                <td>{{.Attributes.Dexterity}}</td>
+                <td>{{.Attributes.Intelligence}}</td>
+                <td>{{.Attributes.Focus}}</td>
+                <td>{{.Attributes.Constitution}}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{{end}}

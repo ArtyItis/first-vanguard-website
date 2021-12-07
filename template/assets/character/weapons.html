@@ -1,0 +1,55 @@
+{{define "weapons"}}
+<section class="row mb-3">
+    <div class="row mb-2">
+        <h5 class="col-auto mb-0">Waffen</h5>
+    </div>
+    {{if .ContainsWeaponOfType "einhand"}}
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-lg-auto mb-1">Einhandwaffen</h6>
+        {{range $weaponID := .Weapons}}
+        {{if getWeaponByType $weaponID "einhand"}}
+        <div class="col-auto pe-0">
+            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    {{end}}
+    {{if .ContainsWeaponOfType "zweihand"}}
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-lg-auto mb-1">Zweihandwaffen</h6>
+        {{range $weaponID := .Weapons}}
+        {{if getWeaponByType $weaponID "zweihand"}}
+        <div class="col-auto pe-0">
+            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    {{end}}
+    {{if .ContainsWeaponOfType "fernkampf"}}
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-lg-auto mb-1">Fernkampfwaffen</h6>
+        {{range $weaponID := .Weapons}}
+        {{if getWeaponByType $weaponID "fernkampf"}}
+        <div class="col-auto pe-0">
+            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    {{end}}
+    {{if .ContainsWeaponOfType "magisch"}}
+    <div class="row mb-1">
+        <h6 class="col-lg-3 my-lg-auto mb-1">magische Waffen</h6>
+        {{range $weaponID := .Weapons}}
+        {{if getWeaponByType $weaponID "magisch"}}
+        <div class="col-auto pe-0">
+            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+        </div>
+        {{end}}
+        {{end}}
+    </div>
+    {{end}}
+</section>
+{{end}}
