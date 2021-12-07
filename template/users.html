@@ -31,7 +31,7 @@
           <td>{{$user.discord_tag}}</td>
           <td>
             {{range $role := $user.character.roles}}
-            {{$role.name}}
+            <span class="btn btn-outline-primary disabled py-1 px-2">{{getRoleName $role}}</span>
             {{end}}
           </td>
           <td>{{$user.date.day}}.{{$user.date.month}}.{{$user.date.year}}</td>
