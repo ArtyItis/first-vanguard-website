@@ -17,6 +17,11 @@ var (
 	head       = "template/assets/head.html"
 	navigation = "template/assets/navigation.html"
 	footer     = "template/assets/footer.html"
+
+	attributes = "template/assets/character/attributes.html"
+	jobs       = "template/assets/character/jobs.html"
+	roles      = "template/assets/character/roles.html"
+	weapons    = "template/assets/character/weapons.html"
 )
 
 type Data struct {
