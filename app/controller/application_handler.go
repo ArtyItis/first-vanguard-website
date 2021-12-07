@@ -130,8 +130,9 @@ func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
 func ApplicationGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("application.html").
 		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
+		Funcs(template.FuncMap{"getWeaponByType": GetWeaponByType}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/application.html", head, navigation, footer))
+		ParseFiles("template/application.html", attributes, jobs, roles, weapons, head, navigation, footer))
 	applicationId := mux.Vars(r)["id"]
 	application, _ := model.GetApplicationById(applicationId)
 	weapons, _ := model.GetAllWeapons()

@@ -108,8 +108,9 @@ func UsersGET(w http.ResponseWriter, r *http.Request) {
 func UserGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("user.html").
 		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
+		Funcs(template.FuncMap{"getWeaponByType": GetWeaponByType}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/user.html", head, navigation, footer))
+		ParseFiles("template/user.html", attributes, jobs, roles, weapons, head, navigation, footer))
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
 	user, _ := model.GetUserById(mux.Vars(r)["id"])
