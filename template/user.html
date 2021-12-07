@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{{$user := .User}}
 
 <head>
     {{template "head"}}
@@ -8,13 +9,29 @@
 
 <body>
     {{template "navigation" .}}
+    <!-- Modal-Delete-Warning -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">{{$user.Character.Name}} löschen?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <a href="/members/{{.User.Id}}/delete" class="btn btn-danger">Profil löschen</a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Nein</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="container mt-3 mt-lg-8" id="content">
-        <div class="row mb-3">
-            <!--character-->
-            <div class="col-lg-6  ps-0">
+        <div class="row mb-3 px-3 px-lg-0">
+            <!-- character -->
+            <div class="col-lg-6 ps-0">
                 <!--general information-->
                 <section class="row">
-                    <h4 class="">{{.User.Character.Name}}</h4>
+                    <h4>{{.User.Character.Name}}</h4>
                     <div class="col">
                         <!--date-->
                         <div class="row">
@@ -28,7 +45,7 @@
                         <!--armor-weight-->
                         <div class="row">
                             <div class="col">
-                                <span>Rüstungsgewicht: </span>
+                                <span>Gewicht: </span>
                             </div>
                             <div class="col">
                                 <span>{{.User.Character.Equipment_weight}}</span>
@@ -54,50 +71,53 @@
                                 <span>{{.User.Discord_tag}}</span>
                             </div>
                         </div>
-                        <form action="/applications/{{.User.Id}}/accepted" method="post" id="accepted">
-                            <!--company-->
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <span>Kompanie: </span>
-                                </div>
-                                <div class="col">
-                                    {{.User.Company}}
-                                </div>
+                        <!--company-->
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <span>Kompanie: </span>
                             </div>
-                            <!--permission level-->
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <span>Rang:</span>
-                                </div>
-                                <div class="col">
-                                    {{convertPermissionLevel .User}}
-                                </div>
+                            <div class="col">
+                                {{.User.Company}}
                             </div>
-                        </form>
+                        </div>
+                        <!--permission level-->
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <span>Rang:</span>
+                            </div>
+                            <div class="col">
+                                {{.User.ConvertPermissionLevel}}
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
-            <div class="col-lg-3 my-auto">
+            <!-- buttons -->
+            <div class="col my-auto">
                 <div class="row mb-2">
-                    <a href="/members" class="btn btn-secondary btn-sm">
+                    <a href="/members" class="btn btn-outline-primary btn-sm text-white">
                         <img src="/static/icons/arrow-left.svg" alt="" srcset=""> Zurück zur Mitgliederliste
                     </a>
                 </div>
-                <!-- <div class="row">
+                <div class="row">
                     <a href="/members/{{.User.Id}}/edit" class="btn btn-primary btn-sm col me-1">Profil bearbeiten</a>
-                    <a href="/members/{{.User.Id}}/delete" class="btn btn-danger btn-sm col ms-1">Profil löschen</a>
-                </div> -->
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger btn-sm col ms-1" data-bs-toggle="modal"
+                        data-bs-target="#deleteUserModal">
+                        Profil löschen
+                    </button>
+                </div>
             </div>
             {{if ge .Session.User.Permission_level 200}}
             {{if .User.Password_tmp}}
-            <div class="col pe-0 d-flex align-items-center">
+            <div class="col px-0 px-lg-2 mt-1 my-lg-auto">
                 <div>
                     <a class="btn btn-danger btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button"
                         aria-expanded="false" aria-controls="collapseExample">
                         temporäres Passwort anzeigen
                     </a>
                     <div class="collapse mt-2" id="collapseExample">
-                        <div class="card card-body text-black">
+                        <div class="card card-body p-1 text-black">
                             {{.User.Password_tmp}}
                         </div>
                     </div>
@@ -106,10 +126,67 @@
             {{end}}
             {{end}}
         </div>
-        <!--attributes & roles-->
-        <section class="row mb-3">
+        <!-- roles, weapons & attributes -->
+        <section class="row mb-3 px-3 px-lg-0">
+            <div class="col ps-0">
+                <!--roles-->
+                <section class="row mb-3">
+                    <h5>Rollen</h5>
+                    {{range $roleID := .User.Character.Roles}}
+                    <div class="col-auto pe-0">
+                        <span class="btn btn-outline-primary disabled">{{getRoleName $roleID}}</span>
+                    </div>
+                    {{end}}
+                </section>
+                <!--weapons-->
+                <section class="row">
+                    <div class="row mb-2">
+                        <h5 class="col-auto mb-0">Waffen</h5>
+                    </div>
+                    <div class="row mb-1">
+                        <h6 class="col-lg-3 my-lg-auto mb-1">Einhandwaffen</h6>
+                        {{range $weaponID := .User.Character.Weapons}}
+                        {{if $user.GetWeaponByType $weaponID "einhand"}}
+                        <div class="col-auto pe-0">
+                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+                        </div>
+                        {{end}}
+                        {{end}}
+                    </div>
+                    <div class="row mb-1">
+                        <h6 class="col-lg-3 my-lg-auto mb-1">Zweihandwaffen</h6>
+                        {{range $weaponID := .User.Character.Weapons}}
+                        {{if $user.GetWeaponByType $weaponID "zweihand"}}
+                        <div class="col-auto pe-0">
+                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+                        </div>
+                        {{end}}
+                        {{end}}
+                    </div>
+                    <div class="row mb-1">
+                        <h6 class="col-lg-3 my-lg-auto mb-1">Fernkampfwaffen</h6>
+                        {{range $weaponID := .User.Character.Weapons}}
+                        {{if $user.GetWeaponByType $weaponID "fernkampf"}}
+                        <div class="col-auto pe-0">
+                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+                        </div>
+                        {{end}}
+                        {{end}}
+                    </div>
+                    <div class="row mb-1">
+                        <h6 class="col-lg-3 my-lg-auto mb-1">magische Waffen</h6>
+                        {{range $weaponID := .User.Character.Weapons}}
+                        {{if $user.GetWeaponByType $weaponID "magisch"}}
+                        <div class="col-auto pe-0">
+                            <span class="btn btn-outline-primary disabled">{{getWeaponName $weaponID}}</span>
+                        </div>
+                        {{end}}
+                        {{end}}
+                    </div>
+                </section>
+            </div>
             <!--attributes-->
-            <div class="col-lg ps-0">
+            <div class="col ps-0">
                 <h5>Attribute</h5>
                 <table class="table">
                     <thead>
@@ -132,60 +209,10 @@
                     </tbody>
                 </table>
             </div>
-            <!--roles-->
-            <div class="col-lg pe-0">
-                <h5>Rollen</h5>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            {{range $role := .Roles}}
-                            <th scope="col">{{$role.name}}</th>
-                            {{end}}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            {{$roles := .User.Character.Roles}}
-                            {{range $role := .Roles}}
-                            {{if containsRole $role $roles}}
-                            <td>X</td>
-                            {{else}}
-                            <td>-</td>
-                            {{end}}
-                            {{end}}
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </section>
-        <!--weapons-->
-        <section class="row mb-3">
-            <h5>Waffen</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        {{range $weapon := .Weapons}}
-                        <th scope="col">{{$weapon.name}}</th>
-                        {{end}}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {{$weapons := .User.Character.Weapons}}
-                        {{range $weapon := .Weapons}}
-                        {{if containsWeapon $weapon $weapons}}
-                        <td>X</td>
-                        {{else}}
-                        <td>-</td>
-                        {{end}}
-                        {{end}}
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <!--refining-jobs-->
-        <section class="row mb-3">
-            <h5>Veredelungsberufe</h5>
+        <!-- refining-jobs -->
+        <section class="row mb-3 px-3 px-lg-0">
+            <h5 class="ps-0">Veredelungsberufe</h5>
             <table class="table">
                 <thead>
                     <tr>
@@ -198,18 +225,36 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{if .User.Character.Refining_jobs.Smelting}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Refining_jobs.Woodworking}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Refining_jobs.Tanning}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Refining_jobs.Weaving}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Refining_jobs.Stonecutting}}X{{else}}-{{end}}</td>
+                        <td>
+                            {{if .User.Character.Refining_jobs.Smelting}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>{{if
+                            .User.Character.Refining_jobs.Woodworking}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Refining_jobs.Tanning}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Refining_jobs.Weaving}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Refining_jobs.Stonecutting}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </section>
-        <!--crafting-jobs-->
-        <section class="row mb-3">
-            <h5>Herstellungsberufe</h5>
+        <!-- crafting-jobs -->
+        <section class="row mb-3 px-3 px-lg-0">
+            <h5 class="ps-0">Herstellungsberufe</h5>
             <table class="table">
                 <thead>
                     <tr>
@@ -224,13 +269,41 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{if .User.Character.Crafting_jobs.Weaponsmithing}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Armoring}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Engineering}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Jewelcrafting}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Arcana}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Cooking}}X{{else}}-{{end}}</td>
-                        <td>{{if .User.Character.Crafting_jobs.Furnishing}}X{{else}}-{{end}}</td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Weaponsmithing}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Armoring}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Engineering}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Jewelcrafting}}<img
+                                src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Arcana}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Cooking}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
+                        <td>
+                            {{if
+                            .User.Character.Crafting_jobs.Furnishing}}<img src="/static/icons/check-lg.svg">{{else}}<img
+                                src="/static/icons/x-lg.svg">{{end}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
