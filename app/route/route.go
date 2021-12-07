@@ -29,6 +29,8 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordGET)).Methods("GET")
 	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordPOST)).Methods("POST")
 	router.HandleFunc("/members/{id}/delete", controller.Authenticate(controller.UserDeleteGET)).Methods("GET")
+	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditGet)).Methods("GET")
+	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditPost)).Methods("POST")
 
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 	router.HandleFunc("/data_privacy", controller.DataPrivacyGET).Methods("GET")
