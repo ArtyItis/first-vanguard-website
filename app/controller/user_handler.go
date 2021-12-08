@@ -105,6 +105,38 @@ func UsersGET(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func RefiningGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("refining.html").Funcs(template.FuncMap{"add": Add}).
+		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
+		ParseFiles("template/refining.html", head, navigation, footer))
+	users, _ := model.GetAllUsers()
+	data := Data{
+		Session: GetSessionInformation(r),
+		Users:   users,
+	}
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
+func CraftingGET(w http.ResponseWriter, r *http.Request) {
+	tmpl := template.Must(template.New("crafting.html").Funcs(template.FuncMap{"add": Add}).
+		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).
+		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
+		ParseFiles("template/crafting.html", head, navigation, footer))
+	users, _ := model.GetAllUsers()
+	data := Data{
+		Session: GetSessionInformation(r),
+		Users:   users,
+	}
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
+
 func UserGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("user.html").
 		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
