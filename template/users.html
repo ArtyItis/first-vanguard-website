@@ -16,6 +16,7 @@
           <th scope="col">Charaktername</th>
           <th scope="col">Rang</th>
           <th scope="col">Gilde</th>
+          <th scope="col">GS</th>
           <th scope="col">Discord-Tag</th>
           <th scope="col">Rollen</th>
           <th scope="col">Beigetreten am</th>
@@ -31,6 +32,7 @@
           </td>
           <td>{{$user.company}}</td>
           <td>{{$user.discord_tag}}</td>
+          <td>{{$user.gearscore}}</td>
           <td>
             {{range $role := $user.character.roles}}
             <span class="btn btn-outline-primary disabled py-1 px-2">{{getRoleName $role}}</span>
