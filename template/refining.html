@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>Refining Berufe</title>
+</head>
+
+<body>
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Charaktername</th>
+          <th scope="col">Schmelzen</th>
+          <th scope="col">Steinmetzkunst</th>
+          <th scope="col">Lederverarbeitung</th>
+          <th scope="col">Weberei</th>
+          <th scope="col">Holzverarbeitung</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $index, $user := .Users}}
+        <td>{{$user.character.name}}</td>
+        <td>
+          {{if $user.character.refining_jobs.smelting}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.refining_jobs.stonecutting}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.refining_jobs.tanning}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.refining_jobs.weaving}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.refining_jobs.woodworking}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </section>
+  {{template "footer"}}
+  <script src="/static/js/row_link.js"></script>
+</body>
