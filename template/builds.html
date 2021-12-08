@@ -7,8 +7,21 @@
 </head>
 
 <body>
-    {{template "navigation" .}}
-    <section class="container mt-3 mt-lg-8" id="content">
-    </section>
-    {{template "footer"}}
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        {{range $role := .Roles}}
+        <button class="nav-link" id="{{$role._id}}" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+          role="tab" aria-controls="nav-profile" aria-selected="false">{{$role.name}}</button>
+        {{end}}
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+      <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+      <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+    </div>
+  </section>
+  {{template "footer"}}
 </body>

@@ -4304,7 +4304,7 @@ fieldset:disabled .btn {
   height: 0;
   margin: 0.5rem 0;
   overflow: hidden;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  border-top: 1px solid #0f9c36;
 }
 
 .dropdown-item {
@@ -4382,7 +4382,7 @@ fieldset:disabled .btn {
 }
 
 .dropdown-menu-dark .dropdown-divider {
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: #0f9c36;
 }
 
 .dropdown-menu-dark .dropdown-item-text {

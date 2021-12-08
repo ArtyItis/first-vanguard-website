@@ -163,7 +163,6 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 func TaxesGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("taxes.html").
 		Funcs(template.FuncMap{"add": Add}).
-		Funcs(template.FuncMap{"minus": Minus}).
 		ParseFiles("template/taxes.html", head, navigation, footer))
 	users, _ := model.GetAllUsers()
 	data := Data{

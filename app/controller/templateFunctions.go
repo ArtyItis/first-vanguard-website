@@ -31,3 +31,14 @@ func GetWeaponByType(weaponID string, weaponType string) bool {
 	weapon, _ := model.GetWeaponById(weaponID)
 	return weapon.Type == weaponType
 }
+
+//used in taxes.html
+func GetUsersByCompany(users []map[string]interface{}, companyName string) (companyMembers []model.User) {
+	for _, u := range users {
+		user := model.Map2User(u)
+		if user.Company == companyName {
+			companyMembers = append(companyMembers, user)
+		}
+	}
+	return companyMembers
+}

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"forgottennw/app/model"
 	"html/template"
 	"net/http"
 )
@@ -22,5 +23,14 @@ func ImprintGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func BuildsGET(w http.ResponseWriter, r *http.Request) {
-	ExecuteTemplate(w, r, "builds")
+	tmpl := template.Must(template.ParseFiles("template/builds.html", head, navigation, footer))
+	weapons, _ := model.GetAllWeapons()
+	roles, _ := model.GetAllRoles()
+	data := Data{
+		Session: GetSessionInformation(r),
+		Weapons: weapons,
+		Roles:   roles,
+	}
+	tmpl.Execute(w, data)
+	// ExecuteTemplate(w, r, "builds")
 }

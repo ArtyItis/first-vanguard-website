@@ -151,6 +151,7 @@ $toast-header-color: $white;
 $toast-color: $white;
 $toast-header-border-color: rgba($primary,.05);
 $toast-border-color: rgba($primary,.1);
-
+// dropdwon
+$dropdown-divider-bg: $primary;
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";

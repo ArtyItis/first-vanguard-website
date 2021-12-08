@@ -98,6 +98,15 @@ func GetAllUsers() ([]map[string]interface{}, error) {
 	}
 }
 
+func GetUsersByCompany(company string) ([]map[string]interface{}, error) {
+	users, err := userDB.Query(nil, `company == `+company, nil, 1000, nil, nil)
+	if err != nil {
+		return nil, err
+	} else {
+		return users, nil
+	}
+}
+
 func User2Map(u User) (user map[string]interface{}) {
 	jJSON, _ := json.Marshal(u)
 	json.Unmarshal(jJSON, &user)
@@ -115,8 +124,12 @@ func ShiftTaxes(user User) User {
 	user.Taxes.Current_week = user.Taxes.Next_week
 	user.Taxes.Next_week = user.Taxes.Second_next_week
 	_, week := time.Now().ISOWeek()
+	week += 2      //current week + 2 = second next week
+	if week > 52 { // if week is in next year -> reset week
+		week -= 52
+	}
 	tax := Tax{
-		Week: week + 2,
+		Week: week,
 	}
 	user.Taxes.Second_next_week = tax
 	return user
@@ -142,6 +155,7 @@ func (user User) ConvertPermissionLevel() string {
 	return "nicht definiert"
 }
 
+//used in userEdit.html
 func (user User) ContainsRole(r map[string]interface{}) bool {
 	role := Map2Role(r)
 	for _, roleID := range user.Character.Roles {
@@ -152,6 +166,7 @@ func (user User) ContainsRole(r map[string]interface{}) bool {
 	return false
 }
 
+//used in userEdit.html
 func (user User) ContainsWeapon(w map[string]interface{}) bool {
 	weapon := Map2Weapon(w)
 	for _, weaponID := range user.Character.Weapons {
@@ -160,12 +175,4 @@ func (user User) ContainsWeapon(w map[string]interface{}) bool {
 		}
 	}
 	return false
-}
-
-func (user User) PrintRoles() (result string) {
-	for _, roleID := range user.Character.Roles {
-		role, _ := GetRoleById(roleID)
-		result += role.Name + " | "
-	}
-	return result[0 : len(result)-3]
 }
