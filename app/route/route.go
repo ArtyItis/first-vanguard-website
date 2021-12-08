@@ -34,6 +34,9 @@ func NewRouter() *mux.Router {
 
 	router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
 
+	router.HandleFunc("/refining", controller.Authenticate(controller.RefiningGET)).Methods("GET")
+	router.HandleFunc("/crafting", controller.Authenticate(controller.CraftingGET)).Methods("GET")
+
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 
 	router.HandleFunc("/login", controller.Login).Methods("POST")

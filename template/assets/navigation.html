@@ -41,20 +41,22 @@
                             <a class="nav-link" href="/builds">Waffenbuilds</a>
                             <a class="nav-link" href="/members/{{.Session.User.Company}}">Mitgliederliste</a>
                             <a class="nav-link" href="/members/{{.Session.User.Company}}/taxes">Steuerliste</a>
+                            <a class="nav-link" href="/members">Mitgliederliste</a>
+                            <a class="nav-link" href="/refining">Refining Berufe</a>
+                            <a class="nav-link" href="/crafting">Crafting Berufe</a>
+                            <a class="nav-link" href="/members/taxes">Steuerliste</a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <hr class="dropdown-divider">
                     </li>
-                    {{if ne .Session.User.Password_tmp ""}}
                     <li class="nav-item">
                         <a class="nav-link" href="/members/{{.Session.User.Id}}/changePassword">Passwort ändern</a>
                     </li>
-                    {{end}}
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
-                    <!-- Logged in area start -->
+                    <!-- Logged in area end -->
                     {{else}}
                     <li class="nav-item">
                         <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#loginModal">Login</a>
