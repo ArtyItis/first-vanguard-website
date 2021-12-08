@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>Crafting Berufe</title>
+</head>
+
+<body>
+  {{template "navigation" .}}
+  <section class="container mt-3 mt-lg-8" id="content">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Charaktername</th>
+          <th scope="col">Waffenschmiedekunst</th>
+          <th scope="col">Rüstungsschmiedekunst</th>
+          <th scope="col">Ingenieurskunst</th>
+          <th scope="col">Juwelenschleiferei</th>
+          <th scope="col">Arkana</th>
+          <th scope="col">Kochkunst</th>
+          <th scope="col">Tischlerei</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range $index, $user := .Users}}
+        <td>{{$user.character.name}}</td>
+        <td>
+          {{if $user.character.crafting_jobs.weaponsmithing}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.armoring}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.engineering}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.jewelcrafting}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.arcana}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.cooking}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        <td>
+          {{if $user.character.crafting_jobs.furnishing}}
+          <img src="/static/icons/check-lg.svg">{{else}}<img src="/static/icons/x-lg.svg">{{end}}
+        </td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </section>
+  {{template "footer"}}
+  <script src="/static/js/row_link.js"></script>
+</body>
