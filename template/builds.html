@@ -9,6 +9,46 @@
 <body>
     {{template "navigation" .}}
     <section class="container mt-3 mt-lg-8" id="content">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="greatxe_build-tab" data-bs-toggle="tab" data-bs-target="#greataxe" type="button" role="tab" aria-controls="greataxe" aria-selected="true">Großaxt</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="warhammer_build-tab" data-bs-toggle="tab" data-bs-target="#warhammer" type="button" role="tab" aria-controls="warhammer" aria-selected="false">Kriegshammer</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="firestaff_build-tab" data-bs-toggle="tab" data-bs-target="#firestaff" type="button" role="tab" aria-controls="firestaff" aria-selected="false">Feuerstab</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="icegauntlet_build-tab" data-bs-toggle="tab" data-bs-target="#icegauntlet" type="button" role="tab" aria-controls="icegauntlet" aria-selected="false">Eisstulpen</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="lifestaff_build-tab" data-bs-toggle="tab" data-bs-target="#lifestaff" type="button" role="tab" aria-controls="lifestaff" aria-selected="false">Lebensstab</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="voidgauntlet_build-tab" data-bs-toggle="tab" data-bs-target="#voidgauntlet" type="button" role="tab" aria-controls="voidgauntlet" aria-selected="false">Unheilsstulpen</button>
+        </li>
+        <li class="nav-item" role="presentation"> 
+          <button class="nav-link" id="bow_build-tab" data-bs-toggle="tab" data-bs-target="#bow" type="button" role="tab" aria-controls="bow" aria-selected="false">Bogen</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="musket_build-tab" data-bs-toggle="tab" data-bs-target="#musket" type="button" role="tab" aria-controls="musket" aria-selected="false">Muskete</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="swordshield_build-tab" data-bs-toggle="tab" data-bs-target="#swordshield" type="button" role="tab" aria-controls="swordshield" aria-selected="false">Schwert & Schild</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="BuildTabContent">
+        <div class="tab-pane fade show active" id="greataxe" role="tabpanel" aria-labelledby="greataxe_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="warhammer" role="tabpanel" aria-labelledby="warhammer_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="firestaff" role="tabpanel" aria-labelledby="firestaff_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="icegauntlet" role="tabpanel" aria-labelledby="icegauntlet_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="lifestaff" role="tabpanel" aria-labelledby="lifestaff_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="voidgauntlet" role="tabpanel" aria-labelledby="voidgauntlet_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="bow" role="tabpanel" aria-labelledby="bow_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="musket" role="tabpanel" aria-labelledby="musket_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+        <div class="tab-pane fade" id="swordshield" role="tabpanel" aria-labelledby="swordshield_build-tab">Waffenbuild befindet sich in Bearbeitung</div>
+      </div>
     </section>
     {{template "footer"}}
 </body>
