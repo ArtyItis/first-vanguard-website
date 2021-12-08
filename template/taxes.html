@@ -14,12 +14,13 @@
                 <tr>
                     <th colspan="1">
                         <a class="m-0" data-bs-toggle="popover" data-bs-trigger="hover" data-bs-placement="top"
-                        data-bs-content="Die Wochen werden montags um 04:00 Uhr morgens aktualisiert.">
-                        <img src="/static/icons/info-circle.svg">
-                    </a>
+                            data-bs-content="Die Wochen werden montags um 04:00 Uhr morgens aktualisiert.">
+                            <img src="/static/icons/info-circle.svg">
+                        </a>
                     </th>
                     <th colspan="1">
-                        <input type="text" id="search" onkeyup="search()" placeholder="Such mich!" class="form-control-plaintext">
+                        <input type="text" id="search" onkeyup="searchByName()" placeholder="Such mich!"
+                            class="form-control-plaintext">
                     </th>
                     <th colspan="2">KW {{.Session.User.Taxes.Previous_week.Week}} - letzte Woche</th>
                     <th colspan="2">KW {{.Session.User.Taxes.Current_week.Week}} - aktuelle Woche</th>
@@ -65,7 +66,7 @@
             </thead>
             <tbody>
                 {{if gt .Session.User.Permission_level 400}}
-                <form action="/members/taxes" method="post" id="taxesForm">
+                <form action="/members/{{.Session.User.Company}}/taxes" method="post" id="taxesForm">
                     {{end}}
                     {{range $index, $user := .Users}}
                     <tr>

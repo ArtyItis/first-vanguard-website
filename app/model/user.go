@@ -99,7 +99,7 @@ func GetAllUsers() ([]map[string]interface{}, error) {
 }
 
 func GetUsersByCompany(company string) ([]map[string]interface{}, error) {
-	users, err := userDB.Query(nil, `company == `+company, nil, 1000, nil, nil)
+	users, err := userDB.Query(nil, `company == "`+company+"\"", nil, 1000, nil, nil)
 	if err != nil {
 		return nil, err
 	} else {

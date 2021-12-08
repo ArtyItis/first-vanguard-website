@@ -9,13 +9,24 @@
 <body>
   {{template "navigation" .}}
   <section class="container mt-3 mt-lg-8" id="content">
-    <table class="table table-hover">
+    <table class="table table-hover" id="table">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th scope="col">Charaktername</th>
           <th scope="col">Rang</th>
-          <th scope="col">Gilde</th>
+          <th scope="col">
+            <div class="btn-group dropup">
+              <button type="button" class="btn dropdown-toggle fw-bold" data-bs-toggle="dropdown" aria-expanded="false">
+                Kompanie
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <!-- Dropdown menu links -->
+                <div class="dropdown-item" onclick="filterByCompany(`The Forgotten`)">The Forgotten</div>
+                <div class="dropdown-item" onclick="filterByCompany(`The Forgotten II`)">The Forgotten II</div>
+              </ul>
+            </div>
+          </th>
           <th scope="col">Discord-Tag</th>
           <th scope="col">Rollen</th>
           <th scope="col">Beigetreten am</th>
@@ -45,4 +56,5 @@
   </section>
   {{template "footer"}}
   <script src="/static/js/row_link.js"></script>
+  <script src="/static/js/tableSearch.js"></script>
 </body>

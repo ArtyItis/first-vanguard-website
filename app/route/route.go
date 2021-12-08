@@ -22,9 +22,9 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/applications/{id}/accepted", controller.Authenticate(controller.ApplicationAcceptedPOST)).Methods("POST")
 	router.HandleFunc("/applications/{id}/rejected", controller.Authenticate(controller.ApplicationRejectedPOST)).Methods("POST")
 
-	router.HandleFunc("/members", controller.Authenticate(controller.UsersGET)).Methods("GET")
-	router.HandleFunc("/members/taxes", controller.Authenticate(controller.TaxesGET)).Methods("GET")
-	router.HandleFunc("/members/taxes", controller.Authenticate(controller.TaxesPOST)).Methods("POST")
+	router.HandleFunc("/members/{company}", controller.Authenticate(controller.UsersGET)).Methods("GET")
+	router.HandleFunc("/members/{company}/taxes", controller.Authenticate(controller.TaxesGET)).Methods("GET")
+	router.HandleFunc("/members/{company}/taxes", controller.Authenticate(controller.TaxesPOST)).Methods("POST")
 	router.HandleFunc("/members/{id}", controller.Authenticate(controller.UserGET)).Methods("GET")
 	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordGET)).Methods("GET")
 	router.HandleFunc("/members/{id}/changePassword", controller.Authenticate(controller.ChangePasswordPOST)).Methods("POST")
@@ -32,7 +32,7 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditGet)).Methods("GET")
 	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditPost)).Methods("POST")
 
-	// router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
+	router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
 
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 

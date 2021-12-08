@@ -39,8 +39,8 @@
                         <div class="col ps-3">
                             <a class="nav-link" href="/members/{{.Session.User.Id}}">Profil</a>
                             <a class="nav-link" href="/builds">Waffenbuilds</a>
-                            <a class="nav-link" href="/members">Mitgliederliste</a>
-                            <a class="nav-link" href="/members/taxes">Steuerliste</a>
+                            <a class="nav-link" href="/members/{{.Session.User.Company}}">Mitgliederliste</a>
+                            <a class="nav-link" href="/members/{{.Session.User.Company}}/taxes">Steuerliste</a>
                         </div>
                     </li>
                     <li class="nav-item">

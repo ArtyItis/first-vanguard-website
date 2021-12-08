@@ -1,4 +1,4 @@
-function search(){
+function searchByName() {
     let input = document.getElementById("search");
     let table = document.getElementById("table");
     let rows = table.getElementsByTagName("tr");
@@ -14,6 +14,24 @@ function search(){
             } else {
                 rows[i].style.display = "none";
             }
-          } 
+        }
+    }
+}
+
+function filterByCompany(input) {
+    let table = document.getElementById("table");
+    let rows = table.getElementsByTagName("tr");
+
+    let company;
+    for (let i = 0; i < rows.length; i++) {
+        company = rows[i].getElementsByTagName("td")[2];
+        if (company) {
+            txtValue = company.textContent || company.innerText;
+            if (txtValue == input) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
     }
 }

@@ -94,7 +94,8 @@ func UsersGET(w http.ResponseWriter, r *http.Request) {
 		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
 		ParseFiles("template/users.html", head, navigation, footer))
-	users, _ := model.GetAllUsers()
+	company := mux.Vars(r)["company"]
+	users, _ := model.GetUsersByCompany(company)
 	data := Data{
 		Session: GetSessionInformation(r),
 		Users:   users,
@@ -164,7 +165,8 @@ func TaxesGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("taxes.html").
 		Funcs(template.FuncMap{"add": Add}).
 		ParseFiles("template/taxes.html", head, navigation, footer))
-	users, _ := model.GetAllUsers()
+	company := mux.Vars(r)["company"]
+	users, _ := model.GetUsersByCompany(company)
 	data := Data{
 		Session: GetSessionInformation(r),
 		Users:   users,
