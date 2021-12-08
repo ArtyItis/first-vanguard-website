@@ -32,7 +32,7 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditGet)).Methods("GET")
 	router.HandleFunc("/members/{id}/edit", controller.Authenticate(controller.UserEditPost)).Methods("POST")
 
-	router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
+	// router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
 
 	router.HandleFunc("/imprint", controller.ImprintGET).Methods("GET")
 
