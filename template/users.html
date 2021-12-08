@@ -15,8 +15,7 @@
           <th scope="col">#</th>
           <th scope="col">Charaktername</th>
           <th scope="col">Rang</th>
-          <th scope="col">Gilde</th>
-          <th scope="col">GS</th>
+          <th scope="col">Gearscore</th>
           <th scope="col">Discord-Tag</th>
           <th scope="col">Rollen</th>
           <th scope="col">Beigetreten am</th>
@@ -24,13 +23,12 @@
       </thead>
       <tbody>
         {{range $index, $user := .Users}}
-        <tr onclick="openUser({{$user._id}})">
+        <tr onclick="openUser({{$user._id}},{{$user.company}})">
           <th scope="row">{{add $index 1}}</th>
           <td>{{$user.character.name}}</td>
           <td>
             {{convertPermissionLevel $user}}
           </td>
-          <td>{{$user.company}}</td>
           <td>{{$user.character.gearscore}}</td>
           <td>{{$user.discord_tag}}</td>
           <td>

@@ -210,6 +210,7 @@ func TaxesGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func TaxesPOST(w http.ResponseWriter, r *http.Request) {
+	company := mux.Vars(r)["company"]
 	users, _ := model.GetAllUsers()
 	for _, u := range users {
 		user := model.Map2User(u)
@@ -257,17 +258,18 @@ func TaxesPOST(w http.ResponseWriter, r *http.Request) {
 		}
 		model.UpdateUser(user)
 	}
-	http.Redirect(w, r, "/members/taxes", http.StatusFound)
+	http.Redirect(w, r, "/companies/"+company+"/taxes", http.StatusFound)
 }
 
 func UserDeleteGET(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
+	company := mux.Vars(r)["company"]
 	user, err := model.GetUserById(id)
 	if err == nil {
 		model.DeleteUser(user)
 		http.Redirect(w, r, "/members", http.StatusFound)
 	} else {
-		http.Redirect(w, r, "/members/"+id+"/?userError=delete", http.StatusFound)
+		http.Redirect(w, r, "/companies/"+company+"/members/"+id+"/?userError=delete", http.StatusFound)
 	}
 }
 
@@ -291,6 +293,7 @@ func UserEditGet(w http.ResponseWriter, r *http.Request) {
 
 func UserEditPost(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
+	company := mux.Vars(r)["company"]
 	user, _ := model.GetUserById(id)
 
 	if equipment_weight := r.FormValue("armor-weight"); equipment_weight != "" {
@@ -371,5 +374,5 @@ func UserEditPost(w http.ResponseWriter, r *http.Request) {
 	user.Character.Refining_jobs = refiningJobs
 
 	model.UpdateUser(user)
-	http.Redirect(w, r, "/members/"+id, http.StatusFound)
+	http.Redirect(w, r, "/companies/"+company+"/members/"+id, http.StatusFound)
 }

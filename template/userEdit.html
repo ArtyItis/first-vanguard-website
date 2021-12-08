@@ -10,7 +10,7 @@
 <body>
     {{template "navigation" .}}
     <section class="container mt-3 mt-lg-8" id="content">
-        <form action="/members/{{$user.Id}}/edit" method="post">
+        <form action="/companies/{{.User.Company}}/members/{{$user.Id}}/edit" method="post">
             <div class="row mb-3 px-3 px-lg-0">
                 <!-- character -->
                 <div class="col-lg-6 ps-0">

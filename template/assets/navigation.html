@@ -37,21 +37,22 @@
                     <li class="nav-item">
                         <h5>Eingeloggt</h5>
                         <div class="col ps-3">
-                            <a class="nav-link" href="/members/{{.Session.User.Id}}">Profil</a>
+                            <a class="nav-link"
+                                href="/companies/{{.Session.User.Company}}/members/{{.Session.User.Id}}">Profil</a>
                             <a class="nav-link" href="/builds">Waffenbuilds</a>
-                            <a class="nav-link" href="/members/{{.Session.User.Company}}">Mitgliederliste</a>
-                            <a class="nav-link" href="/members/{{.Session.User.Company}}/taxes">Steuerliste</a>
-                            <a class="nav-link" href="/members">Mitgliederliste</a>
+                            <a class="nav-link" href="/companies/{{.Session.User.Company}}/taxes">Steuerliste</a>
+                            <a class="nav-link" href="/companies/{{.Session.User.Company}}/members">Mitgliederliste</a>
                             <a class="nav-link" href="/refining">Refining Berufe</a>
                             <a class="nav-link" href="/crafting">Crafting Berufe</a>
-                            <a class="nav-link" href="/members/taxes">Steuerliste</a>
                         </div>
                     </li>
                     <li class="nav-item">
                         <hr class="dropdown-divider">
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/members/{{.Session.User.Id}}/changePassword">Passwort ändern</a>
+                        <a class="nav-link"
+                            href="/companies/{{.Session.User.Company}}/members/{{.Session.User.Id}}/changePassword">Passwort
+                            ändern</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>

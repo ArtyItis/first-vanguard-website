@@ -19,7 +19,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <a href="/members/{{.User.Id}}/delete" class="btn btn-danger">Profil löschen</a>
+                    <a href="/companies/{{.User.Company}}/members/{{.User.Id}}/delete" class="btn btn-danger">Profil
+                        löschen</a>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Nein</button>
                 </div>
             </div>
@@ -95,13 +96,14 @@
             <!-- buttons -->
             <div class="col-lg-3 my-auto">
                 <div class="row mb-2">
-                    <a href="/members" class="btn btn-outline-primary btn-sm text-white">
+                    <a href="/companies/{{.User.Company}}/members" class="btn btn-outline-primary btn-sm text-white">
                         <img src="/static/icons/arrow-left.svg" alt="" srcset=""> Zurück zur Mitgliederliste
                     </a>
                 </div>
                 {{if ge .Session.User.Permission_level 200}}
                 <div class="row">
-                    <a href="/members/{{.User.Id}}/edit" class="btn btn-primary btn-sm col me-1">Profil bearbeiten</a>
+                    <a href="/companies/{{.User.Company}}/members/{{.User.Id}}/edit"
+                        class="btn btn-primary btn-sm col me-1">Profil bearbeiten</a>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-danger btn-sm col ms-1" data-bs-toggle="modal"
                         data-bs-target="#deleteUserModal">
