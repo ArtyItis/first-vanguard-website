@@ -12,6 +12,10 @@ func Minus(x, y int) int {
 	return x - y
 }
 
+func Modulo(x, y int) int {
+	return x % y
+}
+
 func ConvertPermissionLevelMap(u map[string]interface{}) string {
 	user := model.Map2User(u)
 	return user.ConvertPermissionLevel()
