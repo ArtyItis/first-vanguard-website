@@ -8,7 +8,7 @@
 
 <body>
   {{template "navigation" .}}
-  <!-- Toast after successful application -->
+  <!-- Toast after successful application start -->
   <div aria-live="assertive" aria-atomic="true" class="position-relative">
     <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
       <div class="toast bg-dark" id="applicationSuccessToast" data-bs-autohide="false">
@@ -24,6 +24,7 @@
       </div>
     </div>
   </div>
+  <!-- Toast after successful application end -->
   <section class="container mt-3 mt-lg-5" id="content">
     <div class="row mb-8">
       <img src="/static/images/Forgotten_banner.png" class="img-fluid">
