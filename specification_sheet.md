@@ -18,11 +18,9 @@
 | 600   | Gouverneur    |
 | 1000  | Website-Admin |
 ## URL Parameters
-| Error          | Type               |
-| -------------- | ------------------ |
-| authentication | login, company     |
-| login          | username, password |
-| passwordChange | old, new           |
+| Error          | Type               | Success        | Application |
+| -------------- | ------------------ | -------------- |------------ |
+| authentication | login, company     | passwordChange | success     |
+| login          | username, password | application    | failed      |
+| password       | old, new           |
 | user           | delete             |
-
- 
