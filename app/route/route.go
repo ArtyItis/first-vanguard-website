@@ -32,7 +32,12 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/companies/{company}/members/{id}/edit", controller.Authenticate(controller.UserEditGet)).Methods("GET")
 	router.HandleFunc("/companies/{company}/members/{id}/edit", controller.Authenticate(controller.UserEditPost)).Methods("POST")
 
-	router.HandleFunc("/builds", controller.Authenticate(controller.BuildsGET)).Methods("GET")
+	router.HandleFunc("/roles", controller.Authenticate(controller.RolesGET)).Methods("GET")
+	router.HandleFunc("/roles/{id}", controller.Authenticate(controller.RoleGET)).Methods("GET")
+	router.HandleFunc("/roles/{id}/edit", controller.Authenticate(controller.RoleEditGET)).Methods("GET")
+	router.HandleFunc("/roles/{id}/edit", controller.Authenticate(controller.RoleEditPOST)).Methods("POST")
+	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormGET)).Methods("GET")
+	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormPOST)).Methods("POST")
 
 	router.HandleFunc("/refining", controller.Authenticate(controller.RefiningGET)).Methods("GET")
 	router.HandleFunc("/crafting", controller.Authenticate(controller.CraftingGET)).Methods("GET")
