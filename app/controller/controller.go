@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"
 )
 
@@ -27,11 +28,12 @@ var (
 type Data struct {
 	Session      Session
 	Applications []map[string]interface{}
+	Application  model.Application
 	Roles        []map[string]interface{}
+	Role         model.Role
 	Weapons      []map[string]interface{}
 	Users        []map[string]interface{}
 	User         model.User
-	Application  model.Application
 }
 
 type Session struct {
@@ -48,12 +50,17 @@ func init() {
 func Authenticate(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		session, _ := store.Get(r, "session")
-		//Check if user is authentificated
-		if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
-			http.Redirect(w, r, "/?loginError=notLoggedIn", http.StatusFound)
-		} else {
-			h(w, r)
+		if auth, ok := session.Values["authenticated"].(bool); !auth || !ok {
+			http.Redirect(w, r, "/?error=authentication&type=login", http.StatusFound)
+			return
 		}
+		if companyRoute := mux.Vars(r)["company"]; companyRoute != "" {
+			if companySession, ok := session.Values["userCompany"]; companySession.(string) != companyRoute || !ok {
+				http.Redirect(w, r, "/?error=authentication&type=company", http.StatusFound)
+				return
+			}
+		}
+		h(w, r)
 	}
 }
 
