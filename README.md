@@ -9,7 +9,9 @@ You are invited to contribute into this project as long as you are familiar with
 ## Backend
 - programming language: [Go](https://go.dev/)
     - version: 1.16.3
-- architecture: [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (model view controller)
+- architecture: 
+    - [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (model view controller)
+    - [REST](https://en.wikipedia.org/wiki/Representational_state_transfer)
 - database: [CouchDB](http://couchdb.apache.org/)
     - version: 3.2.0
 - external libraries:
