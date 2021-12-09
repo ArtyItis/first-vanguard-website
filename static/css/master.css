@@ -1,3 +1,9 @@
+@media (hover: none) {
+  body {
+    background-attachment: initial !important;
+  }
+}
+
 body {
   background: url("/static/images/background_1440.png");
   background-repeat: no-repeat;
