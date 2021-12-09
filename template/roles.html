@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{template "head"}}
+  <title>Rollen</title>
+</head>
+
+<body>
+  {{template "navigation" .}}
+  <section class="container" id="content">
+    <div class="row h-100">
+      <div class="col-12 col-lg mt-3 my-lg-auto">
+        {{range $index, $role := .Roles}}
+        {{if eq (modulo $index 2) 0}}
+        <div class="row my-7">
+          {{end}}
+          <div class="col d-flex">
+            <a href="/roles/{{$role._id}}" class="btn btn-outline-primary mx-auto">{{$role.name}}</a>
+          </div>
+          {{if eq (modulo $index 2) 1}}
+        </div>
+        {{end}}
+        {{end}}
+        {{if ge .Session.User.Permission_level 200}}
+        <div class="row my-7">
+          <div class="col d-flex">
+            <a href="/roles/new" class="btn btn-outline-warning mx-auto">neue Rolle</a>
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </section>
+  {{template "footer"}}
+</body>
