@@ -58,7 +58,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	//check if user exists
 	if user_err != nil || (user.Password == "") {
 		log.Println("invalid username")
-		http.Redirect(w, r, GetPreviousRoute(r)+"?loginError=username", http.StatusFound)
+		http.Redirect(w, r, GetPreviousRoute(r)+"?error=login&type=username", http.StatusFound)
 		return
 	}
 	//validate password
@@ -66,13 +66,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	password_err := bcrypt.CompareHashAndPassword(passwordDB, []byte(password))
 	if password_err != nil {
 		log.Println("invalid password ", password_err)
-		http.Redirect(w, r, GetPreviousRoute(r)+"?loginError=password", http.StatusFound)
+		http.Redirect(w, r, GetPreviousRoute(r)+"?error=login&type=password", http.StatusFound)
 		return
 	}
 	//save session
 	session, _ := store.Get(r, "session")
 	session.Values["authenticated"] = true
 	session.Values["userId"] = user.Id
+	session.Values["userCompany"] = user.Company
 	session.Save(r, w)
 	log.Println(username + " logged in")
 	http.Redirect(w, r, GetPreviousRoute(r), http.StatusFound)
@@ -166,6 +167,7 @@ func ChangePasswordGET(w http.ResponseWriter, r *http.Request) {
 func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "session")
 	userId := session.Values["userId"].(string)
+	userCompany := session.Values["userCompany"].(string)
 	user, _ := model.GetUserById(userId)
 
 	oldPassword := r.FormValue("oldPassword")
@@ -176,13 +178,13 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	oldPasswordErr := bcrypt.CompareHashAndPassword(passwordDB, []byte(oldPassword))
 	if oldPasswordErr != nil {
 		log.Println(oldPasswordErr)
-		http.Redirect(w, r, "/members/"+userId+"/changePassword?changePasswordError=oldPassword", http.StatusFound)
+		http.Redirect(w, r, "/companies/"+userCompany+"/members/"+userId+"/changePassword?error=password&type=old", http.StatusFound)
 		return
 	}
 	//compare newPassword and newPasswordRep
 	if newPassword != newPasswordrep {
 		log.Println("newPassword and newPasswordRep are not the same")
-		http.Redirect(w, r, "/members/"+userId+"/changePassword?changePasswordError=newPassword", http.StatusFound)
+		http.Redirect(w, r, "/companies/"+userCompany+"/members/"+userId+"/changePassword?error=password&type=new", http.StatusFound)
 		return
 	}
 	hashedPwd, _ := bcrypt.GenerateFromPassword([]byte(newPassword), 14)
@@ -190,7 +192,7 @@ func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
 	user.Password_tmp = ""
 	user.Password = b64HashedPwd
 	model.UpdateUser(user)
-	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusFound)
+	http.Redirect(w, r, "/companies/"+userCompany+"/members/"+userId+"/changePassword?success=passwordChange", http.StatusFound)
 }
 
 func TaxesGET(w http.ResponseWriter, r *http.Request) {
@@ -203,8 +205,7 @@ func TaxesGET(w http.ResponseWriter, r *http.Request) {
 		Session: GetSessionInformation(r),
 		Users:   users,
 	}
-	err := tmpl.Execute(w, data)
-	if err != nil {
+	if err := tmpl.Execute(w, data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
@@ -269,7 +270,7 @@ func UserDeleteGET(w http.ResponseWriter, r *http.Request) {
 		model.DeleteUser(user)
 		http.Redirect(w, r, "/members", http.StatusFound)
 	} else {
-		http.Redirect(w, r, "/companies/"+company+"/members/"+id+"/?userError=delete", http.StatusFound)
+		http.Redirect(w, r, "/companies/"+company+"/members/"+id+"/?error=user&type=delete", http.StatusFound)
 	}
 }
 
