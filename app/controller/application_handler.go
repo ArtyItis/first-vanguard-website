@@ -23,7 +23,9 @@ func ApplicationFormGET(w http.ResponseWriter, r *http.Request) {
 		Weapons: weapons,
 		Roles:   roles,
 	}
-	tmpl.Execute(w, data)
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
@@ -106,11 +108,8 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 		Discord_tag: r.FormValue("discord-tag"),
 	}
 
-	err := model.AddApplication(application)
-	if err != nil {
-		http.Redirect(w, r, r.Header.Get("Referer")+"?application=failed", http.StatusFound)
-	} else {
-		http.Redirect(w, r, "/?application=success", http.StatusFound)
+	if err := model.AddApplication(application); err == nil {
+		http.Redirect(w, r, "/?success=application", http.StatusFound)
 	}
 }
 
@@ -124,7 +123,9 @@ func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
 		Session:      GetSessionInformation(r),
 		Applications: applications,
 	}
-	tmpl.Execute(w, data)
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func ApplicationGET(w http.ResponseWriter, r *http.Request) {
@@ -143,7 +144,9 @@ func ApplicationGET(w http.ResponseWriter, r *http.Request) {
 		Weapons:     weapons,
 		Roles:       roles,
 	}
-	tmpl.Execute(w, data)
+	if err := tmpl.Execute(w, data); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func ApplicationAcceptedPOST(w http.ResponseWriter, r *http.Request) {
