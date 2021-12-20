@@ -1,4 +1,4 @@
-# forgottennw
+# vanguardnw
 
 Homepage of the "The Forgotten" company in Amazon Games Studio's MMORPG New World on server Utgard.
 
