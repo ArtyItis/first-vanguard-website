@@ -1,6 +1,6 @@
-# vanguardnw
+# firstvanguard
 
-Homepage of the "The Forgotten" company in Amazon Games Studio's MMORPG New World on server Utgard.
+Homepage of the "First Vanguard" company in Amazon Games Studio's MMORPG New World on server Utgard.
 
 You are invited to contribute into this project as long as you are familiar with the development environment described below and are interested in participating in a meaningful way. 
 ## Frontend
