@@ -62,7 +62,7 @@ $colors: (
 // scss-docs-end colors-map
 
 // scss-docs-start theme-color-variables
-$primary:       #0f9c36 !default;
+$primary:       #8D36DC !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -75,7 +75,7 @@ $dark:          $gray-900 !default;
 // scss-docs-start theme-colors-map
 $theme-colors: (
   "primary":    $primary,
-  "secondary":  $secondary,
+  "secondary":  $secondary, 
   "success":    $success,
   "info":       $info,
   "warning":    $warning,
@@ -100,7 +100,7 @@ $spacers: (
 
 @media (hover: none) {
   body{
-    background-attachment: initial !important;
+    background: #111 !important;
   }
 }
 
@@ -146,18 +146,24 @@ $accordion-button-active-bg: transparent;
 $accordion-border-color: $white;
 // input
 $input-bg: transparent;
+$input-group-addon-bg: transparent;
+$form-file-button-bg: transparent;
 $form-check-input-border: 1px solid $white;
+$form-file-button-color:  $primary;
 // popovers
 $popover-bg: $dark;
 // toasts
 $toast-header-background-color: rgba($dark,.85);
 $toast-background-color: rgba($dark,.85);
-
 $toast-header-color: $white;
 $toast-color: $white;
 $toast-header-border-color: rgba($primary,.05);
 $toast-border-color: rgba($primary,.1);
 // dropdwon
 $dropdown-divider-bg: $primary;
+// lists
+$list-group-color: $white;
+$list-group-bg: transparent;
+$list-group-border-color: rgba($primary, .5);
 // importing bootstrap is the last step
 @import "../bootstrap/scss/bootstrap.scss";
