@@ -1,16 +1,17 @@
 {{define "navigation"}}
 <nav class="navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand me-0" href="/">
-            <img src="/static/logo/company_logo.png" alt="" height="50rem">
-        </a>
-        <a href="/">
-            <h4 class="navbar-text fw-bolder align-self-center text-white">The Forgotten</h4>
-        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <a href="/">
+            <h4 class="navbar-text fw-bolder align-self-center text-white">First Vanguard</h4>
+        </a>
+
+        <a class="navbar-brand me-0" href="/">
+            <img src="/static/logo/company_logo.png" alt="" height="50rem">
+        </a>
         <div class="offcanvas offcanvas-start bg-transparent" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
@@ -39,7 +40,7 @@
                         <div class="col ps-3">
                             <a class="nav-link"
                                 href="/companies/{{.Session.User.Company}}/members/{{.Session.User.Id}}">Profil</a>
-                            <!-- <a class="nav-link" href="/roles">Waffenbuilds</a> -->
+                            <a class="nav-link" href="/roles">Waffenbuilds</a>
                             <a class="nav-link" href="/companies/{{.Session.User.Company}}/taxes">Steuerliste</a>
                             <a class="nav-link" href="/companies/{{.Session.User.Company}}/members">Mitgliederliste</a>
                             <a class="nav-link" href="/refining">Refining Berufe</a>
