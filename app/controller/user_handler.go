@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/base64"
-	"forgottennw/app/model"
+	"first-vanguard/app/model"
 	"html/template"
 	"log"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 )
 
 func RegisterGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("template/register.html", head, navigation, footer))
+	tmpl := template.Must(template.ParseFiles("template/users/register.html", head, navigation, footer))
 	data := Data{
 		Session: GetSessionInformation(r),
 	}
@@ -94,7 +94,7 @@ func UsersGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("users.html").Funcs(template.FuncMap{"add": Add}).
 		Funcs(template.FuncMap{"convertPermissionLevel": ConvertPermissionLevelMap}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/users.html", head, navigation, footer))
+		ParseFiles("template/users/users.html", head, navigation, footer))
 	company := mux.Vars(r)["company"]
 	users, _ := model.GetUsersByCompany(company)
 	data := Data{
@@ -144,7 +144,7 @@ func UserGET(w http.ResponseWriter, r *http.Request) {
 		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
 		Funcs(template.FuncMap{"getWeaponByType": GetWeaponByType}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/user.html", attributes, jobs, roles, weapons, head, navigation, footer))
+		ParseFiles("template/users/user.html", attributes, jobs, roles, weapons, head, navigation, footer))
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
 	user, _ := model.GetUserById(mux.Vars(r)["id"])
@@ -161,7 +161,7 @@ func UserGET(w http.ResponseWriter, r *http.Request) {
 }
 
 func ChangePasswordGET(w http.ResponseWriter, r *http.Request) {
-	ExecuteTemplate(w, r, "changePassword")
+	ExecuteTemplate(w, r, "users/changePassword")
 }
 
 func ChangePasswordPOST(w http.ResponseWriter, r *http.Request) {
@@ -276,7 +276,7 @@ func UserDeleteGET(w http.ResponseWriter, r *http.Request) {
 
 func UserEditGet(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("userEdit.html").
-		ParseFiles("template/userEdit.html", head, navigation, footer))
+		ParseFiles("template/users/userEdit.html", head, navigation, footer))
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
 	user, _ := model.GetUserById(mux.Vars(r)["id"])
