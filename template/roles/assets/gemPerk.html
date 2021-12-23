@@ -1,0 +1,14 @@
+{{define "gemPerk"}}
+<div class="row mb-2 pe-3">
+    <p class="col fw-bold">Gem</p>
+    <p class="col">{{.Gem}}</p>
+</div>
+<div class="row mb-2 pe-3">
+    <p class="col fw-bold">Perks</p>
+    <ul class="col list-group list-group-flush">
+        {{range $perk := .Perks}}
+        <li class="list-group-item">{{$perk}}</li>
+        {{end}}
+    </ul>
+</div>
+{{end}}
