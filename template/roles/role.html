@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>{{.Role.Name}}</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container" id="content">
+        <div class="row">
+            <div class="col">
+                <h3>{{.Role.Name}}</h3>
+            </div>
+            <div class="col-lg">
+                <a href="/roles" class="btn btn-outline-primary text-white">
+                    <img src="/static/icons/arrow-left.svg" alt="" srcset=""> zurück
+                </a>
+                {{if ge .Session.User.Permission_level 200}}
+                <a href="/roles/{{.Role.Id}}/edit" class="btn btn-outline-primary">Rolle bearbeiten</a>
+                <button class="btn btn-danger">Rolle löschen</button>
+                {{end}}
+            </div>
+        </div>
+
+        <!-- general -->
+        <section class="mb-3">
+            <div class="col-lg">
+                <h5 class="">Attribute</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Stärke</th>
+                            <th scope="col">Geschicklichkeit</th>
+                            <th scope="col">Intelligenz</th>
+                            <th scope="col">Fokus</th>
+                            <th scope="col">Konstitution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{.Role.Attributes.Strength}}</td>
+                            <td>{{.Role.Attributes.Dexterity}}</td>
+                            <td>{{.Role.Attributes.Intelligence}}</td>
+                            <td>{{.Role.Attributes.Focus}}</td>
+                            <td>{{.Role.Attributes.Constitution}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg">
+                <h5>Beschreibung</h5>
+                <p>{{.Role.Description}}</p>
+            </div>
+            <div class="col-lg">
+                <h5>Zusätzliche Infos</h5>
+                <p>{{.Role.Note}}</p>
+            </div>
+        </section>
+        <!-- armor & jewelry -->
+        <section class="mb-3">
+            <div class="col-lg">
+                <h5>Rüstung</h5>
+                <div class="row mb-2 pe-3">
+                    <p class="col fw-bold">Gewicht</p>
+                    <p class="col">{{.Role.Armor.Weight}}</p>
+                </div>
+                {{template "gemPerk" .Role.Armor}}
+            </div>
+            <div class="col-lg">
+                <h5>Amulet</h5>
+                {{template "gemPerk" .Role.Amulet}}
+            </div>
+            <div class="col-lg">
+                <h5>Ring</h5>
+                {{template "gemPerk" .Role.Ring}}
+            </div>
+            <div class="col-lg">
+                <h5>Ohrring</h5>
+                {{template "gemPerk" .Role.Earring}}
+            </div>
+        </section>
+
+        <!-- weapons -->
+        <section class="row mb-3">
+            <div class="col-lg">
+                <h5>{{.Role.Weapon_main.Name}}</h5>
+                {{template "gemPerk" .Role.Weapon_main}}
+                <img src="{{.Role.Weapon_main.Skillpoints_image}}" class="img-fluid">
+            </div>
+            <div class="col-lg">
+                <h5>{{.Role.Weapon_secondary.Name}}</h5>
+                {{template "gemPerk" .Role.Weapon_secondary}}
+                <img src="{{.Role.Weapon_secondary.Skillpoints_image}}" class="img-fluid">
+            </div>
+        </section>
+    </section>
+    {{template "footer"}}
+</body>
