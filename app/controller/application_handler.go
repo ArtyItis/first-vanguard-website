@@ -2,7 +2,7 @@ package controller
 
 import (
 	"encoding/base64"
-	"forgottennw/app/model"
+	"first-vanguard/app/model"
 	"html/template"
 	"math/rand"
 	"net/http"
@@ -15,7 +15,7 @@ import (
 )
 
 func ApplicationFormGET(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("template/applicationForm.html", head, navigation, footer))
+	tmpl := template.Must(template.ParseFiles("template/applications/applicationForm.html", head, navigation, footer))
 	weapons, _ := model.GetAllWeapons()
 	roles, _ := model.GetAllRoles()
 	data := Data{
@@ -92,6 +92,7 @@ func ApplicationFormPOST(w http.ResponseWriter, r *http.Request) {
 	character := model.Character{
 		Name:             r.FormValue("charactername"),
 		Gearscore:        ParseInt(r.FormValue("gearscore")),
+		Expertise:        ParseInt(r.FormValue("expertise")),
 		Equipment_weight: r.FormValue("armor-weight"),
 		Attributes:       attributes,
 		Roles:            r.Form["roles"],
@@ -117,7 +118,7 @@ func ApplicationsGET(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.New("applications.html").
 		Funcs(template.FuncMap{"add": Add}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/applications.html", head, navigation, footer))
+		ParseFiles("template/applications/applications.html", head, navigation, footer))
 	applications, _ := model.GetAllApplicationsOpen()
 	data := Data{
 		Session:      GetSessionInformation(r),
@@ -133,7 +134,7 @@ func ApplicationGET(w http.ResponseWriter, r *http.Request) {
 		Funcs(template.FuncMap{"getWeaponName": GetWeaponName}).
 		Funcs(template.FuncMap{"getWeaponByType": GetWeaponByType}).
 		Funcs(template.FuncMap{"getRoleName": GetRoleName}).
-		ParseFiles("template/application.html", attributes, jobs, roles, weapons, head, navigation, footer))
+		ParseFiles("template/applications/application.html", attributes, jobs, roles, weapons, head, navigation, footer))
 	applicationId := mux.Vars(r)["id"]
 	application, _ := model.GetApplicationById(applicationId)
 	weapons, _ := model.GetAllWeapons()
