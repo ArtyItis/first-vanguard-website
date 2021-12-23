@@ -148,22 +148,26 @@ func RoleFormPOST(w http.ResponseWriter, r *http.Request) {
 	}
 
 	armor := model.Armor{
+		Name:   "armor",
 		Weight: r.FormValue("armor-weight"),
 		Perks:  strings.Split(r.FormValue("armor-perks"), ", "),
 		Gem:    r.FormValue("armor-gem"),
 	}
 
 	earring := model.JewelryPiece{
+		Name:  "earring",
 		Perks: strings.Split(r.FormValue("earring-perks"), ", "),
 		Gem:   r.FormValue("earring-gem"),
 	}
 
 	amulet := model.JewelryPiece{
+		Name:  "amulet",
 		Perks: strings.Split(r.FormValue("amulet-perks"), ", "),
 		Gem:   r.FormValue("amulet-gem"),
 	}
 
 	ring := model.JewelryPiece{
+		Name:  "ring",
 		Perks: strings.Split(r.FormValue("ring-perks"), ", "),
 		Gem:   r.FormValue("ring-gem"),
 	}

@@ -30,12 +30,14 @@ type RoleWeapon struct {
 }
 
 type Armor struct {
+	Name   string   `json:"name"`
 	Weight string   `json:"weight"`
 	Gem    string   `json:"gem"`
 	Perks  []string `json:"perks"`
 }
 
 type JewelryPiece struct {
+	Name  string   `json:"name"`
 	Gem   string   `json:"gem"`
 	Perks []string `json:"perks"`
 }
