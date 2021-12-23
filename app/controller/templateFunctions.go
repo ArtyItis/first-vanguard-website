@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"forgottennw/app/model"
+	"first-vanguard/app/model"
 )
 
 func Add(x, y int) int {

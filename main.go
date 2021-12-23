@@ -1,8 +1,8 @@
 package main
 
 import (
-	"forgottennw/app/model"
-	"forgottennw/app/route"
+	"first-vanguard/app/model"
+	"first-vanguard/app/route"
 	"log"
 	"net/http"
 	"time"

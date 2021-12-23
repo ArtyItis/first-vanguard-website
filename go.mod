@@ -1,12 +1,14 @@
-module forgottennw
+module first-vanguard
 
 go 1.16
 
 require (
-	github.com/go-co-op/gocron v1.10.0 // indirect
-	// github.com/chanioxaris/go-recaptcha v0.0.0-20200928180903-dd2bdcfb0631
-	github.com/gorilla/mux v1.8.0
-	github.com/gorilla/sessions v1.2.1
-	github.com/leesper/couchdb-golang v1.2.1
-	golang.org/x/crypto v0.0.0-20211117183948-ae814b36b871
+	github.com/go-co-op/gocron v1.11.0 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/leesper/couchdb-golang v1.2.1 // indirect
+	github.com/robfig/cron/v3 v3.0.1 // indirect
+	golang.org/x/crypto v0.0.0-20211215153901-e495a2d5b3d3 // indirect
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
 )
