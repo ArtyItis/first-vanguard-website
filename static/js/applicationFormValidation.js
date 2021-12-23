@@ -57,6 +57,16 @@ function validateGearScore() {
     return validate(input, bool);
 }
 
+function validateExpertise() {
+    let input = document.getElementsByName("expertise")[0];
+    let regex = new RegExp("^[0-9]*$");
+    let bool = regex.test(input.value);
+    if (bool) {
+        bool = 0 < input.value && input.value <= 590;
+    }
+    return validate(input, bool);
+}
+
 function validateArmorWeight() {
     let input = document.getElementsByName("armor-weight")[0];
     let bool = input.value != "";
@@ -100,16 +110,19 @@ function validateAttributes(){
 
 //------------Form
 function validateForm() {
-    let company_taxes = isCompanyGuidelineValid("company-taxes");
+    // let company_taxes = isCompanyGuidelineValid("company-taxes");
     let pvp_activity = isCompanyGuidelineValid("pvp-activity");
     let equipment_flexibility = isCompanyGuidelineValid("equipment-flexibility");
     let discord_activity = isCompanyGuidelineValid("discord-activity");
+    let wars = isCompanyGuidelineValid("wars");
+    let progress = isCompanyGuidelineValid("progress");
 
-    let company_guidelines = company_taxes && pvp_activity && equipment_flexibility && discord_activity;
+    let company_guidelines = pvp_activity && equipment_flexibility && discord_activity && wars && progress;
 
     let name = validateCharacterName();
     let dc = validateDiscordTag();
     let gs = validateGearScore();
+    let expertise = validateExpertise();
     let armorWeight = validateArmorWeight();
 
     let attributes = validateAttributes();
@@ -117,7 +130,7 @@ function validateForm() {
     let roles = isCheckboxGroupValid("roles", "roles-invalid");
     let weapons = isCheckboxGroupValid("weapons", "weapons-invalid");
 
-    let isValid = company_guidelines && name && dc && gs && armorWeight && attributes && roles && weapons;
+    let isValid = company_guidelines && name && dc && gs && expertise && armorWeight && attributes && roles && weapons;
     let form = document.getElementById("application-form");
     if (isValid) {
         form.submit();
