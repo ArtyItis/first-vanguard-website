@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>Rolle erstellen</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container mt-3 mt-lg-8" id="content">
+        <form action="/roles/new" method="post" enctype="multipart/form-data">
+            <!-- general -->
+            <section class="mb-3">
+                <div class="row">
+                    <div class="col-lg">
+                        <label class="form-label">Rollenname</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="col-lg">
+                        <label class="form-label">Attribute</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Stärke" name="strength" required>
+                            <input type="text" class="form-control" placeholder="Geschick" name="dexterity" required>
+                            <input type="text" class="form-control" placeholder="Intelligenz" name="intelligence"
+                                required>
+                            <input type="text" class="form-control" placeholder="Fokus" name="focus" required>
+                            <input type="text" class="form-control" placeholder="Konstitution" name="constitution"
+                                required>
+                        </div>
+                    </div>
+                </div>
+                <!-- name, description, note -->
+                <div class="row">
+                    <div class="col-lg">
+                        <label class="form-label">Beschreibung</label>
+                        <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                            data-bs-placement="top"
+                            data-bs-content="Dieser Text wird angezeigt, wenn im Bewerbungsformular über der Button dieser Rolle gehovert wird. Hier sollte eine kurze Umschreibung der Rolle stehen.">
+                        <textarea name="description" class="form-control" required></textarea>
+                    </div>
+                    <div class="col-lg">
+                        <label class="form-label">Extra infos</label>
+                        <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                            data-bs-placement="top"
+                            data-bs-content="Hier können Zusatzinformationen, wie z.b. unique Drops, welche sich gut in den Build einbinden lassen, oder Buff-Food genannt werden.">
+                        <textarea name="note" class="form-control" required></textarea>
+                    </div>
+                </div>
+            </section>
+            <!-- weapons -->
+            <section class="row mb-3">
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="col-lg">
+                            <h4>Waffe 1</h4>
+                        </div>
+                        <div class="col-lg input-group">
+                            <img src="/static/icons/info-circle.svg" class="input-group-text" data-bs-toggle="popover"
+                                data-bs-trigger="hover" data-bs-placement="top"
+                                data-bs-content="Screenshot von Waffen-Skillung hier einfügen">
+                            <input type="file" name="weapon-1-file" class="form-control form-control-sm" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                            <label class="form-label">Waffentyp</label>
+                            <input type="text" name="weapon-1-name" class="form-control" required>
+                        </div>
+                        <div class="col-lg">
+                            <label class="form-label">Gem</label>
+                            <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                                data-bs-placement="top"
+                                data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                            <input type="text" name="weapon-1-gem" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <label class="form-label">Perks</label>
+                        <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                            data-bs-placement="top" data-bs-content="Perks werden mit ', ' getrennt">
+                        <textarea name="weapon-1-perks" class="form-control" placeholder="Perk1, Perk2, Perk3, ..."
+                            required></textarea>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="col-lg">
+                            <h4>Waffe 2</h4>
+                        </div>
+                        <div class="col-lg input-group">
+                            <img src="/static/icons/info-circle.svg" class="input-group-text" data-bs-toggle="popover"
+                                data-bs-trigger="hover" data-bs-placement="top"
+                                data-bs-content="Screenshot von Waffen-Skillung hier einfügen">
+                            <input type="file" name="weapon-2-file" class="form-control form-control-sm" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg">
+                            <label class="form-label">Waffentyp</label>
+                            <input type="text" name="weapon-2-name" class="form-control" required>
+                        </div>
+                        <div class="col-lg">
+                            <label class="form-label">Gem</label>
+                            <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                                data-bs-placement="top"
+                                data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                            <input type="text" name="weapon-2-gem" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <label class="form-label">Perks</label>
+                        <img src="/static/icons/info-circle.svg" data-bs-toggle="popover" data-bs-trigger="hover"
+                            data-bs-placement="top" data-bs-content="Perks werden mit ', ' getrennt">
+                        <textarea name="weapon-2-perks" class="form-control" placeholder="Perk1, Perk2, Perk3, ..."
+                            required></textarea>
+                    </div>
+                </div>
+            </section>
+            <!-- armor & jewelry -->
+            <section class="row mb-3">
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="col-lg">
+                            <h4>Rüstung</h4>
+                            <div class="row">
+                                <div class="col-lg">
+                                    <label class="form-label">Gewicht</label>
+                                    <select class="form-select btn-outline-light" name="armor-weight" required>
+                                        <option value=""> </option>
+                                        <option value="Leicht">Leicht</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Schwer">Schwer</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg">
+                                    <label class="form-label">Gem</label>
+                                    <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                        data-bs-trigger="hover" data-bs-placement="top"
+                                        data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                                    <input type="text" name="armor-gem" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <label class="form-label">Perks</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Perks werden mit ', ' getrennt">
+                                <textarea name="armor-perks" class="form-control" placeholder="Perk1, Perk2, Perk3, ..."
+                                    required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <h4>Amulet</h4>
+                            <div class="row">
+                                <div class="col-lg">
+                                    <label class="form-label">Gem</label>
+                                    <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                        data-bs-trigger="hover" data-bs-placement="top"
+                                        data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                                    <input type="text" name="amulet-gem" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-lg">
+                                <label class="form-label">Perks</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Perks werden mit ', ' getrennt">
+                                <textarea name="amulet-perks" class="form-control"
+                                    placeholder="Perk1, Perk2, Perk3, ..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg">
+                    <div class="row">
+                        <div class="col-lg">
+                            <h4>Ring</h4>
+                            <div class="col-lg">
+                                <label class="form-label">Gem</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                                <input type="text" name="ring-gem" class="form-control" required>
+                            </div>
+                            <div class="col-lg">
+                                <label class="form-label">Perks</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Perks werden mit ', ' getrennt">
+                                <textarea name="ring-perks" class="form-control" placeholder="Perk1, Perk2, Perk3, ..."
+                                    required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <h4>Ohrring</h4>
+                            <div class="col-lg">
+                                <label class="form-label">Gem</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Hier wird der Name des Gems und NICHT sein Effekt eingetragen.">
+                                <input type="text" name="earring-gem" class="form-control" required>
+                            </div>
+                            <div class="col-lg">
+                                <label class="form-label">Perks</label>
+                                <img src="/static/icons/info-circle.svg" data-bs-toggle="popover"
+                                    data-bs-trigger="hover" data-bs-placement="top"
+                                    data-bs-content="Perks werden mit ', ' getrennt">
+                                <textarea name="earring-perks" class="form-control"
+                                    placeholder="Perk1, Perk2, Perk3, ..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <button type="submit" class="btn btn-success">Rolle erstellen</button>
+        </form>
+    </section>
+    {{template "footer"}}
+</body>

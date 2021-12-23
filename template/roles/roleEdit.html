@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{template "head"}}
+    <title>Rolle editieren</title>
+</head>
+
+<body>
+    {{template "navigation" .}}
+    <section class="container" id="content">
+        <form action="/roles/{{.Role.Id}}/edit" method="post" enctype="multipart/form-data">
+            <input type="text" name="name" class="form-control mb-3" placeholder="{{.Role.Name}}">
+            <!-- general -->
+            <section class="mb-3">
+                <div class="col-lg">
+                    <h5 class="">Attribute</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Stärke</th>
+                                <th scope="col">Geschicklichkeit</th>
+                                <th scope="col">Intelligenz</th>
+                                <th scope="col">Fokus</th>
+                                <th scope="col">Konstitution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{.Role.Attributes.Strength}}" name="strength">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{.Role.Attributes.Dexterity}}" name="dexterity">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{.Role.Attributes.Intelligence}}" name="intelligence">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{.Role.Attributes.Focus}}" name="focus">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control-plaintext"
+                                        placeholder="{{.Role.Attributes.Constitution}}" name="constitution">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg">
+                    <h5>Beschreibung</h5>
+                    <textarea name="description" class="form-control" placeholder="{{.Role.Description}}"></textarea>
+                </div>
+                <div class="col-lg">
+                    <h5>Zusätzliche Infos</h5>
+                    <textarea name="note" class="form-control" placeholder="{{.Role.Note}}"></textarea>
+                </div>
+            </section>
+            <!-- armor & jewelry TODO AB HIER-->
+            <section class="mb-3">
+                <div class="col-lg">
+                    <h5>Rüstung</h5>
+                    <div class="row mb-2 pe-3">
+                        <p class="col fw-bold">Gewicht</p>
+                        <select class="form-select btn-outline-light col ms-3" name="armor-weight">
+                            <option value="">{{.Role.Armor.Weight}}</option>
+                            <option value="Leicht">Leicht</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Schwer">Schwer</option>
+                        </select>
+                    </div>
+                    {{template "gemPerkEdit" .Role.Armor}}
+                </div>
+                <div class="col-lg">
+                    <h5>Amulet</h5>
+                    {{template "gemPerkEdit" .Role.Amulet}}
+                </div>
+                <div class="col-lg">
+                    <h5>Ring</h5>
+                    {{template "gemPerkEdit" .Role.Ring}}
+                </div>
+                <div class="col-lg">
+                    <h5>Ohrring</h5>
+                    {{template "gemPerkEdit" .Role.Earring}}
+
+                </div>
+            </section>
+            <!-- weapons -->
+            <section class="row mb-3">
+                <div class="col-lg">
+                    <input type="text" name="name" class="form-control col mb-2"
+                        placeholder="{{.Role.Weapon_main.Name}}">
+                    {{template "gemPerkEdit" .Role.Weapon_main}}
+                    <input type="file" name="weapon-1-file" class="form-control form-control-sm">
+                    <img src="{{.Role.Weapon_main.Skillpoints_image}}" class="img-fluid">
+                </div>
+                <div class="col-lg">
+                    <input type="text" name="name" class="form-control col mb-2"
+                        placeholder="{{.Role.Weapon_secondary.Name}}">
+                    {{template "gemPerkEdit" .Role.Weapon_secondary}}
+                    <input type="file" name="weapon-2-file" class="form-control form-control-sm">
+                    <img src="{{.Role.Weapon_secondary.Skillpoints_image}}" class="img-fluid">
+                </div>
+            </section>
+            <button type="submit" class="btn btn-success">Änderungen speichern</button>
+        </form>
+    </section>
+
+    {{template "footer"}}
+</body>
