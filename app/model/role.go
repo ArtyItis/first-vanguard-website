@@ -8,38 +8,31 @@ import (
 )
 
 type Role struct {
-	Id          string      `json:"_id"`
-	Rev         string      `json:"_rev"`
-	Name        string      `json:"name"`
-	Description string      `json:"description"`
-	Attributes  Attributes  `json:"attributes"`
-	Weapons     RoleWeapons `json:"weapons"`
-	Armor       Armor       `json:"armor"`
-	Jewelry     Jewelry     `json:"jewelry"`
-}
-
-type RoleWeapons struct {
-	Main      RoleWeapon `json:"main"`
-	Secondary RoleWeapon `json:"secondary"`
+	Id               string       `json:"_id"`
+	Rev              string       `json:"_rev"`
+	Name             string       `json:"name"`
+	Description      string       `json:"description"`
+	Note             string       `json:"note"`
+	Attributes       Attributes   `json:"attributes"`
+	Weapon_main      RoleWeapon   `json:"weapon_main"`
+	Weapon_secondary RoleWeapon   `json:"weapon_secondary"`
+	Armor            Armor        `json:"armor"`
+	Earring          JewelryPiece `json:"earring"`
+	Amulet           JewelryPiece `json:"amulet"`
+	Ring             JewelryPiece `json:"ring"`
 }
 
 type RoleWeapon struct {
 	Name              string   `json:"name"`
 	Perks             []string `json:"perks"`
 	Gem               string   `json:"gem"`
-	Skillpoints_image string   `json:"skillpointsimage"`
+	Skillpoints_image string   `json:"skillpoints_image"`
 }
 
 type Armor struct {
 	Weight string   `json:"weight"`
 	Gem    string   `json:"gem"`
 	Perks  []string `json:"perks"`
-}
-
-type Jewelry struct {
-	Earring JewelryPiece `json:"earring"`
-	Amulet  JewelryPiece `json:"amulet"`
-	Ring    JewelryPiece `json:"ring"`
 }
 
 type JewelryPiece struct {
@@ -62,7 +55,7 @@ func AddRole(r Role) error {
 	if err != nil {
 		log.Println("Error in AddRole: ", err)
 	} else {
-		log.Println("added Role")
+		log.Println("added Role: " + r.Name)
 	}
 	return err
 }
@@ -71,6 +64,15 @@ func UpdateRole(role Role) {
 	r := Role2Map(role)
 	roleDB.Set(role.Id, r)
 	log.Println("updated Role: " + role.Name)
+}
+
+func DeleteRole(role Role) {
+	err := roleDB.Delete(role.Id)
+	if err != nil {
+		log.Println("Error in DeleteRole", err)
+	} else {
+		log.Println("Role: " + role.Name + " has been deleted.")
+	}
 }
 
 func GetRoleById(id string) (Role, error) {
@@ -82,7 +84,7 @@ func GetRoleById(id string) (Role, error) {
 	}
 }
 func GetRoleByName(name string) (role Role, err error) {
-	roles, err := userDB.QueryJSON(`{"selector": {"name": {"$eq": "` + name + `"}}}`)
+	roles, err := roleDB.QueryJSON(`{"selector": {"name": {"$eq": "` + name + `"}}}`)
 	if err == nil && len(roles) > 0 {
 		role := Map2Role(roles[0])
 		return role, nil
