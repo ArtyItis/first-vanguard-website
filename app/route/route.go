@@ -1,7 +1,7 @@
 package route
 
 import (
-	"forgottennw/app/controller"
+	"first-vanguard/app/controller"
 	"net/http"
 
 	"github.com/gorilla/mux" //go get -u -v github.com/gorilla/mux
@@ -33,11 +33,11 @@ func NewRouter() *mux.Router {
 	router.HandleFunc("/companies/{company}/members/{id}/edit", controller.Authenticate(controller.UserEditPost)).Methods("POST")
 
 	router.HandleFunc("/roles", controller.Authenticate(controller.RolesGET)).Methods("GET")
+	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormGET)).Methods("GET")
+	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormPOST)).Methods("POST")
 	router.HandleFunc("/roles/{id}", controller.Authenticate(controller.RoleGET)).Methods("GET")
 	router.HandleFunc("/roles/{id}/edit", controller.Authenticate(controller.RoleEditGET)).Methods("GET")
 	router.HandleFunc("/roles/{id}/edit", controller.Authenticate(controller.RoleEditPOST)).Methods("POST")
-	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormGET)).Methods("GET")
-	router.HandleFunc("/roles/new", controller.Authenticate(controller.RoleFormPOST)).Methods("POST")
 
 	router.HandleFunc("/refining", controller.Authenticate(controller.RefiningGET)).Methods("GET")
 	router.HandleFunc("/crafting", controller.Authenticate(controller.CraftingGET)).Methods("GET")
