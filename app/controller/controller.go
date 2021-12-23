@@ -2,9 +2,11 @@ package controller
 
 import (
 	"crypto/rand"
-	"forgottennw/app/model"
+	"first-vanguard/app/model"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -112,4 +114,42 @@ func GetPreviousRoute(r *http.Request) string {
 		previous_route = strings.Split(previous_route, "?")[0]
 	}
 	return previous_route
+}
+
+//inspired by: https://tutorialedge.net/golang/go-file-upload-tutorial/
+//returns "empty" if no file was found
+func UploadFile(r *http.Request, formInputKey string, directory string, maxFileSize int64) string {
+	// Parse our multipart form, example: 10 << 20 specifies a maximum
+	// upload of 10 MB files.
+	r.ParseMultipartForm(maxFileSize << 20)
+	// FormFile returns the first file for the given key `formInputKey`
+	// it also returns the FileHeader so we can get the Filename,
+	// the Header and the size of the file
+	file, handler, err := r.FormFile(formInputKey)
+	if err != nil {
+		log.Println(err)
+		return "empty"
+	}
+	defer file.Close()
+
+	// read all of the contents of our uploaded file into a
+	// byte array
+	fileBytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Println(err)
+	}
+	dirPath := "static/storage/" + directory
+	//ensure that all directories and subdirectories exist
+	if err := os.MkdirAll(dirPath, os.ModePerm); err != nil {
+		log.Println(err)
+	}
+	// write this byte array to our file
+	filePath := dirPath + "/" + handler.Filename
+	//create file
+	err = ioutil.WriteFile(filePath, fileBytes, 0644)
+
+	if err != nil {
+		panic(err)
+	}
+	return "/" + filePath
 }
