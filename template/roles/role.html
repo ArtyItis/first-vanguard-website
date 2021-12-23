@@ -87,12 +87,18 @@
             <div class="col-lg">
                 <h5>{{.Role.Weapon_main.Name}}</h5>
                 {{template "gemPerk" .Role.Weapon_main}}
-                <img src="{{.Role.Weapon_main.Skillpoints_image}}" class="img-fluid">
             </div>
             <div class="col-lg">
                 <h5>{{.Role.Weapon_secondary.Name}}</h5>
                 {{template "gemPerk" .Role.Weapon_secondary}}
-                <img src="{{.Role.Weapon_secondary.Skillpoints_image}}" class="img-fluid">
+            </div>
+            <div class="row">
+                <div class="col-lg">
+                    <img src="{{.Role.Weapon_main.Skillpoints_image}}" class="img-fluid">
+                </div>
+                <div class="col-lg">
+                    <img src="{{.Role.Weapon_secondary.Skillpoints_image}}" class="img-fluid">
+                </div>
             </div>
         </section>
     </section>
