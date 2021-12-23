@@ -3,6 +3,7 @@ package model
 type Character struct {
 	Name             string       `json:"name"`
 	Gearscore        int          `json:"gearscore"`
+	Expertise        int          `json:"expertise"`
 	Equipment_weight string       `json:"equipment_weight"`
 	Attributes       Attributes   `json:"attributes"`
 	Roles            []string     `json:"roles"`
