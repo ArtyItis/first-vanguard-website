@@ -1,10 +1,10 @@
 {{define "gemPerkEdit"}}
 <div class="row mb-2 pe-3">
-    <p class="col fw-bold">Gem</p>
+    <p class="col">Gem</p>
     <input type="text" name="{{.Name}}-gem" class="form-control col" placeholder="{{.Gem}}">
 </div>
 <div class="row mb-2 pe-3">
-    <p class="col fw-bold">Perks</p>
+    <p class="col">Perks</p>
     <textarea name="{{.Name}}-perks" class="form-control col"
         placeholder="{{range $perk := .Perks}}{{$perk}}, {{end}}"></textarea>
 </div>

@@ -60,12 +60,13 @@
                     <textarea name="note" class="form-control" placeholder="{{.Role.Note}}"></textarea>
                 </div>
             </section>
-            <!-- armor & jewelry TODO AB HIER-->
+            <hr class="dropdown-divider">
+            <!-- armor & jewelry-->
             <section class="mb-3">
                 <div class="col-lg">
                     <h5>Rüstung</h5>
                     <div class="row mb-2 pe-3">
-                        <p class="col fw-bold">Gewicht</p>
+                        <p class="col">Gewicht</p>
                         <select class="form-select btn-outline-light col ms-3" name="armor-weight">
                             <option value="">{{.Role.Armor.Weight}}</option>
                             <option value="Leicht">Leicht</option>
@@ -75,33 +76,55 @@
                     </div>
                     {{template "gemPerkEdit" .Role.Armor}}
                 </div>
+                <hr class="dropdown-divider">
                 <div class="col-lg">
                     <h5>Amulet</h5>
                     {{template "gemPerkEdit" .Role.Amulet}}
                 </div>
+                <hr class="dropdown-divider">
                 <div class="col-lg">
                     <h5>Ring</h5>
                     {{template "gemPerkEdit" .Role.Ring}}
                 </div>
+                <hr class="dropdown-divider">
                 <div class="col-lg">
                     <h5>Ohrring</h5>
                     {{template "gemPerkEdit" .Role.Earring}}
 
                 </div>
             </section>
+            <hr class="dropdown-divider">
             <!-- weapons -->
             <section class="row mb-3">
                 <div class="col-lg">
-                    <input type="text" name="name" class="form-control col mb-2"
+                    <input type="text" name="weapon-1-name" class="form-control col mb-2"
                         placeholder="{{.Role.Weapon_main.Name}}">
-                    {{template "gemPerkEdit" .Role.Weapon_main}}
+                    <div class="row mb-2 pe-3">
+                        <p class="col">Gem</p>
+                        <input type="text" name="weapon-1-gem" class="form-control col"
+                            placeholder="{{.Role.Weapon_main.Gem}}">
+                    </div>
+                    <div class="row mb-2 pe-3">
+                        <p class="col">Perks</p>
+                        <textarea name="weapon-1-perks" class="form-control col"
+                            placeholder="{{range $perk := .Role.Weapon_main.Perks}}{{$perk}}, {{end}}"></textarea>
+                    </div>
                     <input type="file" name="weapon-1-file" class="form-control form-control-sm">
                     <img src="{{.Role.Weapon_main.Skillpoints_image}}" class="img-fluid">
                 </div>
                 <div class="col-lg">
-                    <input type="text" name="name" class="form-control col mb-2"
+                    <input type="text" name="weapon-2-name" class="form-control col mb-2"
                         placeholder="{{.Role.Weapon_secondary.Name}}">
-                    {{template "gemPerkEdit" .Role.Weapon_secondary}}
+                    <div class="row mb-2 pe-3">
+                        <p class="col">Gem</p>
+                        <input type="text" name="weapon-2-gem" class="form-control col"
+                            placeholder="{{.Role.Weapon_secondary.Gem}}">
+                    </div>
+                    <div class="row mb-2 pe-3">
+                        <p class="col">Perks</p>
+                        <textarea name="weapon-2-perks" class="form-control col"
+                            placeholder="{{range $perk := .Role.Weapon_secondary.Perks}}{{$perk}}, {{end}}"></textarea>
+                    </div>
                     <input type="file" name="weapon-2-file" class="form-control form-control-sm">
                     <img src="{{.Role.Weapon_secondary.Skillpoints_image}}" class="img-fluid">
                 </div>
