@@ -27,20 +27,6 @@
                                     <span>{{$user.Date.Day}}.{{$user.Date.Month}}.{{$user.Date.Year}}</span>
                                 </div>
                             </div>
-                            <!--armor-weight-->
-                            <div class="row">
-                                <div class="col">
-                                    <span>Gewicht: </span>
-                                </div>
-                                <div class="col">
-                                    <select class="form-select form-select-sm btn-outline-light" name="armor-weight">
-                                        <option value="">{{$user.Character.Equipment_weight}}</option>
-                                        <option value="Leicht">Leicht</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Schwer">Schwer</option>
-                                    </select>
-                                </div>
-                            </div>
                             <!--gearscore-->
                             <div class="row">
                                 <div class="col">
@@ -49,6 +35,16 @@
                                 <div class="col">
                                     <input type="text" class="form-control" name="gearscore"
                                         placeholder="{{$user.Character.Gearscore}}">
+                                </div>
+                            </div>
+                            <!--expertise-->
+                            <div class="row">
+                                <div class="col">
+                                    <span>Expertise: </span>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" name="expertise"
+                                        placeholder="{{$user.Character.Expertise}}">
                                 </div>
                             </div>
                         </div>
@@ -64,7 +60,7 @@
                                 </div>
                             </div>
                             <!--company-->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-4">
                                     <span>Kompanie: </span>
                                 </div>
@@ -76,7 +72,7 @@
                                         <option value="The Forgotten II">The Forgotten II</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--permission level-->
                             <div class="row">
                                 <div class="col-lg-4">
@@ -95,6 +91,20 @@
                                         </option>{{end}}
                                         {{if gt .Session.User.Permission_level 600}}<option value="600">Gouverneur
                                         </option>{{end}}
+                                    </select>
+                                </div>
+                            </div>
+                            <!--armor-weight-->
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <span>Gewicht: </span>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm btn-outline-light" name="armor-weight">
+                                        <option value="">{{$user.Character.Equipment_weight}}</option>
+                                        <option value="Leicht">Leicht</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Schwer">Schwer</option>
                                     </select>
                                 </div>
                             </div>

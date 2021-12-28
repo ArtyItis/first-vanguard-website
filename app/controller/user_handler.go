@@ -303,12 +303,15 @@ func UserEditPost(w http.ResponseWriter, r *http.Request) {
 	if gearscore := r.FormValue("gearscore"); gearscore != "" {
 		user.Character.Gearscore = ParseInt(gearscore)
 	}
+	if expertise := r.FormValue("expertise"); expertise != "" {
+		user.Character.Expertise = ParseInt(expertise)
+	}
 	if discord_tag := r.FormValue("discord-tag"); discord_tag != "" {
 		user.Discord_tag = discord_tag
 	}
-	if company := r.FormValue("company"); company != "" {
-		user.Company = company
-	}
+	// if company := r.FormValue("company"); company != "" {
+	// 	user.Company = company
+	// }
 	if permission_level := r.FormValue("permission-level"); permission_level != "" {
 		user.Permission_level = ParseInt(permission_level)
 	}
