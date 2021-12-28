@@ -62,9 +62,11 @@ func AddRole(r Role) error {
 	return err
 }
 
-func UpdateRole(role Role) {
+func UpdateRole(role Role, weapon1_file string, weapon2_file string) {
 	r := Role2Map(role)
 	roleDB.Set(role.Id, r)
+	CleanUpFiles(getAllFilepathsUsedByRoles(), weapon1_file)
+	CleanUpFiles(getAllFilepathsUsedByRoles(), weapon2_file)
 	log.Println("updated Role: " + role.Name)
 }
 
@@ -102,6 +104,16 @@ func GetAllRoles() ([]map[string]interface{}, error) {
 	} else {
 		return roles, nil
 	}
+}
+
+func getAllFilepathsUsedByRoles() []string {
+	roles, _ := GetAllRoles()
+	var data []string
+	for _, t := range roles {
+		role := Map2Role(t)
+		data = append(data, role.Weapon_main.Skillpoints_image, role.Weapon_secondary.Skillpoints_image)
+	}
+	return data
 }
 
 func Role2Map(r Role) (role map[string]interface{}) {
