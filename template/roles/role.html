@@ -23,7 +23,6 @@
                 {{end}}
             </div>
         </div>
-
         <!-- general -->
         <section class="mb-3">
             <div class="col-lg">
@@ -58,30 +57,34 @@
                 <p>{{.Role.Note}}</p>
             </div>
         </section>
+        <hr class="dropdown-divider">
         <!-- armor & jewelry -->
         <section class="mb-3">
             <div class="col-lg">
                 <h5>Rüstung</h5>
                 <div class="row mb-2 pe-3">
-                    <p class="col fw-bold">Gewicht</p>
+                    <p class="col">Gewicht</p>
                     <p class="col">{{.Role.Armor.Weight}}</p>
                 </div>
                 {{template "gemPerk" .Role.Armor}}
             </div>
+            <hr class="dropdown-divider">
             <div class="col-lg">
                 <h5>Amulet</h5>
                 {{template "gemPerk" .Role.Amulet}}
             </div>
+            <hr class="dropdown-divider">
             <div class="col-lg">
                 <h5>Ring</h5>
                 {{template "gemPerk" .Role.Ring}}
             </div>
+            <hr class="dropdown-divider">
             <div class="col-lg">
                 <h5>Ohrring</h5>
                 {{template "gemPerk" .Role.Earring}}
             </div>
         </section>
-
+        <hr class="dropdown-divider">
         <!-- weapons -->
         <section class="row mb-3">
             <div class="col-lg">

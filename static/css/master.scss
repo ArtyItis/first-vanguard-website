@@ -137,6 +137,10 @@ input:focus-visible{
   color: $white !important;
 }
 
+.list-group-item{
+  border: none !important;
+}
+
 $body-bg: $dark;
 $body-color: $white;
 
