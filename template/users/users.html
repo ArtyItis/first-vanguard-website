@@ -16,6 +16,7 @@
           <th scope="col">Charaktername</th>
           <th scope="col">Rang</th>
           <th scope="col">Gearscore</th>
+          <th scope="col">Expertise</th>
           <th scope="col">Discord-Tag</th>
           <th scope="col">Rollen</th>
           <th scope="col">Beigetreten am</th>
@@ -23,17 +24,18 @@
       </thead>
       <tbody>
         {{range $index, $user := .Users}}
-        <tr onclick="openUser({{$user._id}},{{$user.company}})">
+        <tr onclick="openUser({{$user._id}},{{$user.company}})" class="clickable-row">
           <th scope="row">{{add $index 1}}</th>
           <td>{{$user.character.name}}</td>
           <td>
             {{convertPermissionLevel $user}}
           </td>
           <td>{{$user.character.gearscore}}</td>
+          <td>{{$user.character.expertise}}</td>
           <td>{{$user.discord_tag}}</td>
           <td>
             {{range $role := $user.character.roles}}
-            <span class="btn btn-outline-primary disabled py-1 px-2">{{getRoleName $role}}</span>
+            <span class="btn btn-outline-light disabled py-1 px-2">{{getRoleName $role}}</span>
             {{end}}
           </td>
           <td>{{$user.date.day}}.{{$user.date.month}}.{{$user.date.year}}</td>

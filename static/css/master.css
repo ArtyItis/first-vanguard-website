@@ -20,6 +20,10 @@ td input {
   display: inline-block;
 }
 
+.clickable-row:hover {
+  background-color: rgba(141, 54, 220, 0.5);
+}
+
 a {
   text-decoration: none !important;
 }

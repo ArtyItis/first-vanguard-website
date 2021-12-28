@@ -120,6 +120,10 @@ td input{
   display: inline-block;
 }
 
+.clickable-row:hover{
+  background-color: rgba($primary, .5);
+}
+
 a{
   text-decoration: none !important;
 }
