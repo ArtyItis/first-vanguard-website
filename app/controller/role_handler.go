@@ -51,6 +51,9 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 	role, _ := model.GetRoleById(id)
 
+	old_w1 := role.Weapon_main.Skillpoints_image
+	old_w2 := role.Weapon_secondary.Skillpoints_image
+
 	if name := r.FormValue("name"); name != "" {
 		role.Name = name
 	}
@@ -87,8 +90,8 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	if weapon1_gem := r.FormValue("weapon-1-gem"); weapon1_gem != "" {
 		role.Weapon_main.Gem = weapon1_gem
 	}
-	weapon1_file := UploadFile(r, "weapon-1-file", "roles", 10)
-	if weapon1_file != "empty" {
+
+	if weapon1_file := UploadFile(r, "weapon-1-file", "roles", 10); weapon1_file != "empty" {
 		role.Weapon_main.Skillpoints_image = weapon1_file
 	}
 	// Weapon 2
@@ -101,8 +104,7 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	if weapon2_gem := r.FormValue("weapon-2-gem"); weapon2_gem != "" {
 		role.Weapon_secondary.Gem = weapon2_gem
 	}
-	weapon2_file := UploadFile(r, "weapon-2-file", "roles", 10)
-	if weapon2_file != "empty" {
+	if weapon2_file := UploadFile(r, "weapon-2-file", "roles", 10); weapon2_file != "empty" {
 		role.Weapon_secondary.Skillpoints_image = weapon2_file
 	}
 	// Armor & Jewelry
@@ -136,7 +138,7 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	if earring_gem := r.FormValue("earring-gem"); earring_gem != "" {
 		role.Earring.Gem = earring_gem
 	}
-	model.UpdateRole(role, weapon1_file, weapon2_file)
+	model.UpdateRole(role, old_w1, old_w2)
 	http.Redirect(w, r, "/roles/"+id, http.StatusFound)
 }
 
