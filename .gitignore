@@ -2,4 +2,3 @@
 app/model/secrets.go
 target
 permission_levels.txt
-static/storage
