@@ -46,8 +46,8 @@ func CleanUpFiles(files []string, filePath string) {
 		return
 	}
 	log.Println(filePath)
-	if contains(files, filePath) == false {
-		filePath = filePath[1:len(filePath)]
+	if !contains(files, filePath) {
+		filePath = filePath[1:]
 		log.Println("no more references detected. deleting " + filePath)
 		err := os.Remove(filePath) //deleting file
 		if err != nil {
