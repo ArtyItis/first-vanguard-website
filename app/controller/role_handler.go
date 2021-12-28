@@ -61,6 +61,7 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 		role.Note = note
 	}
 
+	// Attributes
 	if strength := r.FormValue("strength"); strength != "" {
 		role.Attributes.Strength = ParseInt(strength)
 	}
@@ -76,9 +77,35 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	if constitution := r.FormValue("constitution"); constitution != "" {
 		role.Attributes.Constitution = ParseInt(constitution)
 	}
-
-	// TODO weapons
-
+	// Weapon 1
+	if weapon1_name := r.FormValue("weapon-1-name"); weapon1_name != "" {
+		role.Weapon_main.Name = weapon1_name
+	}
+	if weapon1_perks := r.FormValue("weapon-1-perks"); weapon1_perks != "" {
+		role.Weapon_main.Perks = strings.Split(weapon1_perks, ", ")
+	}
+	if weapon1_gem := r.FormValue("weapon-1-gem"); weapon1_gem != "" {
+		role.Weapon_main.Gem = weapon1_gem
+	}
+	weapon1_file := UploadFile(r, "weapon-1-file", "roles", 10)
+	if weapon1_file != "empty" {
+		role.Weapon_main.Skillpoints_image = weapon1_file
+	}
+	// Weapon 2
+	if weapon2_name := r.FormValue("weapon-1-name"); weapon2_name != "" {
+		role.Weapon_secondary.Name = weapon2_name
+	}
+	if weapon2_perks := r.FormValue("weapon-2-perks"); weapon2_perks != "" {
+		role.Weapon_secondary.Perks = strings.Split(weapon2_perks, ", ")
+	}
+	if weapon2_gem := r.FormValue("weapon-2-gem"); weapon2_gem != "" {
+		role.Weapon_secondary.Gem = weapon2_gem
+	}
+	weapon2_file := UploadFile(r, "weapon-2-file", "roles", 10)
+	if weapon2_file != "empty" {
+		role.Weapon_secondary.Skillpoints_image = weapon2_file
+	}
+	// Armor & Jewelry
 	if armor_weight := r.FormValue("armor-weight"); armor_weight != "" {
 		role.Armor.Weight = armor_weight
 	}
@@ -109,7 +136,7 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 	if earring_gem := r.FormValue("earring-gem"); earring_gem != "" {
 		role.Earring.Gem = earring_gem
 	}
-	model.UpdateRole(role)
+	model.UpdateRole(role, weapon1_file, weapon2_file)
 	http.Redirect(w, r, "/roles/"+id, http.StatusFound)
 }
 
