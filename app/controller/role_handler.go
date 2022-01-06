@@ -95,7 +95,7 @@ func RoleEditPOST(w http.ResponseWriter, r *http.Request) {
 		role.Weapon_main.Skillpoints_image = weapon1_file
 	}
 	// Weapon 2
-	if weapon2_name := r.FormValue("weapon-1-name"); weapon2_name != "" {
+	if weapon2_name := r.FormValue("weapon-2-name"); weapon2_name != "" {
 		role.Weapon_secondary.Name = weapon2_name
 	}
 	if weapon2_perks := r.FormValue("weapon-2-perks"); weapon2_perks != "" {
